@@ -1,0 +1,10 @@
+{
+    "maintainer": {
+      "name": "Optimum", // update
+      "url": "https://getoptimum.xyz" // update
+    },
+    "github": {
+      "reportIssue": "https://github.com/getoptimum/big-dipper-2.0-cosmos/issues" // update
+    },
+    "version": "v3.0.0"
+  }
