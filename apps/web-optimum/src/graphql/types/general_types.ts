@@ -22,11 +22,11 @@ export type Scalars = {
   _dec_coin: any;
   _text: any;
   bigint: any;
+  json: any;
   jsonb: any;
   numeric: any;
   smallint: any;
   timestamp: any;
-  timestamptz: any;
 };
 
 export type ActionAddress = {
@@ -171,14 +171,6 @@ export type Account = {
   __typename?: 'account';
   address: Scalars['String'];
   /** An array relationship */
-  feeGrantAllowancesByGranterAddress: Array<Fee_Grant_Allowance>;
-  /** An aggregate relationship */
-  feeGrantAllowancesByGranterAddress_aggregate: Fee_Grant_Allowance_Aggregate;
-  /** An array relationship */
-  fee_grant_allowances: Array<Fee_Grant_Allowance>;
-  /** An aggregate relationship */
-  fee_grant_allowances_aggregate: Fee_Grant_Allowance_Aggregate;
-  /** An array relationship */
   proposal_deposits: Array<Proposal_Deposit>;
   /** An aggregate relationship */
   proposal_deposits_aggregate: Proposal_Deposit_Aggregate;
@@ -200,46 +192,6 @@ export type Account = {
   vesting_accounts: Array<Vesting_Account>;
   /** An aggregate relationship */
   vesting_accounts_aggregate: Vesting_Account_Aggregate;
-};
-
-
-/** columns and relationships of "account" */
-export type AccountFeeGrantAllowancesByGranterAddressArgs = {
-  distinct_on?: InputMaybe<Array<Fee_Grant_Allowance_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Fee_Grant_Allowance_Order_By>>;
-  where?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
-};
-
-
-/** columns and relationships of "account" */
-export type AccountFeeGrantAllowancesByGranterAddress_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Fee_Grant_Allowance_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Fee_Grant_Allowance_Order_By>>;
-  where?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
-};
-
-
-/** columns and relationships of "account" */
-export type AccountFee_Grant_AllowancesArgs = {
-  distinct_on?: InputMaybe<Array<Fee_Grant_Allowance_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Fee_Grant_Allowance_Order_By>>;
-  where?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
-};
-
-
-/** columns and relationships of "account" */
-export type AccountFee_Grant_Allowances_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Fee_Grant_Allowance_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Fee_Grant_Allowance_Order_By>>;
-  where?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
 };
 
 
@@ -370,14 +322,29 @@ export type Account_Bool_Exp = {
   _not?: InputMaybe<Account_Bool_Exp>;
   _or?: InputMaybe<Array<Account_Bool_Exp>>;
   address?: InputMaybe<String_Comparison_Exp>;
-  feeGrantAllowancesByGranterAddress?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
-  fee_grant_allowances?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
   proposal_deposits?: InputMaybe<Proposal_Deposit_Bool_Exp>;
   proposal_votes?: InputMaybe<Proposal_Vote_Bool_Exp>;
   proposals?: InputMaybe<Proposal_Bool_Exp>;
   validator_infos?: InputMaybe<Validator_Info_Bool_Exp>;
   vesting_account?: InputMaybe<Vesting_Account_Bool_Exp>;
   vesting_accounts?: InputMaybe<Vesting_Account_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "account" */
+export enum Account_Constraint {
+  /** unique or primary key constraint */
+  AccountPkey = 'account_pkey'
+}
+
+/** input type for inserting data into table "account" */
+export type Account_Insert_Input = {
+  address?: InputMaybe<Scalars['String']>;
+  proposal_deposits?: InputMaybe<Proposal_Deposit_Arr_Rel_Insert_Input>;
+  proposal_votes?: InputMaybe<Proposal_Vote_Arr_Rel_Insert_Input>;
+  proposals?: InputMaybe<Proposal_Arr_Rel_Insert_Input>;
+  validator_infos?: InputMaybe<Validator_Info_Arr_Rel_Insert_Input>;
+  vesting_account?: InputMaybe<Vesting_Account_Obj_Rel_Insert_Input>;
+  vesting_accounts?: InputMaybe<Vesting_Account_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -392,11 +359,32 @@ export type Account_Min_Fields = {
   address?: Maybe<Scalars['String']>;
 };
 
+/** response of any mutation on the table "account" */
+export type Account_Mutation_Response = {
+  __typename?: 'account_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Account>;
+};
+
+/** input type for inserting object relation for remote table "account" */
+export type Account_Obj_Rel_Insert_Input = {
+  data: Account_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Account_On_Conflict>;
+};
+
+/** on conflict condition type for table "account" */
+export type Account_On_Conflict = {
+  constraint: Account_Constraint;
+  update_columns?: Array<Account_Update_Column>;
+  where?: InputMaybe<Account_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "account". */
 export type Account_Order_By = {
   address?: InputMaybe<Order_By>;
-  feeGrantAllowancesByGranterAddress_aggregate?: InputMaybe<Fee_Grant_Allowance_Aggregate_Order_By>;
-  fee_grant_allowances_aggregate?: InputMaybe<Fee_Grant_Allowance_Aggregate_Order_By>;
   proposal_deposits_aggregate?: InputMaybe<Proposal_Deposit_Aggregate_Order_By>;
   proposal_votes_aggregate?: InputMaybe<Proposal_Vote_Aggregate_Order_By>;
   proposals_aggregate?: InputMaybe<Proposal_Aggregate_Order_By>;
@@ -405,8 +393,24 @@ export type Account_Order_By = {
   vesting_accounts_aggregate?: InputMaybe<Vesting_Account_Aggregate_Order_By>;
 };
 
+/** primary key columns input for table: account */
+export type Account_Pk_Columns_Input = {
+  address: Scalars['String'];
+};
+
 /** select columns of table "account" */
 export enum Account_Select_Column {
+  /** column name */
+  Address = 'address'
+}
+
+/** input type for updating data in table "account" */
+export type Account_Set_Input = {
+  address?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "account" */
+export enum Account_Update_Column {
   /** column name */
   Address = 'address'
 }
@@ -416,6 +420,7 @@ export type Average_Block_Time_From_Genesis = {
   __typename?: 'average_block_time_from_genesis';
   average_time: Scalars['numeric'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "average_block_time_from_genesis" */
@@ -462,6 +467,26 @@ export type Average_Block_Time_From_Genesis_Bool_Exp = {
   _or?: InputMaybe<Array<Average_Block_Time_From_Genesis_Bool_Exp>>;
   average_time?: InputMaybe<Numeric_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "average_block_time_from_genesis" */
+export enum Average_Block_Time_From_Genesis_Constraint {
+  /** unique or primary key constraint */
+  AverageBlockTimeFromGenesisPkey = 'average_block_time_from_genesis_pkey'
+}
+
+/** input type for incrementing numeric columns in table "average_block_time_from_genesis" */
+export type Average_Block_Time_From_Genesis_Inc_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "average_block_time_from_genesis" */
+export type Average_Block_Time_From_Genesis_Insert_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -478,10 +503,32 @@ export type Average_Block_Time_From_Genesis_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "average_block_time_from_genesis" */
+export type Average_Block_Time_From_Genesis_Mutation_Response = {
+  __typename?: 'average_block_time_from_genesis_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Average_Block_Time_From_Genesis>;
+};
+
+/** on conflict condition type for table "average_block_time_from_genesis" */
+export type Average_Block_Time_From_Genesis_On_Conflict = {
+  constraint: Average_Block_Time_From_Genesis_Constraint;
+  update_columns?: Array<Average_Block_Time_From_Genesis_Update_Column>;
+  where?: InputMaybe<Average_Block_Time_From_Genesis_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "average_block_time_from_genesis". */
 export type Average_Block_Time_From_Genesis_Order_By = {
   average_time?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: average_block_time_from_genesis */
+export type Average_Block_Time_From_Genesis_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "average_block_time_from_genesis" */
@@ -489,8 +536,17 @@ export enum Average_Block_Time_From_Genesis_Select_Column {
   /** column name */
   AverageTime = 'average_time',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "average_block_time_from_genesis" */
+export type Average_Block_Time_From_Genesis_Set_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Average_Block_Time_From_Genesis_Stddev_Fields = {
@@ -520,6 +576,16 @@ export type Average_Block_Time_From_Genesis_Sum_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "average_block_time_from_genesis" */
+export enum Average_Block_Time_From_Genesis_Update_Column {
+  /** column name */
+  AverageTime = 'average_time',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
+
 /** aggregate var_pop on columns */
 export type Average_Block_Time_From_Genesis_Var_Pop_Fields = {
   __typename?: 'average_block_time_from_genesis_var_pop_fields';
@@ -546,6 +612,7 @@ export type Average_Block_Time_Per_Day = {
   __typename?: 'average_block_time_per_day';
   average_time: Scalars['numeric'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "average_block_time_per_day" */
@@ -592,6 +659,26 @@ export type Average_Block_Time_Per_Day_Bool_Exp = {
   _or?: InputMaybe<Array<Average_Block_Time_Per_Day_Bool_Exp>>;
   average_time?: InputMaybe<Numeric_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "average_block_time_per_day" */
+export enum Average_Block_Time_Per_Day_Constraint {
+  /** unique or primary key constraint */
+  AverageBlockTimePerDayPkey = 'average_block_time_per_day_pkey'
+}
+
+/** input type for incrementing numeric columns in table "average_block_time_per_day" */
+export type Average_Block_Time_Per_Day_Inc_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "average_block_time_per_day" */
+export type Average_Block_Time_Per_Day_Insert_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -608,10 +695,32 @@ export type Average_Block_Time_Per_Day_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "average_block_time_per_day" */
+export type Average_Block_Time_Per_Day_Mutation_Response = {
+  __typename?: 'average_block_time_per_day_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Average_Block_Time_Per_Day>;
+};
+
+/** on conflict condition type for table "average_block_time_per_day" */
+export type Average_Block_Time_Per_Day_On_Conflict = {
+  constraint: Average_Block_Time_Per_Day_Constraint;
+  update_columns?: Array<Average_Block_Time_Per_Day_Update_Column>;
+  where?: InputMaybe<Average_Block_Time_Per_Day_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "average_block_time_per_day". */
 export type Average_Block_Time_Per_Day_Order_By = {
   average_time?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: average_block_time_per_day */
+export type Average_Block_Time_Per_Day_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "average_block_time_per_day" */
@@ -619,8 +728,17 @@ export enum Average_Block_Time_Per_Day_Select_Column {
   /** column name */
   AverageTime = 'average_time',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "average_block_time_per_day" */
+export type Average_Block_Time_Per_Day_Set_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Average_Block_Time_Per_Day_Stddev_Fields = {
@@ -650,6 +768,16 @@ export type Average_Block_Time_Per_Day_Sum_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "average_block_time_per_day" */
+export enum Average_Block_Time_Per_Day_Update_Column {
+  /** column name */
+  AverageTime = 'average_time',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
+
 /** aggregate var_pop on columns */
 export type Average_Block_Time_Per_Day_Var_Pop_Fields = {
   __typename?: 'average_block_time_per_day_var_pop_fields';
@@ -676,6 +804,7 @@ export type Average_Block_Time_Per_Hour = {
   __typename?: 'average_block_time_per_hour';
   average_time: Scalars['numeric'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "average_block_time_per_hour" */
@@ -722,6 +851,26 @@ export type Average_Block_Time_Per_Hour_Bool_Exp = {
   _or?: InputMaybe<Array<Average_Block_Time_Per_Hour_Bool_Exp>>;
   average_time?: InputMaybe<Numeric_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "average_block_time_per_hour" */
+export enum Average_Block_Time_Per_Hour_Constraint {
+  /** unique or primary key constraint */
+  AverageBlockTimePerHourPkey = 'average_block_time_per_hour_pkey'
+}
+
+/** input type for incrementing numeric columns in table "average_block_time_per_hour" */
+export type Average_Block_Time_Per_Hour_Inc_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "average_block_time_per_hour" */
+export type Average_Block_Time_Per_Hour_Insert_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -738,10 +887,32 @@ export type Average_Block_Time_Per_Hour_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "average_block_time_per_hour" */
+export type Average_Block_Time_Per_Hour_Mutation_Response = {
+  __typename?: 'average_block_time_per_hour_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Average_Block_Time_Per_Hour>;
+};
+
+/** on conflict condition type for table "average_block_time_per_hour" */
+export type Average_Block_Time_Per_Hour_On_Conflict = {
+  constraint: Average_Block_Time_Per_Hour_Constraint;
+  update_columns?: Array<Average_Block_Time_Per_Hour_Update_Column>;
+  where?: InputMaybe<Average_Block_Time_Per_Hour_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "average_block_time_per_hour". */
 export type Average_Block_Time_Per_Hour_Order_By = {
   average_time?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: average_block_time_per_hour */
+export type Average_Block_Time_Per_Hour_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "average_block_time_per_hour" */
@@ -749,8 +920,17 @@ export enum Average_Block_Time_Per_Hour_Select_Column {
   /** column name */
   AverageTime = 'average_time',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "average_block_time_per_hour" */
+export type Average_Block_Time_Per_Hour_Set_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Average_Block_Time_Per_Hour_Stddev_Fields = {
@@ -780,6 +960,16 @@ export type Average_Block_Time_Per_Hour_Sum_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "average_block_time_per_hour" */
+export enum Average_Block_Time_Per_Hour_Update_Column {
+  /** column name */
+  AverageTime = 'average_time',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
+
 /** aggregate var_pop on columns */
 export type Average_Block_Time_Per_Hour_Var_Pop_Fields = {
   __typename?: 'average_block_time_per_hour_var_pop_fields';
@@ -806,6 +996,7 @@ export type Average_Block_Time_Per_Minute = {
   __typename?: 'average_block_time_per_minute';
   average_time: Scalars['numeric'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "average_block_time_per_minute" */
@@ -852,6 +1043,26 @@ export type Average_Block_Time_Per_Minute_Bool_Exp = {
   _or?: InputMaybe<Array<Average_Block_Time_Per_Minute_Bool_Exp>>;
   average_time?: InputMaybe<Numeric_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "average_block_time_per_minute" */
+export enum Average_Block_Time_Per_Minute_Constraint {
+  /** unique or primary key constraint */
+  AverageBlockTimePerMinutePkey = 'average_block_time_per_minute_pkey'
+}
+
+/** input type for incrementing numeric columns in table "average_block_time_per_minute" */
+export type Average_Block_Time_Per_Minute_Inc_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "average_block_time_per_minute" */
+export type Average_Block_Time_Per_Minute_Insert_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -868,10 +1079,32 @@ export type Average_Block_Time_Per_Minute_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "average_block_time_per_minute" */
+export type Average_Block_Time_Per_Minute_Mutation_Response = {
+  __typename?: 'average_block_time_per_minute_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Average_Block_Time_Per_Minute>;
+};
+
+/** on conflict condition type for table "average_block_time_per_minute" */
+export type Average_Block_Time_Per_Minute_On_Conflict = {
+  constraint: Average_Block_Time_Per_Minute_Constraint;
+  update_columns?: Array<Average_Block_Time_Per_Minute_Update_Column>;
+  where?: InputMaybe<Average_Block_Time_Per_Minute_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "average_block_time_per_minute". */
 export type Average_Block_Time_Per_Minute_Order_By = {
   average_time?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: average_block_time_per_minute */
+export type Average_Block_Time_Per_Minute_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "average_block_time_per_minute" */
@@ -879,8 +1112,17 @@ export enum Average_Block_Time_Per_Minute_Select_Column {
   /** column name */
   AverageTime = 'average_time',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "average_block_time_per_minute" */
+export type Average_Block_Time_Per_Minute_Set_Input = {
+  average_time?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Average_Block_Time_Per_Minute_Stddev_Fields = {
@@ -909,6 +1151,16 @@ export type Average_Block_Time_Per_Minute_Sum_Fields = {
   average_time?: Maybe<Scalars['numeric']>;
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "average_block_time_per_minute" */
+export enum Average_Block_Time_Per_Minute_Update_Column {
+  /** column name */
+  AverageTime = 'average_time',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
 
 /** aggregate var_pop on columns */
 export type Average_Block_Time_Per_Minute_Var_Pop_Fields = {
@@ -1122,6 +1374,13 @@ export type Block_Aggregate_Order_By = {
   variance?: InputMaybe<Block_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "block" */
+export type Block_Arr_Rel_Insert_Input = {
+  data: Array<Block_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Block_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Block_Avg_Fields = {
   __typename?: 'block_avg_fields';
@@ -1154,6 +1413,37 @@ export type Block_Bool_Exp = {
   transactions?: InputMaybe<Transaction_Bool_Exp>;
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_voting_powers?: InputMaybe<Validator_Voting_Power_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "block" */
+export enum Block_Constraint {
+  /** unique or primary key constraint */
+  BlockHashKey = 'block_hash_key',
+  /** unique or primary key constraint */
+  BlockPkey = 'block_pkey'
+}
+
+/** input type for incrementing numeric columns in table "block" */
+export type Block_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  num_txs?: InputMaybe<Scalars['Int']>;
+  total_gas?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "block" */
+export type Block_Insert_Input = {
+  hash?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  num_txs?: InputMaybe<Scalars['Int']>;
+  pre_commits?: InputMaybe<Pre_Commit_Arr_Rel_Insert_Input>;
+  proposal_deposits?: InputMaybe<Proposal_Deposit_Arr_Rel_Insert_Input>;
+  proposal_votes?: InputMaybe<Proposal_Vote_Arr_Rel_Insert_Input>;
+  proposer_address?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  total_gas?: InputMaybe<Scalars['bigint']>;
+  transactions?: InputMaybe<Transaction_Arr_Rel_Insert_Input>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_voting_powers?: InputMaybe<Validator_Voting_Power_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -1198,6 +1488,29 @@ export type Block_Min_Order_By = {
   total_gas?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "block" */
+export type Block_Mutation_Response = {
+  __typename?: 'block_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Block>;
+};
+
+/** input type for inserting object relation for remote table "block" */
+export type Block_Obj_Rel_Insert_Input = {
+  data: Block_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Block_On_Conflict>;
+};
+
+/** on conflict condition type for table "block" */
+export type Block_On_Conflict = {
+  constraint: Block_Constraint;
+  update_columns?: Array<Block_Update_Column>;
+  where?: InputMaybe<Block_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "block". */
 export type Block_Order_By = {
   hash?: InputMaybe<Order_By>;
@@ -1212,6 +1525,11 @@ export type Block_Order_By = {
   transactions_aggregate?: InputMaybe<Transaction_Aggregate_Order_By>;
   validator?: InputMaybe<Validator_Order_By>;
   validator_voting_powers_aggregate?: InputMaybe<Validator_Voting_Power_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: block */
+export type Block_Pk_Columns_Input = {
+  height: Scalars['bigint'];
 };
 
 /** select columns of table "block" */
@@ -1229,6 +1547,16 @@ export enum Block_Select_Column {
   /** column name */
   TotalGas = 'total_gas'
 }
+
+/** input type for updating data in table "block" */
+export type Block_Set_Input = {
+  hash?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  num_txs?: InputMaybe<Scalars['Int']>;
+  proposer_address?: InputMaybe<Scalars['String']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  total_gas?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Block_Stddev_Fields = {
@@ -1290,6 +1618,22 @@ export type Block_Sum_Order_By = {
   total_gas?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "block" */
+export enum Block_Update_Column {
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  NumTxs = 'num_txs',
+  /** column name */
+  ProposerAddress = 'proposer_address',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  TotalGas = 'total_gas'
+}
+
 /** aggregate var_pop on columns */
 export type Block_Var_Pop_Fields = {
   __typename?: 'block_var_pop_fields';
@@ -1340,6 +1684,7 @@ export type Community_Pool = {
   __typename?: 'community_pool';
   coins: Scalars['_dec_coin'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "community_pool" */
@@ -1385,6 +1730,25 @@ export type Community_Pool_Bool_Exp = {
   _or?: InputMaybe<Array<Community_Pool_Bool_Exp>>;
   coins?: InputMaybe<_Dec_Coin_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "community_pool" */
+export enum Community_Pool_Constraint {
+  /** unique or primary key constraint */
+  CommunityPoolPkey = 'community_pool_pkey'
+}
+
+/** input type for incrementing numeric columns in table "community_pool" */
+export type Community_Pool_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "community_pool" */
+export type Community_Pool_Insert_Input = {
+  coins?: InputMaybe<Scalars['_dec_coin']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -1399,10 +1763,32 @@ export type Community_Pool_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "community_pool" */
+export type Community_Pool_Mutation_Response = {
+  __typename?: 'community_pool_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Community_Pool>;
+};
+
+/** on conflict condition type for table "community_pool" */
+export type Community_Pool_On_Conflict = {
+  constraint: Community_Pool_Constraint;
+  update_columns?: Array<Community_Pool_Update_Column>;
+  where?: InputMaybe<Community_Pool_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "community_pool". */
 export type Community_Pool_Order_By = {
   coins?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: community_pool */
+export type Community_Pool_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "community_pool" */
@@ -1410,8 +1796,17 @@ export enum Community_Pool_Select_Column {
   /** column name */
   Coins = 'coins',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "community_pool" */
+export type Community_Pool_Set_Input = {
+  coins?: InputMaybe<Scalars['_dec_coin']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Community_Pool_Stddev_Fields = {
@@ -1436,6 +1831,16 @@ export type Community_Pool_Sum_Fields = {
   __typename?: 'community_pool_sum_fields';
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "community_pool" */
+export enum Community_Pool_Update_Column {
+  /** column name */
+  Coins = 'coins',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
 
 /** aggregate var_pop on columns */
 export type Community_Pool_Var_Pop_Fields = {
@@ -1499,6 +1904,11 @@ export type Distribution_Params_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Distribution_Params_Append_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate avg on columns */
 export type Distribution_Params_Avg_Fields = {
   __typename?: 'distribution_params_avg_fields';
@@ -1515,6 +1925,39 @@ export type Distribution_Params_Bool_Exp = {
   params?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "distribution_params" */
+export enum Distribution_Params_Constraint {
+  /** unique or primary key constraint */
+  DistributionParamsPkey = 'distribution_params_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Distribution_Params_Delete_At_Path_Input = {
+  params?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Distribution_Params_Delete_Elem_Input = {
+  params?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Distribution_Params_Delete_Key_Input = {
+  params?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "distribution_params" */
+export type Distribution_Params_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "distribution_params" */
+export type Distribution_Params_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate max on columns */
 export type Distribution_Params_Max_Fields = {
   __typename?: 'distribution_params_max_fields';
@@ -1527,11 +1970,37 @@ export type Distribution_Params_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "distribution_params" */
+export type Distribution_Params_Mutation_Response = {
+  __typename?: 'distribution_params_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Distribution_Params>;
+};
+
+/** on conflict condition type for table "distribution_params" */
+export type Distribution_Params_On_Conflict = {
+  constraint: Distribution_Params_Constraint;
+  update_columns?: Array<Distribution_Params_Update_Column>;
+  where?: InputMaybe<Distribution_Params_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "distribution_params". */
 export type Distribution_Params_Order_By = {
   height?: InputMaybe<Order_By>;
   one_row_id?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: distribution_params */
+export type Distribution_Params_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Distribution_Params_Prepend_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "distribution_params" */
@@ -1543,6 +2012,13 @@ export enum Distribution_Params_Select_Column {
   /** column name */
   Params = 'params'
 }
+
+/** input type for updating data in table "distribution_params" */
+export type Distribution_Params_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
 
 /** aggregate stddev on columns */
 export type Distribution_Params_Stddev_Fields = {
@@ -1567,6 +2043,16 @@ export type Distribution_Params_Sum_Fields = {
   __typename?: 'distribution_params_sum_fields';
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "distribution_params" */
+export enum Distribution_Params_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Params = 'params'
+}
 
 /** aggregate var_pop on columns */
 export type Distribution_Params_Var_Pop_Fields = {
@@ -1643,6 +2129,11 @@ export type Double_Sign_Evidence_Aggregate_Order_By = {
   variance?: InputMaybe<Double_Sign_Evidence_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "double_sign_evidence" */
+export type Double_Sign_Evidence_Arr_Rel_Insert_Input = {
+  data: Array<Double_Sign_Evidence_Insert_Input>;
+};
+
 /** aggregate avg on columns */
 export type Double_Sign_Evidence_Avg_Fields = {
   __typename?: 'double_sign_evidence_avg_fields';
@@ -1668,6 +2159,22 @@ export type Double_Sign_Evidence_Bool_Exp = {
   height?: InputMaybe<Bigint_Comparison_Exp>;
   vote_a_id?: InputMaybe<Bigint_Comparison_Exp>;
   vote_b_id?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** input type for incrementing numeric columns in table "double_sign_evidence" */
+export type Double_Sign_Evidence_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  vote_a_id?: InputMaybe<Scalars['bigint']>;
+  vote_b_id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "double_sign_evidence" */
+export type Double_Sign_Evidence_Insert_Input = {
+  doubleSignVoteByVoteAId?: InputMaybe<Double_Sign_Vote_Obj_Rel_Insert_Input>;
+  double_sign_vote?: InputMaybe<Double_Sign_Vote_Obj_Rel_Insert_Input>;
+  height?: InputMaybe<Scalars['bigint']>;
+  vote_a_id?: InputMaybe<Scalars['bigint']>;
+  vote_b_id?: InputMaybe<Scalars['bigint']>;
 };
 
 /** aggregate max on columns */
@@ -1700,6 +2207,15 @@ export type Double_Sign_Evidence_Min_Order_By = {
   vote_b_id?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "double_sign_evidence" */
+export type Double_Sign_Evidence_Mutation_Response = {
+  __typename?: 'double_sign_evidence_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Double_Sign_Evidence>;
+};
+
 /** Ordering options when selecting data from "double_sign_evidence". */
 export type Double_Sign_Evidence_Order_By = {
   doubleSignVoteByVoteAId?: InputMaybe<Double_Sign_Vote_Order_By>;
@@ -1718,6 +2234,13 @@ export enum Double_Sign_Evidence_Select_Column {
   /** column name */
   VoteBId = 'vote_b_id'
 }
+
+/** input type for updating data in table "double_sign_evidence" */
+export type Double_Sign_Evidence_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  vote_a_id?: InputMaybe<Scalars['bigint']>;
+  vote_b_id?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Double_Sign_Evidence_Stddev_Fields = {
@@ -1932,6 +2455,13 @@ export type Double_Sign_Vote_Aggregate_Order_By = {
   variance?: InputMaybe<Double_Sign_Vote_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "double_sign_vote" */
+export type Double_Sign_Vote_Arr_Rel_Insert_Input = {
+  data: Array<Double_Sign_Vote_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Double_Sign_Vote_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Double_Sign_Vote_Avg_Fields = {
   __typename?: 'double_sign_vote_avg_fields';
@@ -1967,6 +2497,38 @@ export type Double_Sign_Vote_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
   validator_index?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "double_sign_vote" */
+export enum Double_Sign_Vote_Constraint {
+  /** unique or primary key constraint */
+  DoubleSignVoteBlockIdValidatorAddressKey = 'double_sign_vote_block_id_validator_address_key',
+  /** unique or primary key constraint */
+  DoubleSignVotePkey = 'double_sign_vote_pkey'
+}
+
+/** input type for incrementing numeric columns in table "double_sign_vote" */
+export type Double_Sign_Vote_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  round?: InputMaybe<Scalars['Int']>;
+  type?: InputMaybe<Scalars['smallint']>;
+  validator_index?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "double_sign_vote" */
+export type Double_Sign_Vote_Insert_Input = {
+  block_id?: InputMaybe<Scalars['String']>;
+  doubleSignEvidencesByVoteBId?: InputMaybe<Double_Sign_Evidence_Arr_Rel_Insert_Input>;
+  double_sign_evidences?: InputMaybe<Double_Sign_Evidence_Arr_Rel_Insert_Input>;
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  round?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['smallint']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  validator_index?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
@@ -2019,6 +2581,29 @@ export type Double_Sign_Vote_Min_Order_By = {
   validator_index?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "double_sign_vote" */
+export type Double_Sign_Vote_Mutation_Response = {
+  __typename?: 'double_sign_vote_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Double_Sign_Vote>;
+};
+
+/** input type for inserting object relation for remote table "double_sign_vote" */
+export type Double_Sign_Vote_Obj_Rel_Insert_Input = {
+  data: Double_Sign_Vote_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Double_Sign_Vote_On_Conflict>;
+};
+
+/** on conflict condition type for table "double_sign_vote" */
+export type Double_Sign_Vote_On_Conflict = {
+  constraint: Double_Sign_Vote_Constraint;
+  update_columns?: Array<Double_Sign_Vote_Update_Column>;
+  where?: InputMaybe<Double_Sign_Vote_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "double_sign_vote". */
 export type Double_Sign_Vote_Order_By = {
   block_id?: InputMaybe<Order_By>;
@@ -2032,6 +2617,11 @@ export type Double_Sign_Vote_Order_By = {
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
   validator_index?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: double_sign_vote */
+export type Double_Sign_Vote_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "double_sign_vote" */
@@ -2053,6 +2643,18 @@ export enum Double_Sign_Vote_Select_Column {
   /** column name */
   ValidatorIndex = 'validator_index'
 }
+
+/** input type for updating data in table "double_sign_vote" */
+export type Double_Sign_Vote_Set_Input = {
+  block_id?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  round?: InputMaybe<Scalars['Int']>;
+  signature?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['smallint']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  validator_index?: InputMaybe<Scalars['Int']>;
+};
 
 /** aggregate stddev on columns */
 export type Double_Sign_Vote_Stddev_Fields = {
@@ -2129,6 +2731,26 @@ export type Double_Sign_Vote_Sum_Order_By = {
   type?: InputMaybe<Order_By>;
   validator_index?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "double_sign_vote" */
+export enum Double_Sign_Vote_Update_Column {
+  /** column name */
+  BlockId = 'block_id',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Round = 'round',
+  /** column name */
+  Signature = 'signature',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  ValidatorAddress = 'validator_address',
+  /** column name */
+  ValidatorIndex = 'validator_index'
+}
 
 /** aggregate var_pop on columns */
 export type Double_Sign_Vote_Var_Pop_Fields = {
@@ -2237,19 +2859,9 @@ export type Fee_Grant_Allowance_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** order by aggregate values of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Aggregate_Order_By = {
-  avg?: InputMaybe<Fee_Grant_Allowance_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Fee_Grant_Allowance_Max_Order_By>;
-  min?: InputMaybe<Fee_Grant_Allowance_Min_Order_By>;
-  stddev?: InputMaybe<Fee_Grant_Allowance_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Fee_Grant_Allowance_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Fee_Grant_Allowance_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Fee_Grant_Allowance_Sum_Order_By>;
-  var_pop?: InputMaybe<Fee_Grant_Allowance_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Fee_Grant_Allowance_Var_Samp_Order_By>;
-  variance?: InputMaybe<Fee_Grant_Allowance_Variance_Order_By>;
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Fee_Grant_Allowance_Append_Input = {
+  allowance?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** aggregate avg on columns */
@@ -2257,12 +2869,6 @@ export type Fee_Grant_Allowance_Avg_Fields = {
   __typename?: 'fee_grant_allowance_avg_fields';
   height?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Avg_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "fee_grant_allowance". All fields are combined with a logical 'AND'. */
@@ -2279,6 +2885,46 @@ export type Fee_Grant_Allowance_Bool_Exp = {
   id?: InputMaybe<Int_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "fee_grant_allowance" */
+export enum Fee_Grant_Allowance_Constraint {
+  /** unique or primary key constraint */
+  FeeGrantAllowancePkey = 'fee_grant_allowance_pkey',
+  /** unique or primary key constraint */
+  UniqueFeeGrantAllowance = 'unique_fee_grant_allowance'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Fee_Grant_Allowance_Delete_At_Path_Input = {
+  allowance?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Fee_Grant_Allowance_Delete_Elem_Input = {
+  allowance?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Fee_Grant_Allowance_Delete_Key_Input = {
+  allowance?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "fee_grant_allowance" */
+export type Fee_Grant_Allowance_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "fee_grant_allowance" */
+export type Fee_Grant_Allowance_Insert_Input = {
+  allowance?: InputMaybe<Scalars['jsonb']>;
+  grantee?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  grantee_address?: InputMaybe<Scalars['String']>;
+  granter?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  granter_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 /** aggregate max on columns */
 export type Fee_Grant_Allowance_Max_Fields = {
   __typename?: 'fee_grant_allowance_max_fields';
@@ -2286,14 +2932,6 @@ export type Fee_Grant_Allowance_Max_Fields = {
   granter_address?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
   id?: Maybe<Scalars['Int']>;
-};
-
-/** order by max() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Max_Order_By = {
-  grantee_address?: InputMaybe<Order_By>;
-  granter_address?: InputMaybe<Order_By>;
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -2305,12 +2943,20 @@ export type Fee_Grant_Allowance_Min_Fields = {
   id?: Maybe<Scalars['Int']>;
 };
 
-/** order by min() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Min_Order_By = {
-  grantee_address?: InputMaybe<Order_By>;
-  granter_address?: InputMaybe<Order_By>;
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
+/** response of any mutation on the table "fee_grant_allowance" */
+export type Fee_Grant_Allowance_Mutation_Response = {
+  __typename?: 'fee_grant_allowance_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Fee_Grant_Allowance>;
+};
+
+/** on conflict condition type for table "fee_grant_allowance" */
+export type Fee_Grant_Allowance_On_Conflict = {
+  constraint: Fee_Grant_Allowance_Constraint;
+  update_columns?: Array<Fee_Grant_Allowance_Update_Column>;
+  where?: InputMaybe<Fee_Grant_Allowance_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "fee_grant_allowance". */
@@ -2322,6 +2968,16 @@ export type Fee_Grant_Allowance_Order_By = {
   granter_address?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: fee_grant_allowance */
+export type Fee_Grant_Allowance_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Fee_Grant_Allowance_Prepend_Input = {
+  allowance?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "fee_grant_allowance" */
@@ -2338,17 +2994,20 @@ export enum Fee_Grant_Allowance_Select_Column {
   Id = 'id'
 }
 
+/** input type for updating data in table "fee_grant_allowance" */
+export type Fee_Grant_Allowance_Set_Input = {
+  allowance?: InputMaybe<Scalars['jsonb']>;
+  grantee_address?: InputMaybe<Scalars['String']>;
+  granter_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+};
+
 /** aggregate stddev on columns */
 export type Fee_Grant_Allowance_Stddev_Fields = {
   __typename?: 'fee_grant_allowance_stddev_fields';
   height?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Stddev_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -2358,23 +3017,11 @@ export type Fee_Grant_Allowance_Stddev_Pop_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_pop() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Stddev_Pop_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
 /** aggregate stddev_samp on columns */
 export type Fee_Grant_Allowance_Stddev_Samp_Fields = {
   __typename?: 'fee_grant_allowance_stddev_samp_fields';
   height?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Stddev_Samp_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
@@ -2384,23 +3031,25 @@ export type Fee_Grant_Allowance_Sum_Fields = {
   id?: Maybe<Scalars['Int']>;
 };
 
-/** order by sum() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Sum_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
+/** update columns of table "fee_grant_allowance" */
+export enum Fee_Grant_Allowance_Update_Column {
+  /** column name */
+  Allowance = 'allowance',
+  /** column name */
+  GranteeAddress = 'grantee_address',
+  /** column name */
+  GranterAddress = 'granter_address',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Id = 'id'
+}
 
 /** aggregate var_pop on columns */
 export type Fee_Grant_Allowance_Var_Pop_Fields = {
   __typename?: 'fee_grant_allowance_var_pop_fields';
   height?: Maybe<Scalars['Float']>;
   id?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Var_Pop_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
@@ -2410,12 +3059,6 @@ export type Fee_Grant_Allowance_Var_Samp_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_samp() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Var_Samp_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
 /** aggregate variance on columns */
 export type Fee_Grant_Allowance_Variance_Fields = {
   __typename?: 'fee_grant_allowance_variance_fields';
@@ -2423,17 +3066,12 @@ export type Fee_Grant_Allowance_Variance_Fields = {
   id?: Maybe<Scalars['Float']>;
 };
 
-/** order by variance() on columns of table "fee_grant_allowance" */
-export type Fee_Grant_Allowance_Variance_Order_By = {
-  height?: InputMaybe<Order_By>;
-  id?: InputMaybe<Order_By>;
-};
-
 /** columns and relationships of "genesis" */
 export type Genesis = {
   __typename?: 'genesis';
   chain_id: Scalars['String'];
   initial_height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
   time: Scalars['timestamp'];
 };
 
@@ -2480,7 +3118,27 @@ export type Genesis_Bool_Exp = {
   _or?: InputMaybe<Array<Genesis_Bool_Exp>>;
   chain_id?: InputMaybe<String_Comparison_Exp>;
   initial_height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
   time?: InputMaybe<Timestamp_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "genesis" */
+export enum Genesis_Constraint {
+  /** unique or primary key constraint */
+  GenesisPkey = 'genesis_pkey'
+}
+
+/** input type for incrementing numeric columns in table "genesis" */
+export type Genesis_Inc_Input = {
+  initial_height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "genesis" */
+export type Genesis_Insert_Input = {
+  chain_id?: InputMaybe<Scalars['String']>;
+  initial_height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  time?: InputMaybe<Scalars['timestamp']>;
 };
 
 /** aggregate max on columns */
@@ -2499,11 +3157,33 @@ export type Genesis_Min_Fields = {
   time?: Maybe<Scalars['timestamp']>;
 };
 
+/** response of any mutation on the table "genesis" */
+export type Genesis_Mutation_Response = {
+  __typename?: 'genesis_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Genesis>;
+};
+
+/** on conflict condition type for table "genesis" */
+export type Genesis_On_Conflict = {
+  constraint: Genesis_Constraint;
+  update_columns?: Array<Genesis_Update_Column>;
+  where?: InputMaybe<Genesis_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "genesis". */
 export type Genesis_Order_By = {
   chain_id?: InputMaybe<Order_By>;
   initial_height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
   time?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: genesis */
+export type Genesis_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "genesis" */
@@ -2513,8 +3193,18 @@ export enum Genesis_Select_Column {
   /** column name */
   InitialHeight = 'initial_height',
   /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
   Time = 'time'
 }
+
+/** input type for updating data in table "genesis" */
+export type Genesis_Set_Input = {
+  chain_id?: InputMaybe<Scalars['String']>;
+  initial_height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  time?: InputMaybe<Scalars['timestamp']>;
+};
 
 /** aggregate stddev on columns */
 export type Genesis_Stddev_Fields = {
@@ -2540,6 +3230,18 @@ export type Genesis_Sum_Fields = {
   initial_height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "genesis" */
+export enum Genesis_Update_Column {
+  /** column name */
+  ChainId = 'chain_id',
+  /** column name */
+  InitialHeight = 'initial_height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Time = 'time'
+}
+
 /** aggregate var_pop on columns */
 export type Genesis_Var_Pop_Fields = {
   __typename?: 'genesis_var_pop_fields';
@@ -2561,28 +3263,14 @@ export type Genesis_Variance_Fields = {
 /** columns and relationships of "gov_params" */
 export type Gov_Params = {
   __typename?: 'gov_params';
-  deposit_params: Scalars['jsonb'];
   height: Scalars['bigint'];
   one_row_id: Scalars['Boolean'];
-  tally_params: Scalars['jsonb'];
-  voting_params: Scalars['jsonb'];
+  params: Scalars['jsonb'];
 };
 
 
 /** columns and relationships of "gov_params" */
-export type Gov_ParamsDeposit_ParamsArgs = {
-  path?: InputMaybe<Scalars['String']>;
-};
-
-
-/** columns and relationships of "gov_params" */
-export type Gov_ParamsTally_ParamsArgs = {
-  path?: InputMaybe<Scalars['String']>;
-};
-
-
-/** columns and relationships of "gov_params" */
-export type Gov_ParamsVoting_ParamsArgs = {
+export type Gov_ParamsParamsArgs = {
   path?: InputMaybe<Scalars['String']>;
 };
 
@@ -2616,6 +3304,11 @@ export type Gov_Params_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Gov_Params_Append_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate avg on columns */
 export type Gov_Params_Avg_Fields = {
   __typename?: 'gov_params_avg_fields';
@@ -2627,11 +3320,42 @@ export type Gov_Params_Bool_Exp = {
   _and?: InputMaybe<Array<Gov_Params_Bool_Exp>>;
   _not?: InputMaybe<Gov_Params_Bool_Exp>;
   _or?: InputMaybe<Array<Gov_Params_Bool_Exp>>;
-  deposit_params?: InputMaybe<Jsonb_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
   one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
-  tally_params?: InputMaybe<Jsonb_Comparison_Exp>;
-  voting_params?: InputMaybe<Jsonb_Comparison_Exp>;
+  params?: InputMaybe<Jsonb_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "gov_params" */
+export enum Gov_Params_Constraint {
+  /** unique or primary key constraint */
+  GovParamsPkey = 'gov_params_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Gov_Params_Delete_At_Path_Input = {
+  params?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Gov_Params_Delete_Elem_Input = {
+  params?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Gov_Params_Delete_Key_Input = {
+  params?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "gov_params" */
+export type Gov_Params_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "gov_params" */
+export type Gov_Params_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** aggregate max on columns */
@@ -2646,28 +3370,55 @@ export type Gov_Params_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "gov_params" */
+export type Gov_Params_Mutation_Response = {
+  __typename?: 'gov_params_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Gov_Params>;
+};
+
+/** on conflict condition type for table "gov_params" */
+export type Gov_Params_On_Conflict = {
+  constraint: Gov_Params_Constraint;
+  update_columns?: Array<Gov_Params_Update_Column>;
+  where?: InputMaybe<Gov_Params_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "gov_params". */
 export type Gov_Params_Order_By = {
-  deposit_params?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
   one_row_id?: InputMaybe<Order_By>;
-  tally_params?: InputMaybe<Order_By>;
-  voting_params?: InputMaybe<Order_By>;
+  params?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: gov_params */
+export type Gov_Params_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Gov_Params_Prepend_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "gov_params" */
 export enum Gov_Params_Select_Column {
   /** column name */
-  DepositParams = 'deposit_params',
-  /** column name */
   Height = 'height',
   /** column name */
   OneRowId = 'one_row_id',
   /** column name */
-  TallyParams = 'tally_params',
-  /** column name */
-  VotingParams = 'voting_params'
+  Params = 'params'
 }
+
+/** input type for updating data in table "gov_params" */
+export type Gov_Params_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
 
 /** aggregate stddev on columns */
 export type Gov_Params_Stddev_Fields = {
@@ -2693,6 +3444,16 @@ export type Gov_Params_Sum_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "gov_params" */
+export enum Gov_Params_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Params = 'params'
+}
+
 /** aggregate var_pop on columns */
 export type Gov_Params_Var_Pop_Fields = {
   __typename?: 'gov_params_var_pop_fields';
@@ -2715,6 +3476,7 @@ export type Gov_Params_Variance_Fields = {
 export type Inflation = {
   __typename?: 'inflation';
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
   value: Scalars['numeric'];
 };
 
@@ -2761,7 +3523,27 @@ export type Inflation_Bool_Exp = {
   _not?: InputMaybe<Inflation_Bool_Exp>;
   _or?: InputMaybe<Array<Inflation_Bool_Exp>>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
   value?: InputMaybe<Numeric_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "inflation" */
+export enum Inflation_Constraint {
+  /** unique or primary key constraint */
+  InflationPkey = 'inflation_pkey'
+}
+
+/** input type for incrementing numeric columns in table "inflation" */
+export type Inflation_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  value?: InputMaybe<Scalars['numeric']>;
+};
+
+/** input type for inserting data into table "inflation" */
+export type Inflation_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  value?: InputMaybe<Scalars['numeric']>;
 };
 
 /** aggregate max on columns */
@@ -2778,10 +3560,32 @@ export type Inflation_Min_Fields = {
   value?: Maybe<Scalars['numeric']>;
 };
 
+/** response of any mutation on the table "inflation" */
+export type Inflation_Mutation_Response = {
+  __typename?: 'inflation_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Inflation>;
+};
+
+/** on conflict condition type for table "inflation" */
+export type Inflation_On_Conflict = {
+  constraint: Inflation_Constraint;
+  update_columns?: Array<Inflation_Update_Column>;
+  where?: InputMaybe<Inflation_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "inflation". */
 export type Inflation_Order_By = {
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
   value?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: inflation */
+export type Inflation_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "inflation" */
@@ -2789,8 +3593,17 @@ export enum Inflation_Select_Column {
   /** column name */
   Height = 'height',
   /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
   Value = 'value'
 }
+
+/** input type for updating data in table "inflation" */
+export type Inflation_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  value?: InputMaybe<Scalars['numeric']>;
+};
 
 /** aggregate stddev on columns */
 export type Inflation_Stddev_Fields = {
@@ -2820,6 +3633,16 @@ export type Inflation_Sum_Fields = {
   value?: Maybe<Scalars['numeric']>;
 };
 
+/** update columns of table "inflation" */
+export enum Inflation_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Value = 'value'
+}
+
 /** aggregate var_pop on columns */
 export type Inflation_Var_Pop_Fields = {
   __typename?: 'inflation_var_pop_fields';
@@ -2839,6 +3662,19 @@ export type Inflation_Variance_Fields = {
   __typename?: 'inflation_variance_fields';
   height?: Maybe<Scalars['Float']>;
   value?: Maybe<Scalars['Float']>;
+};
+
+/** Boolean expression to compare columns of type "json". All fields are combined with logical 'AND'. */
+export type Json_Comparison_Exp = {
+  _eq?: InputMaybe<Scalars['json']>;
+  _gt?: InputMaybe<Scalars['json']>;
+  _gte?: InputMaybe<Scalars['json']>;
+  _in?: InputMaybe<Array<Scalars['json']>>;
+  _is_null?: InputMaybe<Scalars['Boolean']>;
+  _lt?: InputMaybe<Scalars['json']>;
+  _lte?: InputMaybe<Scalars['json']>;
+  _neq?: InputMaybe<Scalars['json']>;
+  _nin?: InputMaybe<Array<Scalars['json']>>;
 };
 
 /** Boolean expression to compare columns of type "jsonb". All fields are combined with logical 'AND'. */
@@ -2873,11 +3709,9 @@ export type Message = {
   partition_id: Scalars['bigint'];
   /** An object relationship */
   transaction?: Maybe<Transaction>;
-  /** An object relationship */
-  transactionByPartitionIdTransactionHash?: Maybe<Transaction>;
   transaction_hash: Scalars['String'];
   type: Scalars['String'];
-  value: Scalars['jsonb'];
+  value: Scalars['json'];
 };
 
 
@@ -2916,34 +3750,12 @@ export type Message_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
-/** order by aggregate values of table "message" */
-export type Message_Aggregate_Order_By = {
-  avg?: InputMaybe<Message_Avg_Order_By>;
-  count?: InputMaybe<Order_By>;
-  max?: InputMaybe<Message_Max_Order_By>;
-  min?: InputMaybe<Message_Min_Order_By>;
-  stddev?: InputMaybe<Message_Stddev_Order_By>;
-  stddev_pop?: InputMaybe<Message_Stddev_Pop_Order_By>;
-  stddev_samp?: InputMaybe<Message_Stddev_Samp_Order_By>;
-  sum?: InputMaybe<Message_Sum_Order_By>;
-  var_pop?: InputMaybe<Message_Var_Pop_Order_By>;
-  var_samp?: InputMaybe<Message_Var_Samp_Order_By>;
-  variance?: InputMaybe<Message_Variance_Order_By>;
-};
-
 /** aggregate avg on columns */
 export type Message_Avg_Fields = {
   __typename?: 'message_avg_fields';
   height?: Maybe<Scalars['Float']>;
   index?: Maybe<Scalars['Float']>;
   partition_id?: Maybe<Scalars['Float']>;
-};
-
-/** order by avg() on columns of table "message" */
-export type Message_Avg_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "message". All fields are combined with a logical 'AND'. */
@@ -2956,10 +3768,34 @@ export type Message_Bool_Exp = {
   involved_accounts_addresses?: InputMaybe<_Text_Comparison_Exp>;
   partition_id?: InputMaybe<Bigint_Comparison_Exp>;
   transaction?: InputMaybe<Transaction_Bool_Exp>;
-  transactionByPartitionIdTransactionHash?: InputMaybe<Transaction_Bool_Exp>;
   transaction_hash?: InputMaybe<String_Comparison_Exp>;
   type?: InputMaybe<String_Comparison_Exp>;
-  value?: InputMaybe<Jsonb_Comparison_Exp>;
+  value?: InputMaybe<Json_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "message" */
+export enum Message_Constraint {
+  /** unique or primary key constraint */
+  UniqueMessagePerTx = 'unique_message_per_tx'
+}
+
+/** input type for incrementing numeric columns in table "message" */
+export type Message_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index?: InputMaybe<Scalars['bigint']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "message" */
+export type Message_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index?: InputMaybe<Scalars['bigint']>;
+  involved_accounts_addresses?: InputMaybe<Scalars['_text']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+  transaction?: InputMaybe<Transaction_Obj_Rel_Insert_Input>;
+  transaction_hash?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['json']>;
 };
 
 /** aggregate max on columns */
@@ -2972,15 +3808,6 @@ export type Message_Max_Fields = {
   type?: Maybe<Scalars['String']>;
 };
 
-/** order by max() on columns of table "message" */
-export type Message_Max_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
-  transaction_hash?: InputMaybe<Order_By>;
-  type?: InputMaybe<Order_By>;
-};
-
 /** aggregate min on columns */
 export type Message_Min_Fields = {
   __typename?: 'message_min_fields';
@@ -2991,13 +3818,20 @@ export type Message_Min_Fields = {
   type?: Maybe<Scalars['String']>;
 };
 
-/** order by min() on columns of table "message" */
-export type Message_Min_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
-  transaction_hash?: InputMaybe<Order_By>;
-  type?: InputMaybe<Order_By>;
+/** response of any mutation on the table "message" */
+export type Message_Mutation_Response = {
+  __typename?: 'message_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Message>;
+};
+
+/** on conflict condition type for table "message" */
+export type Message_On_Conflict = {
+  constraint: Message_Constraint;
+  update_columns?: Array<Message_Update_Column>;
+  where?: InputMaybe<Message_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "message". */
@@ -3007,7 +3841,6 @@ export type Message_Order_By = {
   involved_accounts_addresses?: InputMaybe<Order_By>;
   partition_id?: InputMaybe<Order_By>;
   transaction?: InputMaybe<Transaction_Order_By>;
-  transactionByPartitionIdTransactionHash?: InputMaybe<Transaction_Order_By>;
   transaction_hash?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   value?: InputMaybe<Order_By>;
@@ -3031,19 +3864,23 @@ export enum Message_Select_Column {
   Value = 'value'
 }
 
+/** input type for updating data in table "message" */
+export type Message_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index?: InputMaybe<Scalars['bigint']>;
+  involved_accounts_addresses?: InputMaybe<Scalars['_text']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+  transaction_hash?: InputMaybe<Scalars['String']>;
+  type?: InputMaybe<Scalars['String']>;
+  value?: InputMaybe<Scalars['json']>;
+};
+
 /** aggregate stddev on columns */
 export type Message_Stddev_Fields = {
   __typename?: 'message_stddev_fields';
   height?: Maybe<Scalars['Float']>;
   index?: Maybe<Scalars['Float']>;
   partition_id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev() on columns of table "message" */
-export type Message_Stddev_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate stddev_pop on columns */
@@ -3054,26 +3891,12 @@ export type Message_Stddev_Pop_Fields = {
   partition_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by stddev_pop() on columns of table "message" */
-export type Message_Stddev_Pop_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
-};
-
 /** aggregate stddev_samp on columns */
 export type Message_Stddev_Samp_Fields = {
   __typename?: 'message_stddev_samp_fields';
   height?: Maybe<Scalars['Float']>;
   index?: Maybe<Scalars['Float']>;
   partition_id?: Maybe<Scalars['Float']>;
-};
-
-/** order by stddev_samp() on columns of table "message" */
-export type Message_Stddev_Samp_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate sum on columns */
@@ -3084,12 +3907,23 @@ export type Message_Sum_Fields = {
   partition_id?: Maybe<Scalars['bigint']>;
 };
 
-/** order by sum() on columns of table "message" */
-export type Message_Sum_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
-};
+/** update columns of table "message" */
+export enum Message_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Index = 'index',
+  /** column name */
+  InvolvedAccountsAddresses = 'involved_accounts_addresses',
+  /** column name */
+  PartitionId = 'partition_id',
+  /** column name */
+  TransactionHash = 'transaction_hash',
+  /** column name */
+  Type = 'type',
+  /** column name */
+  Value = 'value'
+}
 
 /** aggregate var_pop on columns */
 export type Message_Var_Pop_Fields = {
@@ -3097,13 +3931,6 @@ export type Message_Var_Pop_Fields = {
   height?: Maybe<Scalars['Float']>;
   index?: Maybe<Scalars['Float']>;
   partition_id?: Maybe<Scalars['Float']>;
-};
-
-/** order by var_pop() on columns of table "message" */
-export type Message_Var_Pop_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
 };
 
 /** aggregate var_samp on columns */
@@ -3114,26 +3941,12 @@ export type Message_Var_Samp_Fields = {
   partition_id?: Maybe<Scalars['Float']>;
 };
 
-/** order by var_samp() on columns of table "message" */
-export type Message_Var_Samp_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
-};
-
 /** aggregate variance on columns */
 export type Message_Variance_Fields = {
   __typename?: 'message_variance_fields';
   height?: Maybe<Scalars['Float']>;
   index?: Maybe<Scalars['Float']>;
   partition_id?: Maybe<Scalars['Float']>;
-};
-
-/** order by variance() on columns of table "message" */
-export type Message_Variance_Order_By = {
-  height?: InputMaybe<Order_By>;
-  index?: InputMaybe<Order_By>;
-  partition_id?: InputMaybe<Order_By>;
 };
 
 export type Messages_By_Address_Args = {
@@ -3187,6 +4000,11 @@ export type Mint_Params_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Mint_Params_Append_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate avg on columns */
 export type Mint_Params_Avg_Fields = {
   __typename?: 'mint_params_avg_fields';
@@ -3203,6 +4021,39 @@ export type Mint_Params_Bool_Exp = {
   params?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "mint_params" */
+export enum Mint_Params_Constraint {
+  /** unique or primary key constraint */
+  MintParamsPkey = 'mint_params_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Mint_Params_Delete_At_Path_Input = {
+  params?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Mint_Params_Delete_Elem_Input = {
+  params?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Mint_Params_Delete_Key_Input = {
+  params?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "mint_params" */
+export type Mint_Params_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "mint_params" */
+export type Mint_Params_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate max on columns */
 export type Mint_Params_Max_Fields = {
   __typename?: 'mint_params_max_fields';
@@ -3215,11 +4066,37 @@ export type Mint_Params_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "mint_params" */
+export type Mint_Params_Mutation_Response = {
+  __typename?: 'mint_params_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Mint_Params>;
+};
+
+/** on conflict condition type for table "mint_params" */
+export type Mint_Params_On_Conflict = {
+  constraint: Mint_Params_Constraint;
+  update_columns?: Array<Mint_Params_Update_Column>;
+  where?: InputMaybe<Mint_Params_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "mint_params". */
 export type Mint_Params_Order_By = {
   height?: InputMaybe<Order_By>;
   one_row_id?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: mint_params */
+export type Mint_Params_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Mint_Params_Prepend_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "mint_params" */
@@ -3231,6 +4108,13 @@ export enum Mint_Params_Select_Column {
   /** column name */
   Params = 'params'
 }
+
+/** input type for updating data in table "mint_params" */
+export type Mint_Params_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
 
 /** aggregate stddev on columns */
 export type Mint_Params_Stddev_Fields = {
@@ -3255,6 +4139,16 @@ export type Mint_Params_Sum_Fields = {
   __typename?: 'mint_params_sum_fields';
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "mint_params" */
+export enum Mint_Params_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Params = 'params'
+}
 
 /** aggregate var_pop on columns */
 export type Mint_Params_Var_Pop_Fields = {
@@ -3310,6 +4204,17 @@ export type Modules_Bool_Exp = {
   module_name?: InputMaybe<String_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "modules" */
+export enum Modules_Constraint {
+  /** unique or primary key constraint */
+  ModulesPkey = 'modules_pkey'
+}
+
+/** input type for inserting data into table "modules" */
+export type Modules_Insert_Input = {
+  module_name?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate max on columns */
 export type Modules_Max_Fields = {
   __typename?: 'modules_max_fields';
@@ -3322,9 +4227,30 @@ export type Modules_Min_Fields = {
   module_name?: Maybe<Scalars['String']>;
 };
 
+/** response of any mutation on the table "modules" */
+export type Modules_Mutation_Response = {
+  __typename?: 'modules_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Modules>;
+};
+
+/** on conflict condition type for table "modules" */
+export type Modules_On_Conflict = {
+  constraint: Modules_Constraint;
+  update_columns?: Array<Modules_Update_Column>;
+  where?: InputMaybe<Modules_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "modules". */
 export type Modules_Order_By = {
   module_name?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: modules */
+export type Modules_Pk_Columns_Input = {
+  module_name: Scalars['String'];
 };
 
 /** select columns of table "modules" */
@@ -3332,6 +4258,2228 @@ export enum Modules_Select_Column {
   /** column name */
   ModuleName = 'module_name'
 }
+
+/** input type for updating data in table "modules" */
+export type Modules_Set_Input = {
+  module_name?: InputMaybe<Scalars['String']>;
+};
+
+/** update columns of table "modules" */
+export enum Modules_Update_Column {
+  /** column name */
+  ModuleName = 'module_name'
+}
+
+/** mutation root */
+export type Mutation_Root = {
+  __typename?: 'mutation_root';
+  /** delete data from the table: "account" */
+  delete_account?: Maybe<Account_Mutation_Response>;
+  /** delete single row from the table: "account" */
+  delete_account_by_pk?: Maybe<Account>;
+  /** delete data from the table: "average_block_time_from_genesis" */
+  delete_average_block_time_from_genesis?: Maybe<Average_Block_Time_From_Genesis_Mutation_Response>;
+  /** delete single row from the table: "average_block_time_from_genesis" */
+  delete_average_block_time_from_genesis_by_pk?: Maybe<Average_Block_Time_From_Genesis>;
+  /** delete data from the table: "average_block_time_per_day" */
+  delete_average_block_time_per_day?: Maybe<Average_Block_Time_Per_Day_Mutation_Response>;
+  /** delete single row from the table: "average_block_time_per_day" */
+  delete_average_block_time_per_day_by_pk?: Maybe<Average_Block_Time_Per_Day>;
+  /** delete data from the table: "average_block_time_per_hour" */
+  delete_average_block_time_per_hour?: Maybe<Average_Block_Time_Per_Hour_Mutation_Response>;
+  /** delete single row from the table: "average_block_time_per_hour" */
+  delete_average_block_time_per_hour_by_pk?: Maybe<Average_Block_Time_Per_Hour>;
+  /** delete data from the table: "average_block_time_per_minute" */
+  delete_average_block_time_per_minute?: Maybe<Average_Block_Time_Per_Minute_Mutation_Response>;
+  /** delete single row from the table: "average_block_time_per_minute" */
+  delete_average_block_time_per_minute_by_pk?: Maybe<Average_Block_Time_Per_Minute>;
+  /** delete data from the table: "block" */
+  delete_block?: Maybe<Block_Mutation_Response>;
+  /** delete single row from the table: "block" */
+  delete_block_by_pk?: Maybe<Block>;
+  /** delete data from the table: "community_pool" */
+  delete_community_pool?: Maybe<Community_Pool_Mutation_Response>;
+  /** delete single row from the table: "community_pool" */
+  delete_community_pool_by_pk?: Maybe<Community_Pool>;
+  /** delete data from the table: "distribution_params" */
+  delete_distribution_params?: Maybe<Distribution_Params_Mutation_Response>;
+  /** delete single row from the table: "distribution_params" */
+  delete_distribution_params_by_pk?: Maybe<Distribution_Params>;
+  /** delete data from the table: "double_sign_evidence" */
+  delete_double_sign_evidence?: Maybe<Double_Sign_Evidence_Mutation_Response>;
+  /** delete data from the table: "double_sign_vote" */
+  delete_double_sign_vote?: Maybe<Double_Sign_Vote_Mutation_Response>;
+  /** delete single row from the table: "double_sign_vote" */
+  delete_double_sign_vote_by_pk?: Maybe<Double_Sign_Vote>;
+  /** delete data from the table: "fee_grant_allowance" */
+  delete_fee_grant_allowance?: Maybe<Fee_Grant_Allowance_Mutation_Response>;
+  /** delete single row from the table: "fee_grant_allowance" */
+  delete_fee_grant_allowance_by_pk?: Maybe<Fee_Grant_Allowance>;
+  /** delete data from the table: "genesis" */
+  delete_genesis?: Maybe<Genesis_Mutation_Response>;
+  /** delete single row from the table: "genesis" */
+  delete_genesis_by_pk?: Maybe<Genesis>;
+  /** delete data from the table: "gov_params" */
+  delete_gov_params?: Maybe<Gov_Params_Mutation_Response>;
+  /** delete single row from the table: "gov_params" */
+  delete_gov_params_by_pk?: Maybe<Gov_Params>;
+  /** delete data from the table: "inflation" */
+  delete_inflation?: Maybe<Inflation_Mutation_Response>;
+  /** delete single row from the table: "inflation" */
+  delete_inflation_by_pk?: Maybe<Inflation>;
+  /** delete data from the table: "message" */
+  delete_message?: Maybe<Message_Mutation_Response>;
+  /** delete data from the table: "mint_params" */
+  delete_mint_params?: Maybe<Mint_Params_Mutation_Response>;
+  /** delete single row from the table: "mint_params" */
+  delete_mint_params_by_pk?: Maybe<Mint_Params>;
+  /** delete data from the table: "modules" */
+  delete_modules?: Maybe<Modules_Mutation_Response>;
+  /** delete single row from the table: "modules" */
+  delete_modules_by_pk?: Maybe<Modules>;
+  /** delete data from the table: "pre_commit" */
+  delete_pre_commit?: Maybe<Pre_Commit_Mutation_Response>;
+  /** delete data from the table: "proposal" */
+  delete_proposal?: Maybe<Proposal_Mutation_Response>;
+  /** delete single row from the table: "proposal" */
+  delete_proposal_by_pk?: Maybe<Proposal>;
+  /** delete data from the table: "proposal_deposit" */
+  delete_proposal_deposit?: Maybe<Proposal_Deposit_Mutation_Response>;
+  /** delete data from the table: "proposal_staking_pool_snapshot" */
+  delete_proposal_staking_pool_snapshot?: Maybe<Proposal_Staking_Pool_Snapshot_Mutation_Response>;
+  /** delete single row from the table: "proposal_staking_pool_snapshot" */
+  delete_proposal_staking_pool_snapshot_by_pk?: Maybe<Proposal_Staking_Pool_Snapshot>;
+  /** delete data from the table: "proposal_tally_result" */
+  delete_proposal_tally_result?: Maybe<Proposal_Tally_Result_Mutation_Response>;
+  /** delete single row from the table: "proposal_tally_result" */
+  delete_proposal_tally_result_by_pk?: Maybe<Proposal_Tally_Result>;
+  /** delete data from the table: "proposal_validator_status_snapshot" */
+  delete_proposal_validator_status_snapshot?: Maybe<Proposal_Validator_Status_Snapshot_Mutation_Response>;
+  /** delete single row from the table: "proposal_validator_status_snapshot" */
+  delete_proposal_validator_status_snapshot_by_pk?: Maybe<Proposal_Validator_Status_Snapshot>;
+  /** delete data from the table: "proposal_vote" */
+  delete_proposal_vote?: Maybe<Proposal_Vote_Mutation_Response>;
+  /** delete data from the table: "slashing_params" */
+  delete_slashing_params?: Maybe<Slashing_Params_Mutation_Response>;
+  /** delete single row from the table: "slashing_params" */
+  delete_slashing_params_by_pk?: Maybe<Slashing_Params>;
+  /** delete data from the table: "software_upgrade_plan" */
+  delete_software_upgrade_plan?: Maybe<Software_Upgrade_Plan_Mutation_Response>;
+  /** delete data from the table: "staking_params" */
+  delete_staking_params?: Maybe<Staking_Params_Mutation_Response>;
+  /** delete single row from the table: "staking_params" */
+  delete_staking_params_by_pk?: Maybe<Staking_Params>;
+  /** delete data from the table: "staking_pool" */
+  delete_staking_pool?: Maybe<Staking_Pool_Mutation_Response>;
+  /** delete single row from the table: "staking_pool" */
+  delete_staking_pool_by_pk?: Maybe<Staking_Pool>;
+  /** delete data from the table: "supply" */
+  delete_supply?: Maybe<Supply_Mutation_Response>;
+  /** delete single row from the table: "supply" */
+  delete_supply_by_pk?: Maybe<Supply>;
+  /** delete data from the table: "token" */
+  delete_token?: Maybe<Token_Mutation_Response>;
+  /** delete data from the table: "token_price" */
+  delete_token_price?: Maybe<Token_Price_Mutation_Response>;
+  /** delete single row from the table: "token_price" */
+  delete_token_price_by_pk?: Maybe<Token_Price>;
+  /** delete data from the table: "token_price_history" */
+  delete_token_price_history?: Maybe<Token_Price_History_Mutation_Response>;
+  /** delete single row from the table: "token_price_history" */
+  delete_token_price_history_by_pk?: Maybe<Token_Price_History>;
+  /** delete data from the table: "token_unit" */
+  delete_token_unit?: Maybe<Token_Unit_Mutation_Response>;
+  /** delete data from the table: "transaction" */
+  delete_transaction?: Maybe<Transaction_Mutation_Response>;
+  /** delete data from the table: "validator" */
+  delete_validator?: Maybe<Validator_Mutation_Response>;
+  /** delete single row from the table: "validator" */
+  delete_validator_by_pk?: Maybe<Validator>;
+  /** delete data from the table: "validator_commission" */
+  delete_validator_commission?: Maybe<Validator_Commission_Mutation_Response>;
+  /** delete single row from the table: "validator_commission" */
+  delete_validator_commission_by_pk?: Maybe<Validator_Commission>;
+  /** delete data from the table: "validator_description" */
+  delete_validator_description?: Maybe<Validator_Description_Mutation_Response>;
+  /** delete single row from the table: "validator_description" */
+  delete_validator_description_by_pk?: Maybe<Validator_Description>;
+  /** delete data from the table: "validator_info" */
+  delete_validator_info?: Maybe<Validator_Info_Mutation_Response>;
+  /** delete single row from the table: "validator_info" */
+  delete_validator_info_by_pk?: Maybe<Validator_Info>;
+  /** delete data from the table: "validator_signing_info" */
+  delete_validator_signing_info?: Maybe<Validator_Signing_Info_Mutation_Response>;
+  /** delete single row from the table: "validator_signing_info" */
+  delete_validator_signing_info_by_pk?: Maybe<Validator_Signing_Info>;
+  /** delete data from the table: "validator_status" */
+  delete_validator_status?: Maybe<Validator_Status_Mutation_Response>;
+  /** delete single row from the table: "validator_status" */
+  delete_validator_status_by_pk?: Maybe<Validator_Status>;
+  /** delete data from the table: "validator_voting_power" */
+  delete_validator_voting_power?: Maybe<Validator_Voting_Power_Mutation_Response>;
+  /** delete single row from the table: "validator_voting_power" */
+  delete_validator_voting_power_by_pk?: Maybe<Validator_Voting_Power>;
+  /** delete data from the table: "vesting_account" */
+  delete_vesting_account?: Maybe<Vesting_Account_Mutation_Response>;
+  /** delete single row from the table: "vesting_account" */
+  delete_vesting_account_by_pk?: Maybe<Vesting_Account>;
+  /** delete data from the table: "vesting_period" */
+  delete_vesting_period?: Maybe<Vesting_Period_Mutation_Response>;
+  /** insert data into the table: "account" */
+  insert_account?: Maybe<Account_Mutation_Response>;
+  /** insert a single row into the table: "account" */
+  insert_account_one?: Maybe<Account>;
+  /** insert data into the table: "average_block_time_from_genesis" */
+  insert_average_block_time_from_genesis?: Maybe<Average_Block_Time_From_Genesis_Mutation_Response>;
+  /** insert a single row into the table: "average_block_time_from_genesis" */
+  insert_average_block_time_from_genesis_one?: Maybe<Average_Block_Time_From_Genesis>;
+  /** insert data into the table: "average_block_time_per_day" */
+  insert_average_block_time_per_day?: Maybe<Average_Block_Time_Per_Day_Mutation_Response>;
+  /** insert a single row into the table: "average_block_time_per_day" */
+  insert_average_block_time_per_day_one?: Maybe<Average_Block_Time_Per_Day>;
+  /** insert data into the table: "average_block_time_per_hour" */
+  insert_average_block_time_per_hour?: Maybe<Average_Block_Time_Per_Hour_Mutation_Response>;
+  /** insert a single row into the table: "average_block_time_per_hour" */
+  insert_average_block_time_per_hour_one?: Maybe<Average_Block_Time_Per_Hour>;
+  /** insert data into the table: "average_block_time_per_minute" */
+  insert_average_block_time_per_minute?: Maybe<Average_Block_Time_Per_Minute_Mutation_Response>;
+  /** insert a single row into the table: "average_block_time_per_minute" */
+  insert_average_block_time_per_minute_one?: Maybe<Average_Block_Time_Per_Minute>;
+  /** insert data into the table: "block" */
+  insert_block?: Maybe<Block_Mutation_Response>;
+  /** insert a single row into the table: "block" */
+  insert_block_one?: Maybe<Block>;
+  /** insert data into the table: "community_pool" */
+  insert_community_pool?: Maybe<Community_Pool_Mutation_Response>;
+  /** insert a single row into the table: "community_pool" */
+  insert_community_pool_one?: Maybe<Community_Pool>;
+  /** insert data into the table: "distribution_params" */
+  insert_distribution_params?: Maybe<Distribution_Params_Mutation_Response>;
+  /** insert a single row into the table: "distribution_params" */
+  insert_distribution_params_one?: Maybe<Distribution_Params>;
+  /** insert data into the table: "double_sign_evidence" */
+  insert_double_sign_evidence?: Maybe<Double_Sign_Evidence_Mutation_Response>;
+  /** insert a single row into the table: "double_sign_evidence" */
+  insert_double_sign_evidence_one?: Maybe<Double_Sign_Evidence>;
+  /** insert data into the table: "double_sign_vote" */
+  insert_double_sign_vote?: Maybe<Double_Sign_Vote_Mutation_Response>;
+  /** insert a single row into the table: "double_sign_vote" */
+  insert_double_sign_vote_one?: Maybe<Double_Sign_Vote>;
+  /** insert data into the table: "fee_grant_allowance" */
+  insert_fee_grant_allowance?: Maybe<Fee_Grant_Allowance_Mutation_Response>;
+  /** insert a single row into the table: "fee_grant_allowance" */
+  insert_fee_grant_allowance_one?: Maybe<Fee_Grant_Allowance>;
+  /** insert data into the table: "genesis" */
+  insert_genesis?: Maybe<Genesis_Mutation_Response>;
+  /** insert a single row into the table: "genesis" */
+  insert_genesis_one?: Maybe<Genesis>;
+  /** insert data into the table: "gov_params" */
+  insert_gov_params?: Maybe<Gov_Params_Mutation_Response>;
+  /** insert a single row into the table: "gov_params" */
+  insert_gov_params_one?: Maybe<Gov_Params>;
+  /** insert data into the table: "inflation" */
+  insert_inflation?: Maybe<Inflation_Mutation_Response>;
+  /** insert a single row into the table: "inflation" */
+  insert_inflation_one?: Maybe<Inflation>;
+  /** insert data into the table: "message" */
+  insert_message?: Maybe<Message_Mutation_Response>;
+  /** insert a single row into the table: "message" */
+  insert_message_one?: Maybe<Message>;
+  /** insert data into the table: "mint_params" */
+  insert_mint_params?: Maybe<Mint_Params_Mutation_Response>;
+  /** insert a single row into the table: "mint_params" */
+  insert_mint_params_one?: Maybe<Mint_Params>;
+  /** insert data into the table: "modules" */
+  insert_modules?: Maybe<Modules_Mutation_Response>;
+  /** insert a single row into the table: "modules" */
+  insert_modules_one?: Maybe<Modules>;
+  /** insert data into the table: "pre_commit" */
+  insert_pre_commit?: Maybe<Pre_Commit_Mutation_Response>;
+  /** insert a single row into the table: "pre_commit" */
+  insert_pre_commit_one?: Maybe<Pre_Commit>;
+  /** insert data into the table: "proposal" */
+  insert_proposal?: Maybe<Proposal_Mutation_Response>;
+  /** insert data into the table: "proposal_deposit" */
+  insert_proposal_deposit?: Maybe<Proposal_Deposit_Mutation_Response>;
+  /** insert a single row into the table: "proposal_deposit" */
+  insert_proposal_deposit_one?: Maybe<Proposal_Deposit>;
+  /** insert a single row into the table: "proposal" */
+  insert_proposal_one?: Maybe<Proposal>;
+  /** insert data into the table: "proposal_staking_pool_snapshot" */
+  insert_proposal_staking_pool_snapshot?: Maybe<Proposal_Staking_Pool_Snapshot_Mutation_Response>;
+  /** insert a single row into the table: "proposal_staking_pool_snapshot" */
+  insert_proposal_staking_pool_snapshot_one?: Maybe<Proposal_Staking_Pool_Snapshot>;
+  /** insert data into the table: "proposal_tally_result" */
+  insert_proposal_tally_result?: Maybe<Proposal_Tally_Result_Mutation_Response>;
+  /** insert a single row into the table: "proposal_tally_result" */
+  insert_proposal_tally_result_one?: Maybe<Proposal_Tally_Result>;
+  /** insert data into the table: "proposal_validator_status_snapshot" */
+  insert_proposal_validator_status_snapshot?: Maybe<Proposal_Validator_Status_Snapshot_Mutation_Response>;
+  /** insert a single row into the table: "proposal_validator_status_snapshot" */
+  insert_proposal_validator_status_snapshot_one?: Maybe<Proposal_Validator_Status_Snapshot>;
+  /** insert data into the table: "proposal_vote" */
+  insert_proposal_vote?: Maybe<Proposal_Vote_Mutation_Response>;
+  /** insert a single row into the table: "proposal_vote" */
+  insert_proposal_vote_one?: Maybe<Proposal_Vote>;
+  /** insert data into the table: "slashing_params" */
+  insert_slashing_params?: Maybe<Slashing_Params_Mutation_Response>;
+  /** insert a single row into the table: "slashing_params" */
+  insert_slashing_params_one?: Maybe<Slashing_Params>;
+  /** insert data into the table: "software_upgrade_plan" */
+  insert_software_upgrade_plan?: Maybe<Software_Upgrade_Plan_Mutation_Response>;
+  /** insert a single row into the table: "software_upgrade_plan" */
+  insert_software_upgrade_plan_one?: Maybe<Software_Upgrade_Plan>;
+  /** insert data into the table: "staking_params" */
+  insert_staking_params?: Maybe<Staking_Params_Mutation_Response>;
+  /** insert a single row into the table: "staking_params" */
+  insert_staking_params_one?: Maybe<Staking_Params>;
+  /** insert data into the table: "staking_pool" */
+  insert_staking_pool?: Maybe<Staking_Pool_Mutation_Response>;
+  /** insert a single row into the table: "staking_pool" */
+  insert_staking_pool_one?: Maybe<Staking_Pool>;
+  /** insert data into the table: "supply" */
+  insert_supply?: Maybe<Supply_Mutation_Response>;
+  /** insert a single row into the table: "supply" */
+  insert_supply_one?: Maybe<Supply>;
+  /** insert data into the table: "token" */
+  insert_token?: Maybe<Token_Mutation_Response>;
+  /** insert a single row into the table: "token" */
+  insert_token_one?: Maybe<Token>;
+  /** insert data into the table: "token_price" */
+  insert_token_price?: Maybe<Token_Price_Mutation_Response>;
+  /** insert data into the table: "token_price_history" */
+  insert_token_price_history?: Maybe<Token_Price_History_Mutation_Response>;
+  /** insert a single row into the table: "token_price_history" */
+  insert_token_price_history_one?: Maybe<Token_Price_History>;
+  /** insert a single row into the table: "token_price" */
+  insert_token_price_one?: Maybe<Token_Price>;
+  /** insert data into the table: "token_unit" */
+  insert_token_unit?: Maybe<Token_Unit_Mutation_Response>;
+  /** insert a single row into the table: "token_unit" */
+  insert_token_unit_one?: Maybe<Token_Unit>;
+  /** insert data into the table: "transaction" */
+  insert_transaction?: Maybe<Transaction_Mutation_Response>;
+  /** insert a single row into the table: "transaction" */
+  insert_transaction_one?: Maybe<Transaction>;
+  /** insert data into the table: "validator" */
+  insert_validator?: Maybe<Validator_Mutation_Response>;
+  /** insert data into the table: "validator_commission" */
+  insert_validator_commission?: Maybe<Validator_Commission_Mutation_Response>;
+  /** insert a single row into the table: "validator_commission" */
+  insert_validator_commission_one?: Maybe<Validator_Commission>;
+  /** insert data into the table: "validator_description" */
+  insert_validator_description?: Maybe<Validator_Description_Mutation_Response>;
+  /** insert a single row into the table: "validator_description" */
+  insert_validator_description_one?: Maybe<Validator_Description>;
+  /** insert data into the table: "validator_info" */
+  insert_validator_info?: Maybe<Validator_Info_Mutation_Response>;
+  /** insert a single row into the table: "validator_info" */
+  insert_validator_info_one?: Maybe<Validator_Info>;
+  /** insert a single row into the table: "validator" */
+  insert_validator_one?: Maybe<Validator>;
+  /** insert data into the table: "validator_signing_info" */
+  insert_validator_signing_info?: Maybe<Validator_Signing_Info_Mutation_Response>;
+  /** insert a single row into the table: "validator_signing_info" */
+  insert_validator_signing_info_one?: Maybe<Validator_Signing_Info>;
+  /** insert data into the table: "validator_status" */
+  insert_validator_status?: Maybe<Validator_Status_Mutation_Response>;
+  /** insert a single row into the table: "validator_status" */
+  insert_validator_status_one?: Maybe<Validator_Status>;
+  /** insert data into the table: "validator_voting_power" */
+  insert_validator_voting_power?: Maybe<Validator_Voting_Power_Mutation_Response>;
+  /** insert a single row into the table: "validator_voting_power" */
+  insert_validator_voting_power_one?: Maybe<Validator_Voting_Power>;
+  /** insert data into the table: "vesting_account" */
+  insert_vesting_account?: Maybe<Vesting_Account_Mutation_Response>;
+  /** insert a single row into the table: "vesting_account" */
+  insert_vesting_account_one?: Maybe<Vesting_Account>;
+  /** insert data into the table: "vesting_period" */
+  insert_vesting_period?: Maybe<Vesting_Period_Mutation_Response>;
+  /** insert a single row into the table: "vesting_period" */
+  insert_vesting_period_one?: Maybe<Vesting_Period>;
+  /** update data of the table: "account" */
+  update_account?: Maybe<Account_Mutation_Response>;
+  /** update single row of the table: "account" */
+  update_account_by_pk?: Maybe<Account>;
+  /** update data of the table: "average_block_time_from_genesis" */
+  update_average_block_time_from_genesis?: Maybe<Average_Block_Time_From_Genesis_Mutation_Response>;
+  /** update single row of the table: "average_block_time_from_genesis" */
+  update_average_block_time_from_genesis_by_pk?: Maybe<Average_Block_Time_From_Genesis>;
+  /** update data of the table: "average_block_time_per_day" */
+  update_average_block_time_per_day?: Maybe<Average_Block_Time_Per_Day_Mutation_Response>;
+  /** update single row of the table: "average_block_time_per_day" */
+  update_average_block_time_per_day_by_pk?: Maybe<Average_Block_Time_Per_Day>;
+  /** update data of the table: "average_block_time_per_hour" */
+  update_average_block_time_per_hour?: Maybe<Average_Block_Time_Per_Hour_Mutation_Response>;
+  /** update single row of the table: "average_block_time_per_hour" */
+  update_average_block_time_per_hour_by_pk?: Maybe<Average_Block_Time_Per_Hour>;
+  /** update data of the table: "average_block_time_per_minute" */
+  update_average_block_time_per_minute?: Maybe<Average_Block_Time_Per_Minute_Mutation_Response>;
+  /** update single row of the table: "average_block_time_per_minute" */
+  update_average_block_time_per_minute_by_pk?: Maybe<Average_Block_Time_Per_Minute>;
+  /** update data of the table: "block" */
+  update_block?: Maybe<Block_Mutation_Response>;
+  /** update single row of the table: "block" */
+  update_block_by_pk?: Maybe<Block>;
+  /** update data of the table: "community_pool" */
+  update_community_pool?: Maybe<Community_Pool_Mutation_Response>;
+  /** update single row of the table: "community_pool" */
+  update_community_pool_by_pk?: Maybe<Community_Pool>;
+  /** update data of the table: "distribution_params" */
+  update_distribution_params?: Maybe<Distribution_Params_Mutation_Response>;
+  /** update single row of the table: "distribution_params" */
+  update_distribution_params_by_pk?: Maybe<Distribution_Params>;
+  /** update data of the table: "double_sign_evidence" */
+  update_double_sign_evidence?: Maybe<Double_Sign_Evidence_Mutation_Response>;
+  /** update data of the table: "double_sign_vote" */
+  update_double_sign_vote?: Maybe<Double_Sign_Vote_Mutation_Response>;
+  /** update single row of the table: "double_sign_vote" */
+  update_double_sign_vote_by_pk?: Maybe<Double_Sign_Vote>;
+  /** update data of the table: "fee_grant_allowance" */
+  update_fee_grant_allowance?: Maybe<Fee_Grant_Allowance_Mutation_Response>;
+  /** update single row of the table: "fee_grant_allowance" */
+  update_fee_grant_allowance_by_pk?: Maybe<Fee_Grant_Allowance>;
+  /** update data of the table: "genesis" */
+  update_genesis?: Maybe<Genesis_Mutation_Response>;
+  /** update single row of the table: "genesis" */
+  update_genesis_by_pk?: Maybe<Genesis>;
+  /** update data of the table: "gov_params" */
+  update_gov_params?: Maybe<Gov_Params_Mutation_Response>;
+  /** update single row of the table: "gov_params" */
+  update_gov_params_by_pk?: Maybe<Gov_Params>;
+  /** update data of the table: "inflation" */
+  update_inflation?: Maybe<Inflation_Mutation_Response>;
+  /** update single row of the table: "inflation" */
+  update_inflation_by_pk?: Maybe<Inflation>;
+  /** update data of the table: "message" */
+  update_message?: Maybe<Message_Mutation_Response>;
+  /** update data of the table: "mint_params" */
+  update_mint_params?: Maybe<Mint_Params_Mutation_Response>;
+  /** update single row of the table: "mint_params" */
+  update_mint_params_by_pk?: Maybe<Mint_Params>;
+  /** update data of the table: "modules" */
+  update_modules?: Maybe<Modules_Mutation_Response>;
+  /** update single row of the table: "modules" */
+  update_modules_by_pk?: Maybe<Modules>;
+  /** update data of the table: "pre_commit" */
+  update_pre_commit?: Maybe<Pre_Commit_Mutation_Response>;
+  /** update data of the table: "proposal" */
+  update_proposal?: Maybe<Proposal_Mutation_Response>;
+  /** update single row of the table: "proposal" */
+  update_proposal_by_pk?: Maybe<Proposal>;
+  /** update data of the table: "proposal_deposit" */
+  update_proposal_deposit?: Maybe<Proposal_Deposit_Mutation_Response>;
+  /** update data of the table: "proposal_staking_pool_snapshot" */
+  update_proposal_staking_pool_snapshot?: Maybe<Proposal_Staking_Pool_Snapshot_Mutation_Response>;
+  /** update single row of the table: "proposal_staking_pool_snapshot" */
+  update_proposal_staking_pool_snapshot_by_pk?: Maybe<Proposal_Staking_Pool_Snapshot>;
+  /** update data of the table: "proposal_tally_result" */
+  update_proposal_tally_result?: Maybe<Proposal_Tally_Result_Mutation_Response>;
+  /** update single row of the table: "proposal_tally_result" */
+  update_proposal_tally_result_by_pk?: Maybe<Proposal_Tally_Result>;
+  /** update data of the table: "proposal_validator_status_snapshot" */
+  update_proposal_validator_status_snapshot?: Maybe<Proposal_Validator_Status_Snapshot_Mutation_Response>;
+  /** update single row of the table: "proposal_validator_status_snapshot" */
+  update_proposal_validator_status_snapshot_by_pk?: Maybe<Proposal_Validator_Status_Snapshot>;
+  /** update data of the table: "proposal_vote" */
+  update_proposal_vote?: Maybe<Proposal_Vote_Mutation_Response>;
+  /** update data of the table: "slashing_params" */
+  update_slashing_params?: Maybe<Slashing_Params_Mutation_Response>;
+  /** update single row of the table: "slashing_params" */
+  update_slashing_params_by_pk?: Maybe<Slashing_Params>;
+  /** update data of the table: "software_upgrade_plan" */
+  update_software_upgrade_plan?: Maybe<Software_Upgrade_Plan_Mutation_Response>;
+  /** update data of the table: "staking_params" */
+  update_staking_params?: Maybe<Staking_Params_Mutation_Response>;
+  /** update single row of the table: "staking_params" */
+  update_staking_params_by_pk?: Maybe<Staking_Params>;
+  /** update data of the table: "staking_pool" */
+  update_staking_pool?: Maybe<Staking_Pool_Mutation_Response>;
+  /** update single row of the table: "staking_pool" */
+  update_staking_pool_by_pk?: Maybe<Staking_Pool>;
+  /** update data of the table: "supply" */
+  update_supply?: Maybe<Supply_Mutation_Response>;
+  /** update single row of the table: "supply" */
+  update_supply_by_pk?: Maybe<Supply>;
+  /** update data of the table: "token" */
+  update_token?: Maybe<Token_Mutation_Response>;
+  /** update data of the table: "token_price" */
+  update_token_price?: Maybe<Token_Price_Mutation_Response>;
+  /** update single row of the table: "token_price" */
+  update_token_price_by_pk?: Maybe<Token_Price>;
+  /** update data of the table: "token_price_history" */
+  update_token_price_history?: Maybe<Token_Price_History_Mutation_Response>;
+  /** update single row of the table: "token_price_history" */
+  update_token_price_history_by_pk?: Maybe<Token_Price_History>;
+  /** update data of the table: "token_unit" */
+  update_token_unit?: Maybe<Token_Unit_Mutation_Response>;
+  /** update data of the table: "transaction" */
+  update_transaction?: Maybe<Transaction_Mutation_Response>;
+  /** update data of the table: "validator" */
+  update_validator?: Maybe<Validator_Mutation_Response>;
+  /** update single row of the table: "validator" */
+  update_validator_by_pk?: Maybe<Validator>;
+  /** update data of the table: "validator_commission" */
+  update_validator_commission?: Maybe<Validator_Commission_Mutation_Response>;
+  /** update single row of the table: "validator_commission" */
+  update_validator_commission_by_pk?: Maybe<Validator_Commission>;
+  /** update data of the table: "validator_description" */
+  update_validator_description?: Maybe<Validator_Description_Mutation_Response>;
+  /** update single row of the table: "validator_description" */
+  update_validator_description_by_pk?: Maybe<Validator_Description>;
+  /** update data of the table: "validator_info" */
+  update_validator_info?: Maybe<Validator_Info_Mutation_Response>;
+  /** update single row of the table: "validator_info" */
+  update_validator_info_by_pk?: Maybe<Validator_Info>;
+  /** update data of the table: "validator_signing_info" */
+  update_validator_signing_info?: Maybe<Validator_Signing_Info_Mutation_Response>;
+  /** update single row of the table: "validator_signing_info" */
+  update_validator_signing_info_by_pk?: Maybe<Validator_Signing_Info>;
+  /** update data of the table: "validator_status" */
+  update_validator_status?: Maybe<Validator_Status_Mutation_Response>;
+  /** update single row of the table: "validator_status" */
+  update_validator_status_by_pk?: Maybe<Validator_Status>;
+  /** update data of the table: "validator_voting_power" */
+  update_validator_voting_power?: Maybe<Validator_Voting_Power_Mutation_Response>;
+  /** update single row of the table: "validator_voting_power" */
+  update_validator_voting_power_by_pk?: Maybe<Validator_Voting_Power>;
+  /** update data of the table: "vesting_account" */
+  update_vesting_account?: Maybe<Vesting_Account_Mutation_Response>;
+  /** update single row of the table: "vesting_account" */
+  update_vesting_account_by_pk?: Maybe<Vesting_Account>;
+  /** update data of the table: "vesting_period" */
+  update_vesting_period?: Maybe<Vesting_Period_Mutation_Response>;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_AccountArgs = {
+  where: Account_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Account_By_PkArgs = {
+  address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_From_GenesisArgs = {
+  where: Average_Block_Time_From_Genesis_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_From_Genesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_DayArgs = {
+  where: Average_Block_Time_Per_Day_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_Day_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_HourArgs = {
+  where: Average_Block_Time_Per_Hour_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_Hour_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_MinuteArgs = {
+  where: Average_Block_Time_Per_Minute_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Average_Block_Time_Per_Minute_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_BlockArgs = {
+  where: Block_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Block_By_PkArgs = {
+  height: Scalars['bigint'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Community_PoolArgs = {
+  where: Community_Pool_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Community_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Distribution_ParamsArgs = {
+  where: Distribution_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Distribution_Params_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Double_Sign_EvidenceArgs = {
+  where: Double_Sign_Evidence_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Double_Sign_VoteArgs = {
+  where: Double_Sign_Vote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Double_Sign_Vote_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Fee_Grant_AllowanceArgs = {
+  where: Fee_Grant_Allowance_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Fee_Grant_Allowance_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_GenesisArgs = {
+  where: Genesis_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Genesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gov_ParamsArgs = {
+  where: Gov_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Gov_Params_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_InflationArgs = {
+  where: Inflation_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Inflation_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_MessageArgs = {
+  where: Message_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Mint_ParamsArgs = {
+  where: Mint_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Mint_Params_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ModulesArgs = {
+  where: Modules_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Modules_By_PkArgs = {
+  module_name: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Pre_CommitArgs = {
+  where: Pre_Commit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ProposalArgs = {
+  where: Proposal_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_DepositArgs = {
+  where: Proposal_Deposit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Staking_Pool_SnapshotArgs = {
+  where: Proposal_Staking_Pool_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Staking_Pool_Snapshot_By_PkArgs = {
+  proposal_id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Tally_ResultArgs = {
+  where: Proposal_Tally_Result_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Tally_Result_By_PkArgs = {
+  proposal_id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Validator_Status_SnapshotArgs = {
+  where: Proposal_Validator_Status_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_Validator_Status_Snapshot_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Proposal_VoteArgs = {
+  where: Proposal_Vote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Slashing_ParamsArgs = {
+  where: Slashing_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Slashing_Params_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Software_Upgrade_PlanArgs = {
+  where: Software_Upgrade_Plan_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Staking_ParamsArgs = {
+  where: Staking_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Staking_Params_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Staking_PoolArgs = {
+  where: Staking_Pool_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Staking_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_SupplyArgs = {
+  where: Supply_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Supply_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_TokenArgs = {
+  where: Token_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Token_PriceArgs = {
+  where: Token_Price_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Token_Price_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Token_Price_HistoryArgs = {
+  where: Token_Price_History_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Token_Price_History_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Token_UnitArgs = {
+  where: Token_Unit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_TransactionArgs = {
+  where: Transaction_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_ValidatorArgs = {
+  where: Validator_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_By_PkArgs = {
+  consensus_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_CommissionArgs = {
+  where: Validator_Commission_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Commission_By_PkArgs = {
+  validator_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_DescriptionArgs = {
+  where: Validator_Description_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Description_By_PkArgs = {
+  validator_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_InfoArgs = {
+  where: Validator_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Info_By_PkArgs = {
+  consensus_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Signing_InfoArgs = {
+  where: Validator_Signing_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Signing_Info_By_PkArgs = {
+  validator_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_StatusArgs = {
+  where: Validator_Status_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Status_By_PkArgs = {
+  validator_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Voting_PowerArgs = {
+  where: Validator_Voting_Power_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Validator_Voting_Power_By_PkArgs = {
+  validator_address: Scalars['String'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Vesting_AccountArgs = {
+  where: Vesting_Account_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Vesting_Account_By_PkArgs = {
+  id: Scalars['Int'];
+};
+
+
+/** mutation root */
+export type Mutation_RootDelete_Vesting_PeriodArgs = {
+  where: Vesting_Period_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_AccountArgs = {
+  objects: Array<Account_Insert_Input>;
+  on_conflict?: InputMaybe<Account_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Account_OneArgs = {
+  object: Account_Insert_Input;
+  on_conflict?: InputMaybe<Account_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_From_GenesisArgs = {
+  objects: Array<Average_Block_Time_From_Genesis_Insert_Input>;
+  on_conflict?: InputMaybe<Average_Block_Time_From_Genesis_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_From_Genesis_OneArgs = {
+  object: Average_Block_Time_From_Genesis_Insert_Input;
+  on_conflict?: InputMaybe<Average_Block_Time_From_Genesis_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_DayArgs = {
+  objects: Array<Average_Block_Time_Per_Day_Insert_Input>;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Day_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_Day_OneArgs = {
+  object: Average_Block_Time_Per_Day_Insert_Input;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Day_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_HourArgs = {
+  objects: Array<Average_Block_Time_Per_Hour_Insert_Input>;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Hour_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_Hour_OneArgs = {
+  object: Average_Block_Time_Per_Hour_Insert_Input;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Hour_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_MinuteArgs = {
+  objects: Array<Average_Block_Time_Per_Minute_Insert_Input>;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Minute_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Average_Block_Time_Per_Minute_OneArgs = {
+  object: Average_Block_Time_Per_Minute_Insert_Input;
+  on_conflict?: InputMaybe<Average_Block_Time_Per_Minute_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_BlockArgs = {
+  objects: Array<Block_Insert_Input>;
+  on_conflict?: InputMaybe<Block_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Block_OneArgs = {
+  object: Block_Insert_Input;
+  on_conflict?: InputMaybe<Block_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Community_PoolArgs = {
+  objects: Array<Community_Pool_Insert_Input>;
+  on_conflict?: InputMaybe<Community_Pool_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Community_Pool_OneArgs = {
+  object: Community_Pool_Insert_Input;
+  on_conflict?: InputMaybe<Community_Pool_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Distribution_ParamsArgs = {
+  objects: Array<Distribution_Params_Insert_Input>;
+  on_conflict?: InputMaybe<Distribution_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Distribution_Params_OneArgs = {
+  object: Distribution_Params_Insert_Input;
+  on_conflict?: InputMaybe<Distribution_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Double_Sign_EvidenceArgs = {
+  objects: Array<Double_Sign_Evidence_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Double_Sign_Evidence_OneArgs = {
+  object: Double_Sign_Evidence_Insert_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Double_Sign_VoteArgs = {
+  objects: Array<Double_Sign_Vote_Insert_Input>;
+  on_conflict?: InputMaybe<Double_Sign_Vote_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Double_Sign_Vote_OneArgs = {
+  object: Double_Sign_Vote_Insert_Input;
+  on_conflict?: InputMaybe<Double_Sign_Vote_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Fee_Grant_AllowanceArgs = {
+  objects: Array<Fee_Grant_Allowance_Insert_Input>;
+  on_conflict?: InputMaybe<Fee_Grant_Allowance_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Fee_Grant_Allowance_OneArgs = {
+  object: Fee_Grant_Allowance_Insert_Input;
+  on_conflict?: InputMaybe<Fee_Grant_Allowance_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_GenesisArgs = {
+  objects: Array<Genesis_Insert_Input>;
+  on_conflict?: InputMaybe<Genesis_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Genesis_OneArgs = {
+  object: Genesis_Insert_Input;
+  on_conflict?: InputMaybe<Genesis_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gov_ParamsArgs = {
+  objects: Array<Gov_Params_Insert_Input>;
+  on_conflict?: InputMaybe<Gov_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Gov_Params_OneArgs = {
+  object: Gov_Params_Insert_Input;
+  on_conflict?: InputMaybe<Gov_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_InflationArgs = {
+  objects: Array<Inflation_Insert_Input>;
+  on_conflict?: InputMaybe<Inflation_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Inflation_OneArgs = {
+  object: Inflation_Insert_Input;
+  on_conflict?: InputMaybe<Inflation_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_MessageArgs = {
+  objects: Array<Message_Insert_Input>;
+  on_conflict?: InputMaybe<Message_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Message_OneArgs = {
+  object: Message_Insert_Input;
+  on_conflict?: InputMaybe<Message_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Mint_ParamsArgs = {
+  objects: Array<Mint_Params_Insert_Input>;
+  on_conflict?: InputMaybe<Mint_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Mint_Params_OneArgs = {
+  object: Mint_Params_Insert_Input;
+  on_conflict?: InputMaybe<Mint_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ModulesArgs = {
+  objects: Array<Modules_Insert_Input>;
+  on_conflict?: InputMaybe<Modules_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Modules_OneArgs = {
+  object: Modules_Insert_Input;
+  on_conflict?: InputMaybe<Modules_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Pre_CommitArgs = {
+  objects: Array<Pre_Commit_Insert_Input>;
+  on_conflict?: InputMaybe<Pre_Commit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Pre_Commit_OneArgs = {
+  object: Pre_Commit_Insert_Input;
+  on_conflict?: InputMaybe<Pre_Commit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ProposalArgs = {
+  objects: Array<Proposal_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_DepositArgs = {
+  objects: Array<Proposal_Deposit_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_Deposit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Deposit_OneArgs = {
+  object: Proposal_Deposit_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_Deposit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_OneArgs = {
+  object: Proposal_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Staking_Pool_SnapshotArgs = {
+  objects: Array<Proposal_Staking_Pool_Snapshot_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_Staking_Pool_Snapshot_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Staking_Pool_Snapshot_OneArgs = {
+  object: Proposal_Staking_Pool_Snapshot_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_Staking_Pool_Snapshot_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Tally_ResultArgs = {
+  objects: Array<Proposal_Tally_Result_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_Tally_Result_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Tally_Result_OneArgs = {
+  object: Proposal_Tally_Result_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_Tally_Result_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Validator_Status_SnapshotArgs = {
+  objects: Array<Proposal_Validator_Status_Snapshot_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_Validator_Status_Snapshot_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Validator_Status_Snapshot_OneArgs = {
+  object: Proposal_Validator_Status_Snapshot_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_Validator_Status_Snapshot_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_VoteArgs = {
+  objects: Array<Proposal_Vote_Insert_Input>;
+  on_conflict?: InputMaybe<Proposal_Vote_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Proposal_Vote_OneArgs = {
+  object: Proposal_Vote_Insert_Input;
+  on_conflict?: InputMaybe<Proposal_Vote_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Slashing_ParamsArgs = {
+  objects: Array<Slashing_Params_Insert_Input>;
+  on_conflict?: InputMaybe<Slashing_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Slashing_Params_OneArgs = {
+  object: Slashing_Params_Insert_Input;
+  on_conflict?: InputMaybe<Slashing_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Software_Upgrade_PlanArgs = {
+  objects: Array<Software_Upgrade_Plan_Insert_Input>;
+  on_conflict?: InputMaybe<Software_Upgrade_Plan_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Software_Upgrade_Plan_OneArgs = {
+  object: Software_Upgrade_Plan_Insert_Input;
+  on_conflict?: InputMaybe<Software_Upgrade_Plan_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Staking_ParamsArgs = {
+  objects: Array<Staking_Params_Insert_Input>;
+  on_conflict?: InputMaybe<Staking_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Staking_Params_OneArgs = {
+  object: Staking_Params_Insert_Input;
+  on_conflict?: InputMaybe<Staking_Params_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Staking_PoolArgs = {
+  objects: Array<Staking_Pool_Insert_Input>;
+  on_conflict?: InputMaybe<Staking_Pool_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Staking_Pool_OneArgs = {
+  object: Staking_Pool_Insert_Input;
+  on_conflict?: InputMaybe<Staking_Pool_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_SupplyArgs = {
+  objects: Array<Supply_Insert_Input>;
+  on_conflict?: InputMaybe<Supply_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Supply_OneArgs = {
+  object: Supply_Insert_Input;
+  on_conflict?: InputMaybe<Supply_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_TokenArgs = {
+  objects: Array<Token_Insert_Input>;
+  on_conflict?: InputMaybe<Token_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_OneArgs = {
+  object: Token_Insert_Input;
+  on_conflict?: InputMaybe<Token_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_PriceArgs = {
+  objects: Array<Token_Price_Insert_Input>;
+  on_conflict?: InputMaybe<Token_Price_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_Price_HistoryArgs = {
+  objects: Array<Token_Price_History_Insert_Input>;
+  on_conflict?: InputMaybe<Token_Price_History_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_Price_History_OneArgs = {
+  object: Token_Price_History_Insert_Input;
+  on_conflict?: InputMaybe<Token_Price_History_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_Price_OneArgs = {
+  object: Token_Price_Insert_Input;
+  on_conflict?: InputMaybe<Token_Price_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_UnitArgs = {
+  objects: Array<Token_Unit_Insert_Input>;
+  on_conflict?: InputMaybe<Token_Unit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Token_Unit_OneArgs = {
+  object: Token_Unit_Insert_Input;
+  on_conflict?: InputMaybe<Token_Unit_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_TransactionArgs = {
+  objects: Array<Transaction_Insert_Input>;
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Transaction_OneArgs = {
+  object: Transaction_Insert_Input;
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_ValidatorArgs = {
+  objects: Array<Validator_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_CommissionArgs = {
+  objects: Array<Validator_Commission_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Commission_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Commission_OneArgs = {
+  object: Validator_Commission_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Commission_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_DescriptionArgs = {
+  objects: Array<Validator_Description_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Description_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Description_OneArgs = {
+  object: Validator_Description_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Description_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_InfoArgs = {
+  objects: Array<Validator_Info_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Info_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Info_OneArgs = {
+  object: Validator_Info_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Info_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_OneArgs = {
+  object: Validator_Insert_Input;
+  on_conflict?: InputMaybe<Validator_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Signing_InfoArgs = {
+  objects: Array<Validator_Signing_Info_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Signing_Info_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Signing_Info_OneArgs = {
+  object: Validator_Signing_Info_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Signing_Info_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_StatusArgs = {
+  objects: Array<Validator_Status_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Status_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Status_OneArgs = {
+  object: Validator_Status_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Status_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Voting_PowerArgs = {
+  objects: Array<Validator_Voting_Power_Insert_Input>;
+  on_conflict?: InputMaybe<Validator_Voting_Power_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Validator_Voting_Power_OneArgs = {
+  object: Validator_Voting_Power_Insert_Input;
+  on_conflict?: InputMaybe<Validator_Voting_Power_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Vesting_AccountArgs = {
+  objects: Array<Vesting_Account_Insert_Input>;
+  on_conflict?: InputMaybe<Vesting_Account_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Vesting_Account_OneArgs = {
+  object: Vesting_Account_Insert_Input;
+  on_conflict?: InputMaybe<Vesting_Account_On_Conflict>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Vesting_PeriodArgs = {
+  objects: Array<Vesting_Period_Insert_Input>;
+};
+
+
+/** mutation root */
+export type Mutation_RootInsert_Vesting_Period_OneArgs = {
+  object: Vesting_Period_Insert_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_AccountArgs = {
+  _set?: InputMaybe<Account_Set_Input>;
+  where: Account_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Account_By_PkArgs = {
+  _set?: InputMaybe<Account_Set_Input>;
+  pk_columns: Account_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_From_GenesisArgs = {
+  _inc?: InputMaybe<Average_Block_Time_From_Genesis_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_From_Genesis_Set_Input>;
+  where: Average_Block_Time_From_Genesis_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_From_Genesis_By_PkArgs = {
+  _inc?: InputMaybe<Average_Block_Time_From_Genesis_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_From_Genesis_Set_Input>;
+  pk_columns: Average_Block_Time_From_Genesis_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_DayArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Day_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Day_Set_Input>;
+  where: Average_Block_Time_Per_Day_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_Day_By_PkArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Day_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Day_Set_Input>;
+  pk_columns: Average_Block_Time_Per_Day_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_HourArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Hour_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Hour_Set_Input>;
+  where: Average_Block_Time_Per_Hour_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_Hour_By_PkArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Hour_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Hour_Set_Input>;
+  pk_columns: Average_Block_Time_Per_Hour_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_MinuteArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Minute_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Minute_Set_Input>;
+  where: Average_Block_Time_Per_Minute_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Average_Block_Time_Per_Minute_By_PkArgs = {
+  _inc?: InputMaybe<Average_Block_Time_Per_Minute_Inc_Input>;
+  _set?: InputMaybe<Average_Block_Time_Per_Minute_Set_Input>;
+  pk_columns: Average_Block_Time_Per_Minute_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_BlockArgs = {
+  _inc?: InputMaybe<Block_Inc_Input>;
+  _set?: InputMaybe<Block_Set_Input>;
+  where: Block_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Block_By_PkArgs = {
+  _inc?: InputMaybe<Block_Inc_Input>;
+  _set?: InputMaybe<Block_Set_Input>;
+  pk_columns: Block_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Community_PoolArgs = {
+  _inc?: InputMaybe<Community_Pool_Inc_Input>;
+  _set?: InputMaybe<Community_Pool_Set_Input>;
+  where: Community_Pool_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Community_Pool_By_PkArgs = {
+  _inc?: InputMaybe<Community_Pool_Inc_Input>;
+  _set?: InputMaybe<Community_Pool_Set_Input>;
+  pk_columns: Community_Pool_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Distribution_ParamsArgs = {
+  _append?: InputMaybe<Distribution_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Distribution_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Distribution_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Distribution_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Distribution_Params_Inc_Input>;
+  _prepend?: InputMaybe<Distribution_Params_Prepend_Input>;
+  _set?: InputMaybe<Distribution_Params_Set_Input>;
+  where: Distribution_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Distribution_Params_By_PkArgs = {
+  _append?: InputMaybe<Distribution_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Distribution_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Distribution_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Distribution_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Distribution_Params_Inc_Input>;
+  _prepend?: InputMaybe<Distribution_Params_Prepend_Input>;
+  _set?: InputMaybe<Distribution_Params_Set_Input>;
+  pk_columns: Distribution_Params_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Double_Sign_EvidenceArgs = {
+  _inc?: InputMaybe<Double_Sign_Evidence_Inc_Input>;
+  _set?: InputMaybe<Double_Sign_Evidence_Set_Input>;
+  where: Double_Sign_Evidence_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Double_Sign_VoteArgs = {
+  _inc?: InputMaybe<Double_Sign_Vote_Inc_Input>;
+  _set?: InputMaybe<Double_Sign_Vote_Set_Input>;
+  where: Double_Sign_Vote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Double_Sign_Vote_By_PkArgs = {
+  _inc?: InputMaybe<Double_Sign_Vote_Inc_Input>;
+  _set?: InputMaybe<Double_Sign_Vote_Set_Input>;
+  pk_columns: Double_Sign_Vote_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Fee_Grant_AllowanceArgs = {
+  _append?: InputMaybe<Fee_Grant_Allowance_Append_Input>;
+  _delete_at_path?: InputMaybe<Fee_Grant_Allowance_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Fee_Grant_Allowance_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Fee_Grant_Allowance_Delete_Key_Input>;
+  _inc?: InputMaybe<Fee_Grant_Allowance_Inc_Input>;
+  _prepend?: InputMaybe<Fee_Grant_Allowance_Prepend_Input>;
+  _set?: InputMaybe<Fee_Grant_Allowance_Set_Input>;
+  where: Fee_Grant_Allowance_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Fee_Grant_Allowance_By_PkArgs = {
+  _append?: InputMaybe<Fee_Grant_Allowance_Append_Input>;
+  _delete_at_path?: InputMaybe<Fee_Grant_Allowance_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Fee_Grant_Allowance_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Fee_Grant_Allowance_Delete_Key_Input>;
+  _inc?: InputMaybe<Fee_Grant_Allowance_Inc_Input>;
+  _prepend?: InputMaybe<Fee_Grant_Allowance_Prepend_Input>;
+  _set?: InputMaybe<Fee_Grant_Allowance_Set_Input>;
+  pk_columns: Fee_Grant_Allowance_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_GenesisArgs = {
+  _inc?: InputMaybe<Genesis_Inc_Input>;
+  _set?: InputMaybe<Genesis_Set_Input>;
+  where: Genesis_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Genesis_By_PkArgs = {
+  _inc?: InputMaybe<Genesis_Inc_Input>;
+  _set?: InputMaybe<Genesis_Set_Input>;
+  pk_columns: Genesis_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gov_ParamsArgs = {
+  _append?: InputMaybe<Gov_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Gov_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Gov_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Gov_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Gov_Params_Inc_Input>;
+  _prepend?: InputMaybe<Gov_Params_Prepend_Input>;
+  _set?: InputMaybe<Gov_Params_Set_Input>;
+  where: Gov_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Gov_Params_By_PkArgs = {
+  _append?: InputMaybe<Gov_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Gov_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Gov_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Gov_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Gov_Params_Inc_Input>;
+  _prepend?: InputMaybe<Gov_Params_Prepend_Input>;
+  _set?: InputMaybe<Gov_Params_Set_Input>;
+  pk_columns: Gov_Params_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_InflationArgs = {
+  _inc?: InputMaybe<Inflation_Inc_Input>;
+  _set?: InputMaybe<Inflation_Set_Input>;
+  where: Inflation_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Inflation_By_PkArgs = {
+  _inc?: InputMaybe<Inflation_Inc_Input>;
+  _set?: InputMaybe<Inflation_Set_Input>;
+  pk_columns: Inflation_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_MessageArgs = {
+  _inc?: InputMaybe<Message_Inc_Input>;
+  _set?: InputMaybe<Message_Set_Input>;
+  where: Message_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Mint_ParamsArgs = {
+  _append?: InputMaybe<Mint_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Mint_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Mint_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Mint_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Mint_Params_Inc_Input>;
+  _prepend?: InputMaybe<Mint_Params_Prepend_Input>;
+  _set?: InputMaybe<Mint_Params_Set_Input>;
+  where: Mint_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Mint_Params_By_PkArgs = {
+  _append?: InputMaybe<Mint_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Mint_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Mint_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Mint_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Mint_Params_Inc_Input>;
+  _prepend?: InputMaybe<Mint_Params_Prepend_Input>;
+  _set?: InputMaybe<Mint_Params_Set_Input>;
+  pk_columns: Mint_Params_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ModulesArgs = {
+  _set?: InputMaybe<Modules_Set_Input>;
+  where: Modules_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Modules_By_PkArgs = {
+  _set?: InputMaybe<Modules_Set_Input>;
+  pk_columns: Modules_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Pre_CommitArgs = {
+  _inc?: InputMaybe<Pre_Commit_Inc_Input>;
+  _set?: InputMaybe<Pre_Commit_Set_Input>;
+  where: Pre_Commit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ProposalArgs = {
+  _append?: InputMaybe<Proposal_Append_Input>;
+  _delete_at_path?: InputMaybe<Proposal_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Proposal_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Proposal_Delete_Key_Input>;
+  _inc?: InputMaybe<Proposal_Inc_Input>;
+  _prepend?: InputMaybe<Proposal_Prepend_Input>;
+  _set?: InputMaybe<Proposal_Set_Input>;
+  where: Proposal_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_By_PkArgs = {
+  _append?: InputMaybe<Proposal_Append_Input>;
+  _delete_at_path?: InputMaybe<Proposal_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Proposal_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Proposal_Delete_Key_Input>;
+  _inc?: InputMaybe<Proposal_Inc_Input>;
+  _prepend?: InputMaybe<Proposal_Prepend_Input>;
+  _set?: InputMaybe<Proposal_Set_Input>;
+  pk_columns: Proposal_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_DepositArgs = {
+  _inc?: InputMaybe<Proposal_Deposit_Inc_Input>;
+  _set?: InputMaybe<Proposal_Deposit_Set_Input>;
+  where: Proposal_Deposit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Staking_Pool_SnapshotArgs = {
+  _inc?: InputMaybe<Proposal_Staking_Pool_Snapshot_Inc_Input>;
+  _set?: InputMaybe<Proposal_Staking_Pool_Snapshot_Set_Input>;
+  where: Proposal_Staking_Pool_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Staking_Pool_Snapshot_By_PkArgs = {
+  _inc?: InputMaybe<Proposal_Staking_Pool_Snapshot_Inc_Input>;
+  _set?: InputMaybe<Proposal_Staking_Pool_Snapshot_Set_Input>;
+  pk_columns: Proposal_Staking_Pool_Snapshot_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Tally_ResultArgs = {
+  _inc?: InputMaybe<Proposal_Tally_Result_Inc_Input>;
+  _set?: InputMaybe<Proposal_Tally_Result_Set_Input>;
+  where: Proposal_Tally_Result_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Tally_Result_By_PkArgs = {
+  _inc?: InputMaybe<Proposal_Tally_Result_Inc_Input>;
+  _set?: InputMaybe<Proposal_Tally_Result_Set_Input>;
+  pk_columns: Proposal_Tally_Result_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Validator_Status_SnapshotArgs = {
+  _inc?: InputMaybe<Proposal_Validator_Status_Snapshot_Inc_Input>;
+  _set?: InputMaybe<Proposal_Validator_Status_Snapshot_Set_Input>;
+  where: Proposal_Validator_Status_Snapshot_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_Validator_Status_Snapshot_By_PkArgs = {
+  _inc?: InputMaybe<Proposal_Validator_Status_Snapshot_Inc_Input>;
+  _set?: InputMaybe<Proposal_Validator_Status_Snapshot_Set_Input>;
+  pk_columns: Proposal_Validator_Status_Snapshot_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Proposal_VoteArgs = {
+  _inc?: InputMaybe<Proposal_Vote_Inc_Input>;
+  _set?: InputMaybe<Proposal_Vote_Set_Input>;
+  where: Proposal_Vote_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Slashing_ParamsArgs = {
+  _append?: InputMaybe<Slashing_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Slashing_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Slashing_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Slashing_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Slashing_Params_Inc_Input>;
+  _prepend?: InputMaybe<Slashing_Params_Prepend_Input>;
+  _set?: InputMaybe<Slashing_Params_Set_Input>;
+  where: Slashing_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Slashing_Params_By_PkArgs = {
+  _append?: InputMaybe<Slashing_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Slashing_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Slashing_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Slashing_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Slashing_Params_Inc_Input>;
+  _prepend?: InputMaybe<Slashing_Params_Prepend_Input>;
+  _set?: InputMaybe<Slashing_Params_Set_Input>;
+  pk_columns: Slashing_Params_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Software_Upgrade_PlanArgs = {
+  _inc?: InputMaybe<Software_Upgrade_Plan_Inc_Input>;
+  _set?: InputMaybe<Software_Upgrade_Plan_Set_Input>;
+  where: Software_Upgrade_Plan_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Staking_ParamsArgs = {
+  _append?: InputMaybe<Staking_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Staking_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Staking_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Staking_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Staking_Params_Inc_Input>;
+  _prepend?: InputMaybe<Staking_Params_Prepend_Input>;
+  _set?: InputMaybe<Staking_Params_Set_Input>;
+  where: Staking_Params_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Staking_Params_By_PkArgs = {
+  _append?: InputMaybe<Staking_Params_Append_Input>;
+  _delete_at_path?: InputMaybe<Staking_Params_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Staking_Params_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Staking_Params_Delete_Key_Input>;
+  _inc?: InputMaybe<Staking_Params_Inc_Input>;
+  _prepend?: InputMaybe<Staking_Params_Prepend_Input>;
+  _set?: InputMaybe<Staking_Params_Set_Input>;
+  pk_columns: Staking_Params_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Staking_PoolArgs = {
+  _inc?: InputMaybe<Staking_Pool_Inc_Input>;
+  _set?: InputMaybe<Staking_Pool_Set_Input>;
+  where: Staking_Pool_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Staking_Pool_By_PkArgs = {
+  _inc?: InputMaybe<Staking_Pool_Inc_Input>;
+  _set?: InputMaybe<Staking_Pool_Set_Input>;
+  pk_columns: Staking_Pool_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_SupplyArgs = {
+  _inc?: InputMaybe<Supply_Inc_Input>;
+  _set?: InputMaybe<Supply_Set_Input>;
+  where: Supply_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Supply_By_PkArgs = {
+  _inc?: InputMaybe<Supply_Inc_Input>;
+  _set?: InputMaybe<Supply_Set_Input>;
+  pk_columns: Supply_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_TokenArgs = {
+  _set?: InputMaybe<Token_Set_Input>;
+  where: Token_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Token_PriceArgs = {
+  _inc?: InputMaybe<Token_Price_Inc_Input>;
+  _set?: InputMaybe<Token_Price_Set_Input>;
+  where: Token_Price_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Token_Price_By_PkArgs = {
+  _inc?: InputMaybe<Token_Price_Inc_Input>;
+  _set?: InputMaybe<Token_Price_Set_Input>;
+  pk_columns: Token_Price_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Token_Price_HistoryArgs = {
+  _inc?: InputMaybe<Token_Price_History_Inc_Input>;
+  _set?: InputMaybe<Token_Price_History_Set_Input>;
+  where: Token_Price_History_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Token_Price_History_By_PkArgs = {
+  _inc?: InputMaybe<Token_Price_History_Inc_Input>;
+  _set?: InputMaybe<Token_Price_History_Set_Input>;
+  pk_columns: Token_Price_History_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Token_UnitArgs = {
+  _inc?: InputMaybe<Token_Unit_Inc_Input>;
+  _set?: InputMaybe<Token_Unit_Set_Input>;
+  where: Token_Unit_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_TransactionArgs = {
+  _append?: InputMaybe<Transaction_Append_Input>;
+  _delete_at_path?: InputMaybe<Transaction_Delete_At_Path_Input>;
+  _delete_elem?: InputMaybe<Transaction_Delete_Elem_Input>;
+  _delete_key?: InputMaybe<Transaction_Delete_Key_Input>;
+  _inc?: InputMaybe<Transaction_Inc_Input>;
+  _prepend?: InputMaybe<Transaction_Prepend_Input>;
+  _set?: InputMaybe<Transaction_Set_Input>;
+  where: Transaction_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_ValidatorArgs = {
+  _set?: InputMaybe<Validator_Set_Input>;
+  where: Validator_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_By_PkArgs = {
+  _set?: InputMaybe<Validator_Set_Input>;
+  pk_columns: Validator_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_CommissionArgs = {
+  _inc?: InputMaybe<Validator_Commission_Inc_Input>;
+  _set?: InputMaybe<Validator_Commission_Set_Input>;
+  where: Validator_Commission_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Commission_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Commission_Inc_Input>;
+  _set?: InputMaybe<Validator_Commission_Set_Input>;
+  pk_columns: Validator_Commission_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_DescriptionArgs = {
+  _inc?: InputMaybe<Validator_Description_Inc_Input>;
+  _set?: InputMaybe<Validator_Description_Set_Input>;
+  where: Validator_Description_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Description_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Description_Inc_Input>;
+  _set?: InputMaybe<Validator_Description_Set_Input>;
+  pk_columns: Validator_Description_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_InfoArgs = {
+  _inc?: InputMaybe<Validator_Info_Inc_Input>;
+  _set?: InputMaybe<Validator_Info_Set_Input>;
+  where: Validator_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Info_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Info_Inc_Input>;
+  _set?: InputMaybe<Validator_Info_Set_Input>;
+  pk_columns: Validator_Info_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Signing_InfoArgs = {
+  _inc?: InputMaybe<Validator_Signing_Info_Inc_Input>;
+  _set?: InputMaybe<Validator_Signing_Info_Set_Input>;
+  where: Validator_Signing_Info_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Signing_Info_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Signing_Info_Inc_Input>;
+  _set?: InputMaybe<Validator_Signing_Info_Set_Input>;
+  pk_columns: Validator_Signing_Info_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_StatusArgs = {
+  _inc?: InputMaybe<Validator_Status_Inc_Input>;
+  _set?: InputMaybe<Validator_Status_Set_Input>;
+  where: Validator_Status_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Status_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Status_Inc_Input>;
+  _set?: InputMaybe<Validator_Status_Set_Input>;
+  pk_columns: Validator_Status_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Voting_PowerArgs = {
+  _inc?: InputMaybe<Validator_Voting_Power_Inc_Input>;
+  _set?: InputMaybe<Validator_Voting_Power_Set_Input>;
+  where: Validator_Voting_Power_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Validator_Voting_Power_By_PkArgs = {
+  _inc?: InputMaybe<Validator_Voting_Power_Inc_Input>;
+  _set?: InputMaybe<Validator_Voting_Power_Set_Input>;
+  pk_columns: Validator_Voting_Power_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Vesting_AccountArgs = {
+  _inc?: InputMaybe<Vesting_Account_Inc_Input>;
+  _set?: InputMaybe<Vesting_Account_Set_Input>;
+  where: Vesting_Account_Bool_Exp;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Vesting_Account_By_PkArgs = {
+  _inc?: InputMaybe<Vesting_Account_Inc_Input>;
+  _set?: InputMaybe<Vesting_Account_Set_Input>;
+  pk_columns: Vesting_Account_Pk_Columns_Input;
+};
+
+
+/** mutation root */
+export type Mutation_RootUpdate_Vesting_PeriodArgs = {
+  _inc?: InputMaybe<Vesting_Period_Inc_Input>;
+  _set?: InputMaybe<Vesting_Period_Set_Input>;
+  where: Vesting_Period_Bool_Exp;
+};
 
 /** Boolean expression to compare columns of type "numeric". All fields are combined with logical 'AND'. */
 export type Numeric_Comparison_Exp = {
@@ -3419,6 +6567,13 @@ export type Pre_Commit_Aggregate_Order_By = {
   variance?: InputMaybe<Pre_Commit_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "pre_commit" */
+export type Pre_Commit_Arr_Rel_Insert_Input = {
+  data: Array<Pre_Commit_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Pre_Commit_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Pre_Commit_Avg_Fields = {
   __typename?: 'pre_commit_avg_fields';
@@ -3445,6 +6600,29 @@ export type Pre_Commit_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
   voting_power?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "pre_commit" */
+export enum Pre_Commit_Constraint {
+  /** unique or primary key constraint */
+  PreCommitValidatorAddressTimestampKey = 'pre_commit_validator_address_timestamp_key'
+}
+
+/** input type for incrementing numeric columns in table "pre_commit" */
+export type Pre_Commit_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposer_priority?: InputMaybe<Scalars['bigint']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "pre_commit" */
+export type Pre_Commit_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposer_priority?: InputMaybe<Scalars['bigint']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
 };
 
 /** aggregate max on columns */
@@ -3485,6 +6663,22 @@ export type Pre_Commit_Min_Order_By = {
   voting_power?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "pre_commit" */
+export type Pre_Commit_Mutation_Response = {
+  __typename?: 'pre_commit_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Pre_Commit>;
+};
+
+/** on conflict condition type for table "pre_commit" */
+export type Pre_Commit_On_Conflict = {
+  constraint: Pre_Commit_Constraint;
+  update_columns?: Array<Pre_Commit_Update_Column>;
+  where?: InputMaybe<Pre_Commit_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "pre_commit". */
 export type Pre_Commit_Order_By = {
   height?: InputMaybe<Order_By>;
@@ -3508,6 +6702,15 @@ export enum Pre_Commit_Select_Column {
   /** column name */
   VotingPower = 'voting_power'
 }
+
+/** input type for updating data in table "pre_commit" */
+export type Pre_Commit_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposer_priority?: InputMaybe<Scalars['bigint']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Pre_Commit_Stddev_Fields = {
@@ -3569,6 +6772,20 @@ export type Pre_Commit_Sum_Order_By = {
   voting_power?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "pre_commit" */
+export enum Pre_Commit_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  ProposerPriority = 'proposer_priority',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  ValidatorAddress = 'validator_address',
+  /** column name */
+  VotingPower = 'voting_power'
+}
+
 /** aggregate var_pop on columns */
 export type Pre_Commit_Var_Pop_Fields = {
   __typename?: 'pre_commit_var_pop_fields';
@@ -3614,137 +6831,6 @@ export type Pre_Commit_Variance_Order_By = {
   voting_power?: InputMaybe<Order_By>;
 };
 
-/** columns and relationships of "profiles_params" */
-export type Profiles_Params = {
-  __typename?: 'profiles_params';
-  height: Scalars['bigint'];
-  one_row_id: Scalars['Boolean'];
-  params: Scalars['jsonb'];
-};
-
-
-/** columns and relationships of "profiles_params" */
-export type Profiles_ParamsParamsArgs = {
-  path?: InputMaybe<Scalars['String']>;
-};
-
-/** aggregated selection of "profiles_params" */
-export type Profiles_Params_Aggregate = {
-  __typename?: 'profiles_params_aggregate';
-  aggregate?: Maybe<Profiles_Params_Aggregate_Fields>;
-  nodes: Array<Profiles_Params>;
-};
-
-/** aggregate fields of "profiles_params" */
-export type Profiles_Params_Aggregate_Fields = {
-  __typename?: 'profiles_params_aggregate_fields';
-  avg?: Maybe<Profiles_Params_Avg_Fields>;
-  count: Scalars['Int'];
-  max?: Maybe<Profiles_Params_Max_Fields>;
-  min?: Maybe<Profiles_Params_Min_Fields>;
-  stddev?: Maybe<Profiles_Params_Stddev_Fields>;
-  stddev_pop?: Maybe<Profiles_Params_Stddev_Pop_Fields>;
-  stddev_samp?: Maybe<Profiles_Params_Stddev_Samp_Fields>;
-  sum?: Maybe<Profiles_Params_Sum_Fields>;
-  var_pop?: Maybe<Profiles_Params_Var_Pop_Fields>;
-  var_samp?: Maybe<Profiles_Params_Var_Samp_Fields>;
-  variance?: Maybe<Profiles_Params_Variance_Fields>;
-};
-
-
-/** aggregate fields of "profiles_params" */
-export type Profiles_Params_Aggregate_FieldsCountArgs = {
-  columns?: InputMaybe<Array<Profiles_Params_Select_Column>>;
-  distinct?: InputMaybe<Scalars['Boolean']>;
-};
-
-/** aggregate avg on columns */
-export type Profiles_Params_Avg_Fields = {
-  __typename?: 'profiles_params_avg_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** Boolean expression to filter rows from the table "profiles_params". All fields are combined with a logical 'AND'. */
-export type Profiles_Params_Bool_Exp = {
-  _and?: InputMaybe<Array<Profiles_Params_Bool_Exp>>;
-  _not?: InputMaybe<Profiles_Params_Bool_Exp>;
-  _or?: InputMaybe<Array<Profiles_Params_Bool_Exp>>;
-  height?: InputMaybe<Bigint_Comparison_Exp>;
-  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
-  params?: InputMaybe<Jsonb_Comparison_Exp>;
-};
-
-/** aggregate max on columns */
-export type Profiles_Params_Max_Fields = {
-  __typename?: 'profiles_params_max_fields';
-  height?: Maybe<Scalars['bigint']>;
-};
-
-/** aggregate min on columns */
-export type Profiles_Params_Min_Fields = {
-  __typename?: 'profiles_params_min_fields';
-  height?: Maybe<Scalars['bigint']>;
-};
-
-/** Ordering options when selecting data from "profiles_params". */
-export type Profiles_Params_Order_By = {
-  height?: InputMaybe<Order_By>;
-  one_row_id?: InputMaybe<Order_By>;
-  params?: InputMaybe<Order_By>;
-};
-
-/** select columns of table "profiles_params" */
-export enum Profiles_Params_Select_Column {
-  /** column name */
-  Height = 'height',
-  /** column name */
-  OneRowId = 'one_row_id',
-  /** column name */
-  Params = 'params'
-}
-
-/** aggregate stddev on columns */
-export type Profiles_Params_Stddev_Fields = {
-  __typename?: 'profiles_params_stddev_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_pop on columns */
-export type Profiles_Params_Stddev_Pop_Fields = {
-  __typename?: 'profiles_params_stddev_pop_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate stddev_samp on columns */
-export type Profiles_Params_Stddev_Samp_Fields = {
-  __typename?: 'profiles_params_stddev_samp_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate sum on columns */
-export type Profiles_Params_Sum_Fields = {
-  __typename?: 'profiles_params_sum_fields';
-  height?: Maybe<Scalars['bigint']>;
-};
-
-/** aggregate var_pop on columns */
-export type Profiles_Params_Var_Pop_Fields = {
-  __typename?: 'profiles_params_var_pop_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate var_samp on columns */
-export type Profiles_Params_Var_Samp_Fields = {
-  __typename?: 'profiles_params_var_samp_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
-/** aggregate variance on columns */
-export type Profiles_Params_Variance_Fields = {
-  __typename?: 'profiles_params_variance_fields';
-  height?: Maybe<Scalars['Float']>;
-};
-
 /** columns and relationships of "proposal" */
 export type Proposal = {
   __typename?: 'proposal';
@@ -3752,18 +6838,17 @@ export type Proposal = {
   deposit_end_time?: Maybe<Scalars['timestamp']>;
   description: Scalars['String'];
   id: Scalars['Int'];
+  metadata: Scalars['String'];
   /** An array relationship */
   proposal_deposits: Array<Proposal_Deposit>;
   /** An aggregate relationship */
   proposal_deposits_aggregate: Proposal_Deposit_Aggregate;
-  proposal_route: Scalars['String'];
   /** An object relationship */
   proposal_tally_result?: Maybe<Proposal_Tally_Result>;
   /** An array relationship */
   proposal_tally_results: Array<Proposal_Tally_Result>;
   /** An aggregate relationship */
   proposal_tally_results_aggregate: Proposal_Tally_Result_Aggregate;
-  proposal_type: Scalars['String'];
   /** An array relationship */
   proposal_votes: Array<Proposal_Vote>;
   /** An aggregate relationship */
@@ -3915,6 +7000,18 @@ export type Proposal_Aggregate_Order_By = {
   variance?: InputMaybe<Proposal_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Proposal_Append_Input = {
+  content?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "proposal" */
+export type Proposal_Arr_Rel_Insert_Input = {
+  data: Array<Proposal_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Proposal_Avg_Fields = {
   __typename?: 'proposal_avg_fields';
@@ -3935,11 +7032,10 @@ export type Proposal_Bool_Exp = {
   deposit_end_time?: InputMaybe<Timestamp_Comparison_Exp>;
   description?: InputMaybe<String_Comparison_Exp>;
   id?: InputMaybe<Int_Comparison_Exp>;
+  metadata?: InputMaybe<String_Comparison_Exp>;
   proposal_deposits?: InputMaybe<Proposal_Deposit_Bool_Exp>;
-  proposal_route?: InputMaybe<String_Comparison_Exp>;
   proposal_tally_result?: InputMaybe<Proposal_Tally_Result_Bool_Exp>;
   proposal_tally_results?: InputMaybe<Proposal_Tally_Result_Bool_Exp>;
-  proposal_type?: InputMaybe<String_Comparison_Exp>;
   proposal_votes?: InputMaybe<Proposal_Vote_Bool_Exp>;
   proposer?: InputMaybe<Account_Bool_Exp>;
   proposer_address?: InputMaybe<String_Comparison_Exp>;
@@ -3952,6 +7048,27 @@ export type Proposal_Bool_Exp = {
   voting_start_time?: InputMaybe<Timestamp_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "proposal" */
+export enum Proposal_Constraint {
+  /** unique or primary key constraint */
+  ProposalPkey = 'proposal_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Proposal_Delete_At_Path_Input = {
+  content?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Proposal_Delete_Elem_Input = {
+  content?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Proposal_Delete_Key_Input = {
+  content?: InputMaybe<Scalars['String']>;
+};
+
 /** columns and relationships of "proposal_deposit" */
 export type Proposal_Deposit = {
   __typename?: 'proposal_deposit';
@@ -3961,11 +7078,12 @@ export type Proposal_Deposit = {
   /** An object relationship */
   depositor?: Maybe<Account>;
   depositor_address?: Maybe<Scalars['String']>;
-  height?: Maybe<Scalars['bigint']>;
+  height: Scalars['bigint'];
   /** An object relationship */
   proposal: Proposal;
   proposal_id: Scalars['Int'];
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  transaction_hash: Scalars['String'];
 };
 
 /** aggregated selection of "proposal_deposit" */
@@ -4013,6 +7131,13 @@ export type Proposal_Deposit_Aggregate_Order_By = {
   variance?: InputMaybe<Proposal_Deposit_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "proposal_deposit" */
+export type Proposal_Deposit_Arr_Rel_Insert_Input = {
+  data: Array<Proposal_Deposit_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Deposit_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Proposal_Deposit_Avg_Fields = {
   __typename?: 'proposal_deposit_avg_fields';
@@ -4038,7 +7163,33 @@ export type Proposal_Deposit_Bool_Exp = {
   height?: InputMaybe<Bigint_Comparison_Exp>;
   proposal?: InputMaybe<Proposal_Bool_Exp>;
   proposal_id?: InputMaybe<Int_Comparison_Exp>;
-  timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+  timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
+  transaction_hash?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "proposal_deposit" */
+export enum Proposal_Deposit_Constraint {
+  /** unique or primary key constraint */
+  UniqueDeposit = 'unique_deposit'
+}
+
+/** input type for incrementing numeric columns in table "proposal_deposit" */
+export type Proposal_Deposit_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "proposal_deposit" */
+export type Proposal_Deposit_Insert_Input = {
+  amount?: InputMaybe<Scalars['_coin']>;
+  block?: InputMaybe<Block_Obj_Rel_Insert_Input>;
+  depositor?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  depositor_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  transaction_hash?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -4047,7 +7198,8 @@ export type Proposal_Deposit_Max_Fields = {
   depositor_address?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
   proposal_id?: Maybe<Scalars['Int']>;
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  transaction_hash?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "proposal_deposit" */
@@ -4056,6 +7208,7 @@ export type Proposal_Deposit_Max_Order_By = {
   height?: InputMaybe<Order_By>;
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
+  transaction_hash?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -4064,7 +7217,8 @@ export type Proposal_Deposit_Min_Fields = {
   depositor_address?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
   proposal_id?: Maybe<Scalars['Int']>;
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
+  transaction_hash?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "proposal_deposit" */
@@ -4073,6 +7227,23 @@ export type Proposal_Deposit_Min_Order_By = {
   height?: InputMaybe<Order_By>;
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
+  transaction_hash?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "proposal_deposit" */
+export type Proposal_Deposit_Mutation_Response = {
+  __typename?: 'proposal_deposit_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal_Deposit>;
+};
+
+/** on conflict condition type for table "proposal_deposit" */
+export type Proposal_Deposit_On_Conflict = {
+  constraint: Proposal_Deposit_Constraint;
+  update_columns?: Array<Proposal_Deposit_Update_Column>;
+  where?: InputMaybe<Proposal_Deposit_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "proposal_deposit". */
@@ -4085,6 +7256,7 @@ export type Proposal_Deposit_Order_By = {
   proposal?: InputMaybe<Proposal_Order_By>;
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
+  transaction_hash?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "proposal_deposit" */
@@ -4098,8 +7270,20 @@ export enum Proposal_Deposit_Select_Column {
   /** column name */
   ProposalId = 'proposal_id',
   /** column name */
-  Timestamp = 'timestamp'
+  Timestamp = 'timestamp',
+  /** column name */
+  TransactionHash = 'transaction_hash'
 }
+
+/** input type for updating data in table "proposal_deposit" */
+export type Proposal_Deposit_Set_Input = {
+  amount?: InputMaybe<Scalars['_coin']>;
+  depositor_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  transaction_hash?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Proposal_Deposit_Stddev_Fields = {
@@ -4153,6 +7337,22 @@ export type Proposal_Deposit_Sum_Order_By = {
   proposal_id?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "proposal_deposit" */
+export enum Proposal_Deposit_Update_Column {
+  /** column name */
+  Amount = 'amount',
+  /** column name */
+  DepositorAddress = 'depositor_address',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  ProposalId = 'proposal_id',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  TransactionHash = 'transaction_hash'
+}
+
 /** aggregate var_pop on columns */
 export type Proposal_Deposit_Var_Pop_Fields = {
   __typename?: 'proposal_deposit_var_pop_fields';
@@ -4192,14 +7392,40 @@ export type Proposal_Deposit_Variance_Order_By = {
   proposal_id?: InputMaybe<Order_By>;
 };
 
+/** input type for incrementing numeric columns in table "proposal" */
+export type Proposal_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "proposal" */
+export type Proposal_Insert_Input = {
+  content?: InputMaybe<Scalars['jsonb']>;
+  deposit_end_time?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  metadata?: InputMaybe<Scalars['String']>;
+  proposal_deposits?: InputMaybe<Proposal_Deposit_Arr_Rel_Insert_Input>;
+  proposal_tally_result?: InputMaybe<Proposal_Tally_Result_Obj_Rel_Insert_Input>;
+  proposal_tally_results?: InputMaybe<Proposal_Tally_Result_Arr_Rel_Insert_Input>;
+  proposal_votes?: InputMaybe<Proposal_Vote_Arr_Rel_Insert_Input>;
+  proposer?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  proposer_address?: InputMaybe<Scalars['String']>;
+  staking_pool_snapshot?: InputMaybe<Proposal_Staking_Pool_Snapshot_Obj_Rel_Insert_Input>;
+  status?: InputMaybe<Scalars['String']>;
+  submit_time?: InputMaybe<Scalars['timestamp']>;
+  title?: InputMaybe<Scalars['String']>;
+  validator_status_snapshots?: InputMaybe<Proposal_Validator_Status_Snapshot_Arr_Rel_Insert_Input>;
+  voting_end_time?: InputMaybe<Scalars['timestamp']>;
+  voting_start_time?: InputMaybe<Scalars['timestamp']>;
+};
+
 /** aggregate max on columns */
 export type Proposal_Max_Fields = {
   __typename?: 'proposal_max_fields';
   deposit_end_time?: Maybe<Scalars['timestamp']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
-  proposal_route?: Maybe<Scalars['String']>;
-  proposal_type?: Maybe<Scalars['String']>;
+  metadata?: Maybe<Scalars['String']>;
   proposer_address?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
   submit_time?: Maybe<Scalars['timestamp']>;
@@ -4213,8 +7439,7 @@ export type Proposal_Max_Order_By = {
   deposit_end_time?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  proposal_route?: InputMaybe<Order_By>;
-  proposal_type?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
   proposer_address?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   submit_time?: InputMaybe<Order_By>;
@@ -4229,8 +7454,7 @@ export type Proposal_Min_Fields = {
   deposit_end_time?: Maybe<Scalars['timestamp']>;
   description?: Maybe<Scalars['String']>;
   id?: Maybe<Scalars['Int']>;
-  proposal_route?: Maybe<Scalars['String']>;
-  proposal_type?: Maybe<Scalars['String']>;
+  metadata?: Maybe<Scalars['String']>;
   proposer_address?: Maybe<Scalars['String']>;
   status?: Maybe<Scalars['String']>;
   submit_time?: Maybe<Scalars['timestamp']>;
@@ -4244,8 +7468,7 @@ export type Proposal_Min_Order_By = {
   deposit_end_time?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
-  proposal_route?: InputMaybe<Order_By>;
-  proposal_type?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
   proposer_address?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
   submit_time?: InputMaybe<Order_By>;
@@ -4254,17 +7477,39 @@ export type Proposal_Min_Order_By = {
   voting_start_time?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "proposal" */
+export type Proposal_Mutation_Response = {
+  __typename?: 'proposal_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal>;
+};
+
+/** input type for inserting object relation for remote table "proposal" */
+export type Proposal_Obj_Rel_Insert_Input = {
+  data: Proposal_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_On_Conflict>;
+};
+
+/** on conflict condition type for table "proposal" */
+export type Proposal_On_Conflict = {
+  constraint: Proposal_Constraint;
+  update_columns?: Array<Proposal_Update_Column>;
+  where?: InputMaybe<Proposal_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "proposal". */
 export type Proposal_Order_By = {
   content?: InputMaybe<Order_By>;
   deposit_end_time?: InputMaybe<Order_By>;
   description?: InputMaybe<Order_By>;
   id?: InputMaybe<Order_By>;
+  metadata?: InputMaybe<Order_By>;
   proposal_deposits_aggregate?: InputMaybe<Proposal_Deposit_Aggregate_Order_By>;
-  proposal_route?: InputMaybe<Order_By>;
   proposal_tally_result?: InputMaybe<Proposal_Tally_Result_Order_By>;
   proposal_tally_results_aggregate?: InputMaybe<Proposal_Tally_Result_Aggregate_Order_By>;
-  proposal_type?: InputMaybe<Order_By>;
   proposal_votes_aggregate?: InputMaybe<Proposal_Vote_Aggregate_Order_By>;
   proposer?: InputMaybe<Account_Order_By>;
   proposer_address?: InputMaybe<Order_By>;
@@ -4275,6 +7520,16 @@ export type Proposal_Order_By = {
   validator_status_snapshots_aggregate?: InputMaybe<Proposal_Validator_Status_Snapshot_Aggregate_Order_By>;
   voting_end_time?: InputMaybe<Order_By>;
   voting_start_time?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: proposal */
+export type Proposal_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Proposal_Prepend_Input = {
+  content?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "proposal" */
@@ -4288,9 +7543,7 @@ export enum Proposal_Select_Column {
   /** column name */
   Id = 'id',
   /** column name */
-  ProposalRoute = 'proposal_route',
-  /** column name */
-  ProposalType = 'proposal_type',
+  Metadata = 'metadata',
   /** column name */
   ProposerAddress = 'proposer_address',
   /** column name */
@@ -4305,12 +7558,27 @@ export enum Proposal_Select_Column {
   VotingStartTime = 'voting_start_time'
 }
 
+/** input type for updating data in table "proposal" */
+export type Proposal_Set_Input = {
+  content?: InputMaybe<Scalars['jsonb']>;
+  deposit_end_time?: InputMaybe<Scalars['timestamp']>;
+  description?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['Int']>;
+  metadata?: InputMaybe<Scalars['String']>;
+  proposer_address?: InputMaybe<Scalars['String']>;
+  status?: InputMaybe<Scalars['String']>;
+  submit_time?: InputMaybe<Scalars['timestamp']>;
+  title?: InputMaybe<Scalars['String']>;
+  voting_end_time?: InputMaybe<Scalars['timestamp']>;
+  voting_start_time?: InputMaybe<Scalars['timestamp']>;
+};
+
 /** columns and relationships of "proposal_staking_pool_snapshot" */
 export type Proposal_Staking_Pool_Snapshot = {
   __typename?: 'proposal_staking_pool_snapshot';
-  bonded_tokens: Scalars['bigint'];
+  bonded_tokens: Scalars['String'];
   height: Scalars['bigint'];
-  not_bonded_tokens: Scalars['bigint'];
+  not_bonded_tokens: Scalars['String'];
   /** An object relationship */
   proposal: Proposal;
   proposal_id: Scalars['Int'];
@@ -4349,9 +7617,7 @@ export type Proposal_Staking_Pool_Snapshot_Aggregate_FieldsCountArgs = {
 /** aggregate avg on columns */
 export type Proposal_Staking_Pool_Snapshot_Avg_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_avg_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
@@ -4360,29 +7626,73 @@ export type Proposal_Staking_Pool_Snapshot_Bool_Exp = {
   _and?: InputMaybe<Array<Proposal_Staking_Pool_Snapshot_Bool_Exp>>;
   _not?: InputMaybe<Proposal_Staking_Pool_Snapshot_Bool_Exp>;
   _or?: InputMaybe<Array<Proposal_Staking_Pool_Snapshot_Bool_Exp>>;
-  bonded_tokens?: InputMaybe<Bigint_Comparison_Exp>;
+  bonded_tokens?: InputMaybe<String_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
-  not_bonded_tokens?: InputMaybe<Bigint_Comparison_Exp>;
+  not_bonded_tokens?: InputMaybe<String_Comparison_Exp>;
   proposal?: InputMaybe<Proposal_Bool_Exp>;
   proposal_id?: InputMaybe<Int_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "proposal_staking_pool_snapshot" */
+export enum Proposal_Staking_Pool_Snapshot_Constraint {
+  /** unique or primary key constraint */
+  UniqueStakingPoolSnapshot = 'unique_staking_pool_snapshot'
+}
+
+/** input type for incrementing numeric columns in table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_Insert_Input = {
+  bonded_tokens?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
 };
 
 /** aggregate max on columns */
 export type Proposal_Staking_Pool_Snapshot_Max_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_max_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
+  not_bonded_tokens?: Maybe<Scalars['String']>;
   proposal_id?: Maybe<Scalars['Int']>;
 };
 
 /** aggregate min on columns */
 export type Proposal_Staking_Pool_Snapshot_Min_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_min_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
+  not_bonded_tokens?: Maybe<Scalars['String']>;
   proposal_id?: Maybe<Scalars['Int']>;
+};
+
+/** response of any mutation on the table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_Mutation_Response = {
+  __typename?: 'proposal_staking_pool_snapshot_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal_Staking_Pool_Snapshot>;
+};
+
+/** input type for inserting object relation for remote table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_Obj_Rel_Insert_Input = {
+  data: Proposal_Staking_Pool_Snapshot_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Staking_Pool_Snapshot_On_Conflict>;
+};
+
+/** on conflict condition type for table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_On_Conflict = {
+  constraint: Proposal_Staking_Pool_Snapshot_Constraint;
+  update_columns?: Array<Proposal_Staking_Pool_Snapshot_Update_Column>;
+  where?: InputMaybe<Proposal_Staking_Pool_Snapshot_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "proposal_staking_pool_snapshot". */
@@ -4392,6 +7702,11 @@ export type Proposal_Staking_Pool_Snapshot_Order_By = {
   not_bonded_tokens?: InputMaybe<Order_By>;
   proposal?: InputMaybe<Proposal_Order_By>;
   proposal_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: proposal_staking_pool_snapshot */
+export type Proposal_Staking_Pool_Snapshot_Pk_Columns_Input = {
+  proposal_id: Scalars['Int'];
 };
 
 /** select columns of table "proposal_staking_pool_snapshot" */
@@ -4406,66 +7721,72 @@ export enum Proposal_Staking_Pool_Snapshot_Select_Column {
   ProposalId = 'proposal_id'
 }
 
+/** input type for updating data in table "proposal_staking_pool_snapshot" */
+export type Proposal_Staking_Pool_Snapshot_Set_Input = {
+  bonded_tokens?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+};
+
 /** aggregate stddev on columns */
 export type Proposal_Staking_Pool_Snapshot_Stddev_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_stddev_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Proposal_Staking_Pool_Snapshot_Stddev_Pop_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_stddev_pop_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Proposal_Staking_Pool_Snapshot_Stddev_Samp_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_stddev_samp_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
 export type Proposal_Staking_Pool_Snapshot_Sum_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_sum_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
   proposal_id?: Maybe<Scalars['Int']>;
 };
+
+/** update columns of table "proposal_staking_pool_snapshot" */
+export enum Proposal_Staking_Pool_Snapshot_Update_Column {
+  /** column name */
+  BondedTokens = 'bonded_tokens',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  NotBondedTokens = 'not_bonded_tokens',
+  /** column name */
+  ProposalId = 'proposal_id'
+}
 
 /** aggregate var_pop on columns */
 export type Proposal_Staking_Pool_Snapshot_Var_Pop_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_var_pop_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type Proposal_Staking_Pool_Snapshot_Var_Samp_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_var_samp_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type Proposal_Staking_Pool_Snapshot_Variance_Fields = {
   __typename?: 'proposal_staking_pool_snapshot_variance_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
   proposal_id?: Maybe<Scalars['Float']>;
 };
 
@@ -4571,6 +7892,13 @@ export type Proposal_Tally_Result_Aggregate_Order_By = {
   variance?: InputMaybe<Proposal_Tally_Result_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "proposal_tally_result" */
+export type Proposal_Tally_Result_Arr_Rel_Insert_Input = {
+  data: Array<Proposal_Tally_Result_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Tally_Result_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Proposal_Tally_Result_Avg_Fields = {
   __typename?: 'proposal_tally_result_avg_fields';
@@ -4596,6 +7924,29 @@ export type Proposal_Tally_Result_Bool_Exp = {
   proposal?: InputMaybe<Proposal_Bool_Exp>;
   proposal_id?: InputMaybe<Int_Comparison_Exp>;
   yes?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "proposal_tally_result" */
+export enum Proposal_Tally_Result_Constraint {
+  /** unique or primary key constraint */
+  UniqueTallyResult = 'unique_tally_result'
+}
+
+/** input type for incrementing numeric columns in table "proposal_tally_result" */
+export type Proposal_Tally_Result_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "proposal_tally_result" */
+export type Proposal_Tally_Result_Insert_Input = {
+  abstain?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  no?: InputMaybe<Scalars['String']>;
+  no_with_veto?: InputMaybe<Scalars['String']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  yes?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -4640,6 +7991,29 @@ export type Proposal_Tally_Result_Min_Order_By = {
   yes?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "proposal_tally_result" */
+export type Proposal_Tally_Result_Mutation_Response = {
+  __typename?: 'proposal_tally_result_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal_Tally_Result>;
+};
+
+/** input type for inserting object relation for remote table "proposal_tally_result" */
+export type Proposal_Tally_Result_Obj_Rel_Insert_Input = {
+  data: Proposal_Tally_Result_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Tally_Result_On_Conflict>;
+};
+
+/** on conflict condition type for table "proposal_tally_result" */
+export type Proposal_Tally_Result_On_Conflict = {
+  constraint: Proposal_Tally_Result_Constraint;
+  update_columns?: Array<Proposal_Tally_Result_Update_Column>;
+  where?: InputMaybe<Proposal_Tally_Result_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "proposal_tally_result". */
 export type Proposal_Tally_Result_Order_By = {
   abstain?: InputMaybe<Order_By>;
@@ -4649,6 +8023,11 @@ export type Proposal_Tally_Result_Order_By = {
   proposal?: InputMaybe<Proposal_Order_By>;
   proposal_id?: InputMaybe<Order_By>;
   yes?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: proposal_tally_result */
+export type Proposal_Tally_Result_Pk_Columns_Input = {
+  proposal_id: Scalars['Int'];
 };
 
 /** select columns of table "proposal_tally_result" */
@@ -4666,6 +8045,16 @@ export enum Proposal_Tally_Result_Select_Column {
   /** column name */
   Yes = 'yes'
 }
+
+/** input type for updating data in table "proposal_tally_result" */
+export type Proposal_Tally_Result_Set_Input = {
+  abstain?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  no?: InputMaybe<Scalars['String']>;
+  no_with_veto?: InputMaybe<Scalars['String']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  yes?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Proposal_Tally_Result_Stddev_Fields = {
@@ -4719,6 +8108,22 @@ export type Proposal_Tally_Result_Sum_Order_By = {
   proposal_id?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "proposal_tally_result" */
+export enum Proposal_Tally_Result_Update_Column {
+  /** column name */
+  Abstain = 'abstain',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  No = 'no',
+  /** column name */
+  NoWithVeto = 'no_with_veto',
+  /** column name */
+  ProposalId = 'proposal_id',
+  /** column name */
+  Yes = 'yes'
+}
+
 /** aggregate var_pop on columns */
 export type Proposal_Tally_Result_Var_Pop_Fields = {
   __typename?: 'proposal_tally_result_var_pop_fields';
@@ -4757,6 +8162,32 @@ export type Proposal_Tally_Result_Variance_Order_By = {
   height?: InputMaybe<Order_By>;
   proposal_id?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "proposal" */
+export enum Proposal_Update_Column {
+  /** column name */
+  Content = 'content',
+  /** column name */
+  DepositEndTime = 'deposit_end_time',
+  /** column name */
+  Description = 'description',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Metadata = 'metadata',
+  /** column name */
+  ProposerAddress = 'proposer_address',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  SubmitTime = 'submit_time',
+  /** column name */
+  Title = 'title',
+  /** column name */
+  VotingEndTime = 'voting_end_time',
+  /** column name */
+  VotingStartTime = 'voting_start_time'
+}
 
 /** columns and relationships of "proposal_validator_status_snapshot" */
 export type Proposal_Validator_Status_Snapshot = {
@@ -4819,6 +8250,13 @@ export type Proposal_Validator_Status_Snapshot_Aggregate_Order_By = {
   variance?: InputMaybe<Proposal_Validator_Status_Snapshot_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Arr_Rel_Insert_Input = {
+  data: Array<Proposal_Validator_Status_Snapshot_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Validator_Status_Snapshot_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Proposal_Validator_Status_Snapshot_Avg_Fields = {
   __typename?: 'proposal_validator_status_snapshot_avg_fields';
@@ -4852,6 +8290,36 @@ export type Proposal_Validator_Status_Snapshot_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
   voting_power?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "proposal_validator_status_snapshot" */
+export enum Proposal_Validator_Status_Snapshot_Constraint {
+  /** unique or primary key constraint */
+  ProposalValidatorStatusSnapshotPkey = 'proposal_validator_status_snapshot_pkey',
+  /** unique or primary key constraint */
+  UniqueValidatorStatusSnapshot = 'unique_validator_status_snapshot'
+}
+
+/** input type for incrementing numeric columns in table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  jailed?: InputMaybe<Scalars['Boolean']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
 };
 
 /** aggregate max on columns */
@@ -4896,6 +8364,29 @@ export type Proposal_Validator_Status_Snapshot_Min_Order_By = {
   voting_power?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Mutation_Response = {
+  __typename?: 'proposal_validator_status_snapshot_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal_Validator_Status_Snapshot>;
+};
+
+/** input type for inserting object relation for remote table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Obj_Rel_Insert_Input = {
+  data: Proposal_Validator_Status_Snapshot_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Validator_Status_Snapshot_On_Conflict>;
+};
+
+/** on conflict condition type for table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_On_Conflict = {
+  constraint: Proposal_Validator_Status_Snapshot_Constraint;
+  update_columns?: Array<Proposal_Validator_Status_Snapshot_Update_Column>;
+  where?: InputMaybe<Proposal_Validator_Status_Snapshot_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "proposal_validator_status_snapshot". */
 export type Proposal_Validator_Status_Snapshot_Order_By = {
   height?: InputMaybe<Order_By>;
@@ -4907,6 +8398,11 @@ export type Proposal_Validator_Status_Snapshot_Order_By = {
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
   voting_power?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: proposal_validator_status_snapshot */
+export type Proposal_Validator_Status_Snapshot_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "proposal_validator_status_snapshot" */
@@ -4926,6 +8422,17 @@ export enum Proposal_Validator_Status_Snapshot_Select_Column {
   /** column name */
   VotingPower = 'voting_power'
 }
+
+/** input type for updating data in table "proposal_validator_status_snapshot" */
+export type Proposal_Validator_Status_Snapshot_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  id?: InputMaybe<Scalars['Int']>;
+  jailed?: InputMaybe<Scalars['Boolean']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  status?: InputMaybe<Scalars['Int']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Proposal_Validator_Status_Snapshot_Stddev_Fields = {
@@ -5002,6 +8509,24 @@ export type Proposal_Validator_Status_Snapshot_Sum_Order_By = {
   status?: InputMaybe<Order_By>;
   voting_power?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "proposal_validator_status_snapshot" */
+export enum Proposal_Validator_Status_Snapshot_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  Jailed = 'jailed',
+  /** column name */
+  ProposalId = 'proposal_id',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  ValidatorAddress = 'validator_address',
+  /** column name */
+  VotingPower = 'voting_power'
+}
 
 /** aggregate var_pop on columns */
 export type Proposal_Validator_Status_Snapshot_Var_Pop_Fields = {
@@ -5098,13 +8623,16 @@ export type Proposal_Vote = {
   __typename?: 'proposal_vote';
   /** An object relationship */
   account: Account;
+  /** An object relationship */
+  block?: Maybe<Block>;
   height: Scalars['bigint'];
   option: Scalars['String'];
   /** An object relationship */
   proposal: Proposal;
   proposal_id: Scalars['Int'];
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
   voter_address: Scalars['String'];
+  weight: Scalars['String'];
 };
 
 /** aggregated selection of "proposal_vote" */
@@ -5152,6 +8680,13 @@ export type Proposal_Vote_Aggregate_Order_By = {
   variance?: InputMaybe<Proposal_Vote_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "proposal_vote" */
+export type Proposal_Vote_Arr_Rel_Insert_Input = {
+  data: Array<Proposal_Vote_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Proposal_Vote_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Proposal_Vote_Avg_Fields = {
   __typename?: 'proposal_vote_avg_fields';
@@ -5171,12 +8706,39 @@ export type Proposal_Vote_Bool_Exp = {
   _not?: InputMaybe<Proposal_Vote_Bool_Exp>;
   _or?: InputMaybe<Array<Proposal_Vote_Bool_Exp>>;
   account?: InputMaybe<Account_Bool_Exp>;
+  block?: InputMaybe<Block_Bool_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
   option?: InputMaybe<String_Comparison_Exp>;
   proposal?: InputMaybe<Proposal_Bool_Exp>;
   proposal_id?: InputMaybe<Int_Comparison_Exp>;
-  timestamp?: InputMaybe<Timestamptz_Comparison_Exp>;
+  timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
   voter_address?: InputMaybe<String_Comparison_Exp>;
+  weight?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "proposal_vote" */
+export enum Proposal_Vote_Constraint {
+  /** unique or primary key constraint */
+  UniqueVote = 'unique_vote'
+}
+
+/** input type for incrementing numeric columns in table "proposal_vote" */
+export type Proposal_Vote_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "proposal_vote" */
+export type Proposal_Vote_Insert_Input = {
+  account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  block?: InputMaybe<Block_Obj_Rel_Insert_Input>;
+  height?: InputMaybe<Scalars['bigint']>;
+  option?: InputMaybe<Scalars['String']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  voter_address?: InputMaybe<Scalars['String']>;
+  weight?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -5185,8 +8747,9 @@ export type Proposal_Vote_Max_Fields = {
   height?: Maybe<Scalars['bigint']>;
   option?: Maybe<Scalars['String']>;
   proposal_id?: Maybe<Scalars['Int']>;
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
   voter_address?: Maybe<Scalars['String']>;
+  weight?: Maybe<Scalars['String']>;
 };
 
 /** order by max() on columns of table "proposal_vote" */
@@ -5196,6 +8759,7 @@ export type Proposal_Vote_Max_Order_By = {
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
   voter_address?: InputMaybe<Order_By>;
+  weight?: InputMaybe<Order_By>;
 };
 
 /** aggregate min on columns */
@@ -5204,8 +8768,9 @@ export type Proposal_Vote_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
   option?: Maybe<Scalars['String']>;
   proposal_id?: Maybe<Scalars['Int']>;
-  timestamp?: Maybe<Scalars['timestamptz']>;
+  timestamp?: Maybe<Scalars['timestamp']>;
   voter_address?: Maybe<Scalars['String']>;
+  weight?: Maybe<Scalars['String']>;
 };
 
 /** order by min() on columns of table "proposal_vote" */
@@ -5215,17 +8780,36 @@ export type Proposal_Vote_Min_Order_By = {
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
   voter_address?: InputMaybe<Order_By>;
+  weight?: InputMaybe<Order_By>;
+};
+
+/** response of any mutation on the table "proposal_vote" */
+export type Proposal_Vote_Mutation_Response = {
+  __typename?: 'proposal_vote_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Proposal_Vote>;
+};
+
+/** on conflict condition type for table "proposal_vote" */
+export type Proposal_Vote_On_Conflict = {
+  constraint: Proposal_Vote_Constraint;
+  update_columns?: Array<Proposal_Vote_Update_Column>;
+  where?: InputMaybe<Proposal_Vote_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "proposal_vote". */
 export type Proposal_Vote_Order_By = {
   account?: InputMaybe<Account_Order_By>;
+  block?: InputMaybe<Block_Order_By>;
   height?: InputMaybe<Order_By>;
   option?: InputMaybe<Order_By>;
   proposal?: InputMaybe<Proposal_Order_By>;
   proposal_id?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
   voter_address?: InputMaybe<Order_By>;
+  weight?: InputMaybe<Order_By>;
 };
 
 /** select columns of table "proposal_vote" */
@@ -5239,8 +8823,20 @@ export enum Proposal_Vote_Select_Column {
   /** column name */
   Timestamp = 'timestamp',
   /** column name */
-  VoterAddress = 'voter_address'
+  VoterAddress = 'voter_address',
+  /** column name */
+  Weight = 'weight'
 }
+
+/** input type for updating data in table "proposal_vote" */
+export type Proposal_Vote_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  option?: InputMaybe<Scalars['String']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  voter_address?: InputMaybe<Scalars['String']>;
+  weight?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Proposal_Vote_Stddev_Fields = {
@@ -5293,6 +8889,22 @@ export type Proposal_Vote_Sum_Order_By = {
   height?: InputMaybe<Order_By>;
   proposal_id?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "proposal_vote" */
+export enum Proposal_Vote_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Option = 'option',
+  /** column name */
+  ProposalId = 'proposal_id',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  VoterAddress = 'voter_address',
+  /** column name */
+  Weight = 'weight'
+}
 
 /** aggregate var_pop on columns */
 export type Proposal_Vote_Var_Pop_Fields = {
@@ -5357,18 +8969,26 @@ export type Query_Root = {
   average_block_time_from_genesis: Array<Average_Block_Time_From_Genesis>;
   /** fetch aggregated fields from the table: "average_block_time_from_genesis" */
   average_block_time_from_genesis_aggregate: Average_Block_Time_From_Genesis_Aggregate;
+  /** fetch data from the table: "average_block_time_from_genesis" using primary key columns */
+  average_block_time_from_genesis_by_pk?: Maybe<Average_Block_Time_From_Genesis>;
   /** fetch data from the table: "average_block_time_per_day" */
   average_block_time_per_day: Array<Average_Block_Time_Per_Day>;
   /** fetch aggregated fields from the table: "average_block_time_per_day" */
   average_block_time_per_day_aggregate: Average_Block_Time_Per_Day_Aggregate;
+  /** fetch data from the table: "average_block_time_per_day" using primary key columns */
+  average_block_time_per_day_by_pk?: Maybe<Average_Block_Time_Per_Day>;
   /** fetch data from the table: "average_block_time_per_hour" */
   average_block_time_per_hour: Array<Average_Block_Time_Per_Hour>;
   /** fetch aggregated fields from the table: "average_block_time_per_hour" */
   average_block_time_per_hour_aggregate: Average_Block_Time_Per_Hour_Aggregate;
+  /** fetch data from the table: "average_block_time_per_hour" using primary key columns */
+  average_block_time_per_hour_by_pk?: Maybe<Average_Block_Time_Per_Hour>;
   /** fetch data from the table: "average_block_time_per_minute" */
   average_block_time_per_minute: Array<Average_Block_Time_Per_Minute>;
   /** fetch aggregated fields from the table: "average_block_time_per_minute" */
   average_block_time_per_minute_aggregate: Average_Block_Time_Per_Minute_Aggregate;
+  /** fetch data from the table: "average_block_time_per_minute" using primary key columns */
+  average_block_time_per_minute_by_pk?: Maybe<Average_Block_Time_Per_Minute>;
   /** fetch data from the table: "block" */
   block: Array<Block>;
   /** fetch aggregated fields from the table: "block" */
@@ -5379,6 +8999,8 @@ export type Query_Root = {
   community_pool: Array<Community_Pool>;
   /** fetch aggregated fields from the table: "community_pool" */
   community_pool_aggregate: Community_Pool_Aggregate;
+  /** fetch data from the table: "community_pool" using primary key columns */
+  community_pool_by_pk?: Maybe<Community_Pool>;
   /** fetch data from the table: "distribution_params" */
   distribution_params: Array<Distribution_Params>;
   /** fetch aggregated fields from the table: "distribution_params" */
@@ -5405,6 +9027,8 @@ export type Query_Root = {
   genesis: Array<Genesis>;
   /** fetch aggregated fields from the table: "genesis" */
   genesis_aggregate: Genesis_Aggregate;
+  /** fetch data from the table: "genesis" using primary key columns */
+  genesis_by_pk?: Maybe<Genesis>;
   /** fetch data from the table: "gov_params" */
   gov_params: Array<Gov_Params>;
   /** fetch aggregated fields from the table: "gov_params" */
@@ -5415,6 +9039,8 @@ export type Query_Root = {
   inflation: Array<Inflation>;
   /** fetch aggregated fields from the table: "inflation" */
   inflation_aggregate: Inflation_Aggregate;
+  /** fetch data from the table: "inflation" using primary key columns */
+  inflation_by_pk?: Maybe<Inflation>;
   /** fetch data from the table: "message" */
   message: Array<Message>;
   /** fetch aggregated fields from the table: "message" */
@@ -5439,12 +9065,6 @@ export type Query_Root = {
   pre_commit: Array<Pre_Commit>;
   /** fetch aggregated fields from the table: "pre_commit" */
   pre_commit_aggregate: Pre_Commit_Aggregate;
-  /** fetch data from the table: "profiles_params" */
-  profiles_params: Array<Profiles_Params>;
-  /** fetch aggregated fields from the table: "profiles_params" */
-  profiles_params_aggregate: Profiles_Params_Aggregate;
-  /** fetch data from the table: "profiles_params" using primary key columns */
-  profiles_params_by_pk?: Maybe<Profiles_Params>;
   /** fetch data from the table: "proposal" */
   proposal: Array<Proposal>;
   /** fetch aggregated fields from the table: "proposal" */
@@ -5497,10 +9117,14 @@ export type Query_Root = {
   staking_pool: Array<Staking_Pool>;
   /** fetch aggregated fields from the table: "staking_pool" */
   staking_pool_aggregate: Staking_Pool_Aggregate;
+  /** fetch data from the table: "staking_pool" using primary key columns */
+  staking_pool_by_pk?: Maybe<Staking_Pool>;
   /** fetch data from the table: "supply" */
   supply: Array<Supply>;
   /** fetch aggregated fields from the table: "supply" */
   supply_aggregate: Supply_Aggregate;
+  /** fetch data from the table: "supply" using primary key columns */
+  supply_by_pk?: Maybe<Supply>;
   /** fetch data from the table: "token" */
   token: Array<Token>;
   /** fetch aggregated fields from the table: "token" */
@@ -5515,6 +9139,8 @@ export type Query_Root = {
   token_price_history: Array<Token_Price_History>;
   /** fetch aggregated fields from the table: "token_price_history" */
   token_price_history_aggregate: Token_Price_History_Aggregate;
+  /** fetch data from the table: "token_price_history" using primary key columns */
+  token_price_history_by_pk?: Maybe<Token_Price_History>;
   /** fetch data from the table: "token_unit" */
   token_unit: Array<Token_Unit>;
   /** fetch aggregated fields from the table: "token_unit" */
@@ -5705,6 +9331,11 @@ export type Query_RootAverage_Block_Time_From_Genesis_AggregateArgs = {
 };
 
 
+export type Query_RootAverage_Block_Time_From_Genesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Query_RootAverage_Block_Time_Per_DayArgs = {
   distinct_on?: InputMaybe<Array<Average_Block_Time_Per_Day_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5720,6 +9351,11 @@ export type Query_RootAverage_Block_Time_Per_Day_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Average_Block_Time_Per_Day_Order_By>>;
   where?: InputMaybe<Average_Block_Time_Per_Day_Bool_Exp>;
+};
+
+
+export type Query_RootAverage_Block_Time_Per_Day_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -5741,6 +9377,11 @@ export type Query_RootAverage_Block_Time_Per_Hour_AggregateArgs = {
 };
 
 
+export type Query_RootAverage_Block_Time_Per_Hour_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Query_RootAverage_Block_Time_Per_MinuteArgs = {
   distinct_on?: InputMaybe<Array<Average_Block_Time_Per_Minute_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5756,6 +9397,11 @@ export type Query_RootAverage_Block_Time_Per_Minute_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Average_Block_Time_Per_Minute_Order_By>>;
   where?: InputMaybe<Average_Block_Time_Per_Minute_Bool_Exp>;
+};
+
+
+export type Query_RootAverage_Block_Time_Per_Minute_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -5797,6 +9443,11 @@ export type Query_RootCommunity_Pool_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Community_Pool_Order_By>>;
   where?: InputMaybe<Community_Pool_Bool_Exp>;
+};
+
+
+export type Query_RootCommunity_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -5905,6 +9556,11 @@ export type Query_RootGenesis_AggregateArgs = {
 };
 
 
+export type Query_RootGenesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Query_RootGov_ParamsArgs = {
   distinct_on?: InputMaybe<Array<Gov_Params_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -5943,6 +9599,11 @@ export type Query_RootInflation_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Inflation_Order_By>>;
   where?: InputMaybe<Inflation_Bool_Exp>;
+};
+
+
+export type Query_RootInflation_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -6045,29 +9706,6 @@ export type Query_RootPre_Commit_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Pre_Commit_Order_By>>;
   where?: InputMaybe<Pre_Commit_Bool_Exp>;
-};
-
-
-export type Query_RootProfiles_ParamsArgs = {
-  distinct_on?: InputMaybe<Array<Profiles_Params_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Profiles_Params_Order_By>>;
-  where?: InputMaybe<Profiles_Params_Bool_Exp>;
-};
-
-
-export type Query_RootProfiles_Params_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Profiles_Params_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Profiles_Params_Order_By>>;
-  where?: InputMaybe<Profiles_Params_Bool_Exp>;
-};
-
-
-export type Query_RootProfiles_Params_By_PkArgs = {
-  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -6281,6 +9919,11 @@ export type Query_RootStaking_Pool_AggregateArgs = {
 };
 
 
+export type Query_RootStaking_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Query_RootSupplyArgs = {
   distinct_on?: InputMaybe<Array<Supply_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -6296,6 +9939,11 @@ export type Query_RootSupply_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Supply_Order_By>>;
   where?: InputMaybe<Supply_Bool_Exp>;
+};
+
+
+export type Query_RootSupply_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -6355,6 +10003,11 @@ export type Query_RootToken_Price_History_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Token_Price_History_Order_By>>;
   where?: InputMaybe<Token_Price_History_Bool_Exp>;
+};
+
+
+export type Query_RootToken_Price_History_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -6639,6 +10292,11 @@ export type Slashing_Params_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Slashing_Params_Append_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate avg on columns */
 export type Slashing_Params_Avg_Fields = {
   __typename?: 'slashing_params_avg_fields';
@@ -6655,6 +10313,39 @@ export type Slashing_Params_Bool_Exp = {
   params?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "slashing_params" */
+export enum Slashing_Params_Constraint {
+  /** unique or primary key constraint */
+  SlashingParamsPkey = 'slashing_params_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Slashing_Params_Delete_At_Path_Input = {
+  params?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Slashing_Params_Delete_Elem_Input = {
+  params?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Slashing_Params_Delete_Key_Input = {
+  params?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "slashing_params" */
+export type Slashing_Params_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "slashing_params" */
+export type Slashing_Params_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate max on columns */
 export type Slashing_Params_Max_Fields = {
   __typename?: 'slashing_params_max_fields';
@@ -6667,11 +10358,37 @@ export type Slashing_Params_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "slashing_params" */
+export type Slashing_Params_Mutation_Response = {
+  __typename?: 'slashing_params_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Slashing_Params>;
+};
+
+/** on conflict condition type for table "slashing_params" */
+export type Slashing_Params_On_Conflict = {
+  constraint: Slashing_Params_Constraint;
+  update_columns?: Array<Slashing_Params_Update_Column>;
+  where?: InputMaybe<Slashing_Params_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "slashing_params". */
 export type Slashing_Params_Order_By = {
   height?: InputMaybe<Order_By>;
   one_row_id?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: slashing_params */
+export type Slashing_Params_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Slashing_Params_Prepend_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "slashing_params" */
@@ -6683,6 +10400,13 @@ export enum Slashing_Params_Select_Column {
   /** column name */
   Params = 'params'
 }
+
+/** input type for updating data in table "slashing_params" */
+export type Slashing_Params_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
 
 /** aggregate stddev on columns */
 export type Slashing_Params_Stddev_Fields = {
@@ -6707,6 +10431,16 @@ export type Slashing_Params_Sum_Fields = {
   __typename?: 'slashing_params_sum_fields';
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "slashing_params" */
+export enum Slashing_Params_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Params = 'params'
+}
 
 /** aggregate var_pop on columns */
 export type Slashing_Params_Var_Pop_Fields = {
@@ -6802,6 +10536,29 @@ export type Software_Upgrade_Plan_Bool_Exp = {
   upgrade_height?: InputMaybe<Bigint_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "software_upgrade_plan" */
+export enum Software_Upgrade_Plan_Constraint {
+  /** unique or primary key constraint */
+  SoftwareUpgradePlanProposalIdKey = 'software_upgrade_plan_proposal_id_key'
+}
+
+/** input type for incrementing numeric columns in table "software_upgrade_plan" */
+export type Software_Upgrade_Plan_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  upgrade_height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "software_upgrade_plan" */
+export type Software_Upgrade_Plan_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  info?: InputMaybe<Scalars['String']>;
+  plan_name?: InputMaybe<Scalars['String']>;
+  proposal?: InputMaybe<Proposal_Obj_Rel_Insert_Input>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  upgrade_height?: InputMaybe<Scalars['bigint']>;
+};
+
 /** aggregate max on columns */
 export type Software_Upgrade_Plan_Max_Fields = {
   __typename?: 'software_upgrade_plan_max_fields';
@@ -6820,6 +10577,22 @@ export type Software_Upgrade_Plan_Min_Fields = {
   plan_name?: Maybe<Scalars['String']>;
   proposal_id?: Maybe<Scalars['Int']>;
   upgrade_height?: Maybe<Scalars['bigint']>;
+};
+
+/** response of any mutation on the table "software_upgrade_plan" */
+export type Software_Upgrade_Plan_Mutation_Response = {
+  __typename?: 'software_upgrade_plan_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Software_Upgrade_Plan>;
+};
+
+/** on conflict condition type for table "software_upgrade_plan" */
+export type Software_Upgrade_Plan_On_Conflict = {
+  constraint: Software_Upgrade_Plan_Constraint;
+  update_columns?: Array<Software_Upgrade_Plan_Update_Column>;
+  where?: InputMaybe<Software_Upgrade_Plan_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "software_upgrade_plan". */
@@ -6845,6 +10618,15 @@ export enum Software_Upgrade_Plan_Select_Column {
   /** column name */
   UpgradeHeight = 'upgrade_height'
 }
+
+/** input type for updating data in table "software_upgrade_plan" */
+export type Software_Upgrade_Plan_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  info?: InputMaybe<Scalars['String']>;
+  plan_name?: InputMaybe<Scalars['String']>;
+  proposal_id?: InputMaybe<Scalars['Int']>;
+  upgrade_height?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Software_Upgrade_Plan_Stddev_Fields = {
@@ -6877,6 +10659,20 @@ export type Software_Upgrade_Plan_Sum_Fields = {
   proposal_id?: Maybe<Scalars['Int']>;
   upgrade_height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "software_upgrade_plan" */
+export enum Software_Upgrade_Plan_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Info = 'info',
+  /** column name */
+  PlanName = 'plan_name',
+  /** column name */
+  ProposalId = 'proposal_id',
+  /** column name */
+  UpgradeHeight = 'upgrade_height'
+}
 
 /** aggregate var_pop on columns */
 export type Software_Upgrade_Plan_Var_Pop_Fields = {
@@ -6946,6 +10742,11 @@ export type Staking_Params_Aggregate_FieldsCountArgs = {
   distinct?: InputMaybe<Scalars['Boolean']>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Staking_Params_Append_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate avg on columns */
 export type Staking_Params_Avg_Fields = {
   __typename?: 'staking_params_avg_fields';
@@ -6962,6 +10763,39 @@ export type Staking_Params_Bool_Exp = {
   params?: InputMaybe<Jsonb_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "staking_params" */
+export enum Staking_Params_Constraint {
+  /** unique or primary key constraint */
+  StakingParamsPkey = 'staking_params_pkey'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Staking_Params_Delete_At_Path_Input = {
+  params?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Staking_Params_Delete_Elem_Input = {
+  params?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Staking_Params_Delete_Key_Input = {
+  params?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "staking_params" */
+export type Staking_Params_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "staking_params" */
+export type Staking_Params_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
+
 /** aggregate max on columns */
 export type Staking_Params_Max_Fields = {
   __typename?: 'staking_params_max_fields';
@@ -6974,11 +10808,37 @@ export type Staking_Params_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "staking_params" */
+export type Staking_Params_Mutation_Response = {
+  __typename?: 'staking_params_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Staking_Params>;
+};
+
+/** on conflict condition type for table "staking_params" */
+export type Staking_Params_On_Conflict = {
+  constraint: Staking_Params_Constraint;
+  update_columns?: Array<Staking_Params_Update_Column>;
+  where?: InputMaybe<Staking_Params_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "staking_params". */
 export type Staking_Params_Order_By = {
   height?: InputMaybe<Order_By>;
   one_row_id?: InputMaybe<Order_By>;
   params?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: staking_params */
+export type Staking_Params_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Staking_Params_Prepend_Input = {
+  params?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "staking_params" */
@@ -6990,6 +10850,13 @@ export enum Staking_Params_Select_Column {
   /** column name */
   Params = 'params'
 }
+
+/** input type for updating data in table "staking_params" */
+export type Staking_Params_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  params?: InputMaybe<Scalars['jsonb']>;
+};
 
 /** aggregate stddev on columns */
 export type Staking_Params_Stddev_Fields = {
@@ -7015,6 +10882,16 @@ export type Staking_Params_Sum_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** update columns of table "staking_params" */
+export enum Staking_Params_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  Params = 'params'
+}
+
 /** aggregate var_pop on columns */
 export type Staking_Params_Var_Pop_Fields = {
   __typename?: 'staking_params_var_pop_fields';
@@ -7036,11 +10913,12 @@ export type Staking_Params_Variance_Fields = {
 /** columns and relationships of "staking_pool" */
 export type Staking_Pool = {
   __typename?: 'staking_pool';
-  bonded_tokens: Scalars['bigint'];
+  bonded_tokens: Scalars['String'];
   height: Scalars['bigint'];
-  not_bonded_tokens: Scalars['bigint'];
-  staked_not_bonded_tokens?: Maybe<Scalars['String']>;
-  unbonding_tokens?: Maybe<Scalars['String']>;
+  not_bonded_tokens: Scalars['String'];
+  one_row_id: Scalars['Boolean'];
+  staked_not_bonded_tokens: Scalars['String'];
+  unbonding_tokens: Scalars['String'];
 };
 
 /** aggregated selection of "staking_pool" */
@@ -7076,9 +10954,7 @@ export type Staking_Pool_Aggregate_FieldsCountArgs = {
 /** aggregate avg on columns */
 export type Staking_Pool_Avg_Fields = {
   __typename?: 'staking_pool_avg_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** Boolean expression to filter rows from the table "staking_pool". All fields are combined with a logical 'AND'. */
@@ -7086,19 +10962,41 @@ export type Staking_Pool_Bool_Exp = {
   _and?: InputMaybe<Array<Staking_Pool_Bool_Exp>>;
   _not?: InputMaybe<Staking_Pool_Bool_Exp>;
   _or?: InputMaybe<Array<Staking_Pool_Bool_Exp>>;
-  bonded_tokens?: InputMaybe<Bigint_Comparison_Exp>;
+  bonded_tokens?: InputMaybe<String_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
-  not_bonded_tokens?: InputMaybe<Bigint_Comparison_Exp>;
+  not_bonded_tokens?: InputMaybe<String_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
   staked_not_bonded_tokens?: InputMaybe<String_Comparison_Exp>;
   unbonding_tokens?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "staking_pool" */
+export enum Staking_Pool_Constraint {
+  /** unique or primary key constraint */
+  StakingPoolPkey = 'staking_pool_pkey'
+}
+
+/** input type for incrementing numeric columns in table "staking_pool" */
+export type Staking_Pool_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "staking_pool" */
+export type Staking_Pool_Insert_Input = {
+  bonded_tokens?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  staked_not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  unbonding_tokens?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
 export type Staking_Pool_Max_Fields = {
   __typename?: 'staking_pool_max_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
+  not_bonded_tokens?: Maybe<Scalars['String']>;
   staked_not_bonded_tokens?: Maybe<Scalars['String']>;
   unbonding_tokens?: Maybe<Scalars['String']>;
 };
@@ -7106,11 +11004,27 @@ export type Staking_Pool_Max_Fields = {
 /** aggregate min on columns */
 export type Staking_Pool_Min_Fields = {
   __typename?: 'staking_pool_min_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
+  bonded_tokens?: Maybe<Scalars['String']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
+  not_bonded_tokens?: Maybe<Scalars['String']>;
   staked_not_bonded_tokens?: Maybe<Scalars['String']>;
   unbonding_tokens?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "staking_pool" */
+export type Staking_Pool_Mutation_Response = {
+  __typename?: 'staking_pool_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Staking_Pool>;
+};
+
+/** on conflict condition type for table "staking_pool" */
+export type Staking_Pool_On_Conflict = {
+  constraint: Staking_Pool_Constraint;
+  update_columns?: Array<Staking_Pool_Update_Column>;
+  where?: InputMaybe<Staking_Pool_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "staking_pool". */
@@ -7118,8 +11032,14 @@ export type Staking_Pool_Order_By = {
   bonded_tokens?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
   not_bonded_tokens?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
   staked_not_bonded_tokens?: InputMaybe<Order_By>;
   unbonding_tokens?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: staking_pool */
+export type Staking_Pool_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "staking_pool" */
@@ -7131,65 +11051,79 @@ export enum Staking_Pool_Select_Column {
   /** column name */
   NotBondedTokens = 'not_bonded_tokens',
   /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
   StakedNotBondedTokens = 'staked_not_bonded_tokens',
   /** column name */
   UnbondingTokens = 'unbonding_tokens'
 }
 
+/** input type for updating data in table "staking_pool" */
+export type Staking_Pool_Set_Input = {
+  bonded_tokens?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+  staked_not_bonded_tokens?: InputMaybe<Scalars['String']>;
+  unbonding_tokens?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate stddev on columns */
 export type Staking_Pool_Stddev_Fields = {
   __typename?: 'staking_pool_stddev_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_pop on columns */
 export type Staking_Pool_Stddev_Pop_Fields = {
   __typename?: 'staking_pool_stddev_pop_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate stddev_samp on columns */
 export type Staking_Pool_Stddev_Samp_Fields = {
   __typename?: 'staking_pool_stddev_samp_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate sum on columns */
 export type Staking_Pool_Sum_Fields = {
   __typename?: 'staking_pool_sum_fields';
-  bonded_tokens?: Maybe<Scalars['bigint']>;
   height?: Maybe<Scalars['bigint']>;
-  not_bonded_tokens?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "staking_pool" */
+export enum Staking_Pool_Update_Column {
+  /** column name */
+  BondedTokens = 'bonded_tokens',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  NotBondedTokens = 'not_bonded_tokens',
+  /** column name */
+  OneRowId = 'one_row_id',
+  /** column name */
+  StakedNotBondedTokens = 'staked_not_bonded_tokens',
+  /** column name */
+  UnbondingTokens = 'unbonding_tokens'
+}
 
 /** aggregate var_pop on columns */
 export type Staking_Pool_Var_Pop_Fields = {
   __typename?: 'staking_pool_var_pop_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate var_samp on columns */
 export type Staking_Pool_Var_Samp_Fields = {
   __typename?: 'staking_pool_var_samp_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 /** aggregate variance on columns */
 export type Staking_Pool_Variance_Fields = {
   __typename?: 'staking_pool_variance_fields';
-  bonded_tokens?: Maybe<Scalars['Float']>;
   height?: Maybe<Scalars['Float']>;
-  not_bonded_tokens?: Maybe<Scalars['Float']>;
 };
 
 export type Subscription_Root = {
@@ -7204,18 +11138,26 @@ export type Subscription_Root = {
   average_block_time_from_genesis: Array<Average_Block_Time_From_Genesis>;
   /** fetch aggregated fields from the table: "average_block_time_from_genesis" */
   average_block_time_from_genesis_aggregate: Average_Block_Time_From_Genesis_Aggregate;
+  /** fetch data from the table: "average_block_time_from_genesis" using primary key columns */
+  average_block_time_from_genesis_by_pk?: Maybe<Average_Block_Time_From_Genesis>;
   /** fetch data from the table: "average_block_time_per_day" */
   average_block_time_per_day: Array<Average_Block_Time_Per_Day>;
   /** fetch aggregated fields from the table: "average_block_time_per_day" */
   average_block_time_per_day_aggregate: Average_Block_Time_Per_Day_Aggregate;
+  /** fetch data from the table: "average_block_time_per_day" using primary key columns */
+  average_block_time_per_day_by_pk?: Maybe<Average_Block_Time_Per_Day>;
   /** fetch data from the table: "average_block_time_per_hour" */
   average_block_time_per_hour: Array<Average_Block_Time_Per_Hour>;
   /** fetch aggregated fields from the table: "average_block_time_per_hour" */
   average_block_time_per_hour_aggregate: Average_Block_Time_Per_Hour_Aggregate;
+  /** fetch data from the table: "average_block_time_per_hour" using primary key columns */
+  average_block_time_per_hour_by_pk?: Maybe<Average_Block_Time_Per_Hour>;
   /** fetch data from the table: "average_block_time_per_minute" */
   average_block_time_per_minute: Array<Average_Block_Time_Per_Minute>;
   /** fetch aggregated fields from the table: "average_block_time_per_minute" */
   average_block_time_per_minute_aggregate: Average_Block_Time_Per_Minute_Aggregate;
+  /** fetch data from the table: "average_block_time_per_minute" using primary key columns */
+  average_block_time_per_minute_by_pk?: Maybe<Average_Block_Time_Per_Minute>;
   /** fetch data from the table: "block" */
   block: Array<Block>;
   /** fetch aggregated fields from the table: "block" */
@@ -7226,6 +11168,8 @@ export type Subscription_Root = {
   community_pool: Array<Community_Pool>;
   /** fetch aggregated fields from the table: "community_pool" */
   community_pool_aggregate: Community_Pool_Aggregate;
+  /** fetch data from the table: "community_pool" using primary key columns */
+  community_pool_by_pk?: Maybe<Community_Pool>;
   /** fetch data from the table: "distribution_params" */
   distribution_params: Array<Distribution_Params>;
   /** fetch aggregated fields from the table: "distribution_params" */
@@ -7252,6 +11196,8 @@ export type Subscription_Root = {
   genesis: Array<Genesis>;
   /** fetch aggregated fields from the table: "genesis" */
   genesis_aggregate: Genesis_Aggregate;
+  /** fetch data from the table: "genesis" using primary key columns */
+  genesis_by_pk?: Maybe<Genesis>;
   /** fetch data from the table: "gov_params" */
   gov_params: Array<Gov_Params>;
   /** fetch aggregated fields from the table: "gov_params" */
@@ -7262,6 +11208,8 @@ export type Subscription_Root = {
   inflation: Array<Inflation>;
   /** fetch aggregated fields from the table: "inflation" */
   inflation_aggregate: Inflation_Aggregate;
+  /** fetch data from the table: "inflation" using primary key columns */
+  inflation_by_pk?: Maybe<Inflation>;
   /** fetch data from the table: "message" */
   message: Array<Message>;
   /** fetch aggregated fields from the table: "message" */
@@ -7286,12 +11234,6 @@ export type Subscription_Root = {
   pre_commit: Array<Pre_Commit>;
   /** fetch aggregated fields from the table: "pre_commit" */
   pre_commit_aggregate: Pre_Commit_Aggregate;
-  /** fetch data from the table: "profiles_params" */
-  profiles_params: Array<Profiles_Params>;
-  /** fetch aggregated fields from the table: "profiles_params" */
-  profiles_params_aggregate: Profiles_Params_Aggregate;
-  /** fetch data from the table: "profiles_params" using primary key columns */
-  profiles_params_by_pk?: Maybe<Profiles_Params>;
   /** fetch data from the table: "proposal" */
   proposal: Array<Proposal>;
   /** fetch aggregated fields from the table: "proposal" */
@@ -7344,10 +11286,14 @@ export type Subscription_Root = {
   staking_pool: Array<Staking_Pool>;
   /** fetch aggregated fields from the table: "staking_pool" */
   staking_pool_aggregate: Staking_Pool_Aggregate;
+  /** fetch data from the table: "staking_pool" using primary key columns */
+  staking_pool_by_pk?: Maybe<Staking_Pool>;
   /** fetch data from the table: "supply" */
   supply: Array<Supply>;
   /** fetch aggregated fields from the table: "supply" */
   supply_aggregate: Supply_Aggregate;
+  /** fetch data from the table: "supply" using primary key columns */
+  supply_by_pk?: Maybe<Supply>;
   /** fetch data from the table: "token" */
   token: Array<Token>;
   /** fetch aggregated fields from the table: "token" */
@@ -7362,6 +11308,8 @@ export type Subscription_Root = {
   token_price_history: Array<Token_Price_History>;
   /** fetch aggregated fields from the table: "token_price_history" */
   token_price_history_aggregate: Token_Price_History_Aggregate;
+  /** fetch data from the table: "token_price_history" using primary key columns */
+  token_price_history_by_pk?: Maybe<Token_Price_History>;
   /** fetch data from the table: "token_unit" */
   token_unit: Array<Token_Unit>;
   /** fetch aggregated fields from the table: "token_unit" */
@@ -7466,6 +11414,11 @@ export type Subscription_RootAverage_Block_Time_From_Genesis_AggregateArgs = {
 };
 
 
+export type Subscription_RootAverage_Block_Time_From_Genesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Subscription_RootAverage_Block_Time_Per_DayArgs = {
   distinct_on?: InputMaybe<Array<Average_Block_Time_Per_Day_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7481,6 +11434,11 @@ export type Subscription_RootAverage_Block_Time_Per_Day_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Average_Block_Time_Per_Day_Order_By>>;
   where?: InputMaybe<Average_Block_Time_Per_Day_Bool_Exp>;
+};
+
+
+export type Subscription_RootAverage_Block_Time_Per_Day_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -7502,6 +11460,11 @@ export type Subscription_RootAverage_Block_Time_Per_Hour_AggregateArgs = {
 };
 
 
+export type Subscription_RootAverage_Block_Time_Per_Hour_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Subscription_RootAverage_Block_Time_Per_MinuteArgs = {
   distinct_on?: InputMaybe<Array<Average_Block_Time_Per_Minute_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7517,6 +11480,11 @@ export type Subscription_RootAverage_Block_Time_Per_Minute_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Average_Block_Time_Per_Minute_Order_By>>;
   where?: InputMaybe<Average_Block_Time_Per_Minute_Bool_Exp>;
+};
+
+
+export type Subscription_RootAverage_Block_Time_Per_Minute_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -7558,6 +11526,11 @@ export type Subscription_RootCommunity_Pool_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Community_Pool_Order_By>>;
   where?: InputMaybe<Community_Pool_Bool_Exp>;
+};
+
+
+export type Subscription_RootCommunity_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -7666,6 +11639,11 @@ export type Subscription_RootGenesis_AggregateArgs = {
 };
 
 
+export type Subscription_RootGenesis_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Subscription_RootGov_ParamsArgs = {
   distinct_on?: InputMaybe<Array<Gov_Params_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -7704,6 +11682,11 @@ export type Subscription_RootInflation_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Inflation_Order_By>>;
   where?: InputMaybe<Inflation_Bool_Exp>;
+};
+
+
+export type Subscription_RootInflation_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -7806,29 +11789,6 @@ export type Subscription_RootPre_Commit_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Pre_Commit_Order_By>>;
   where?: InputMaybe<Pre_Commit_Bool_Exp>;
-};
-
-
-export type Subscription_RootProfiles_ParamsArgs = {
-  distinct_on?: InputMaybe<Array<Profiles_Params_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Profiles_Params_Order_By>>;
-  where?: InputMaybe<Profiles_Params_Bool_Exp>;
-};
-
-
-export type Subscription_RootProfiles_Params_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Profiles_Params_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Profiles_Params_Order_By>>;
-  where?: InputMaybe<Profiles_Params_Bool_Exp>;
-};
-
-
-export type Subscription_RootProfiles_Params_By_PkArgs = {
-  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -8042,6 +12002,11 @@ export type Subscription_RootStaking_Pool_AggregateArgs = {
 };
 
 
+export type Subscription_RootStaking_Pool_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
+};
+
+
 export type Subscription_RootSupplyArgs = {
   distinct_on?: InputMaybe<Array<Supply_Select_Column>>;
   limit?: InputMaybe<Scalars['Int']>;
@@ -8057,6 +12022,11 @@ export type Subscription_RootSupply_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Supply_Order_By>>;
   where?: InputMaybe<Supply_Bool_Exp>;
+};
+
+
+export type Subscription_RootSupply_By_PkArgs = {
+  one_row_id: Scalars['Boolean'];
 };
 
 
@@ -8116,6 +12086,11 @@ export type Subscription_RootToken_Price_History_AggregateArgs = {
   offset?: InputMaybe<Scalars['Int']>;
   order_by?: InputMaybe<Array<Token_Price_History_Order_By>>;
   where?: InputMaybe<Token_Price_History_Bool_Exp>;
+};
+
+
+export type Subscription_RootToken_Price_History_By_PkArgs = {
+  id: Scalars['Int'];
 };
 
 
@@ -8361,6 +12336,7 @@ export type Supply = {
   __typename?: 'supply';
   coins: Scalars['_coin'];
   height: Scalars['bigint'];
+  one_row_id: Scalars['Boolean'];
 };
 
 /** aggregated selection of "supply" */
@@ -8406,6 +12382,25 @@ export type Supply_Bool_Exp = {
   _or?: InputMaybe<Array<Supply_Bool_Exp>>;
   coins?: InputMaybe<_Coin_Comparison_Exp>;
   height?: InputMaybe<Bigint_Comparison_Exp>;
+  one_row_id?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "supply" */
+export enum Supply_Constraint {
+  /** unique or primary key constraint */
+  SupplyPkey = 'supply_pkey'
+}
+
+/** input type for incrementing numeric columns in table "supply" */
+export type Supply_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "supply" */
+export type Supply_Insert_Input = {
+  coins?: InputMaybe<Scalars['_coin']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -8420,10 +12415,32 @@ export type Supply_Min_Fields = {
   height?: Maybe<Scalars['bigint']>;
 };
 
+/** response of any mutation on the table "supply" */
+export type Supply_Mutation_Response = {
+  __typename?: 'supply_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Supply>;
+};
+
+/** on conflict condition type for table "supply" */
+export type Supply_On_Conflict = {
+  constraint: Supply_Constraint;
+  update_columns?: Array<Supply_Update_Column>;
+  where?: InputMaybe<Supply_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "supply". */
 export type Supply_Order_By = {
   coins?: InputMaybe<Order_By>;
   height?: InputMaybe<Order_By>;
+  one_row_id?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: supply */
+export type Supply_Pk_Columns_Input = {
+  one_row_id: Scalars['Boolean'];
 };
 
 /** select columns of table "supply" */
@@ -8431,8 +12448,17 @@ export enum Supply_Select_Column {
   /** column name */
   Coins = 'coins',
   /** column name */
-  Height = 'height'
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
 }
+
+/** input type for updating data in table "supply" */
+export type Supply_Set_Input = {
+  coins?: InputMaybe<Scalars['_coin']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  one_row_id?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Supply_Stddev_Fields = {
@@ -8457,6 +12483,16 @@ export type Supply_Sum_Fields = {
   __typename?: 'supply_sum_fields';
   height?: Maybe<Scalars['bigint']>;
 };
+
+/** update columns of table "supply" */
+export enum Supply_Update_Column {
+  /** column name */
+  Coins = 'coins',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  OneRowId = 'one_row_id'
+}
 
 /** aggregate var_pop on columns */
 export type Supply_Var_Pop_Fields = {
@@ -8487,19 +12523,6 @@ export type Timestamp_Comparison_Exp = {
   _lte?: InputMaybe<Scalars['timestamp']>;
   _neq?: InputMaybe<Scalars['timestamp']>;
   _nin?: InputMaybe<Array<Scalars['timestamp']>>;
-};
-
-/** Boolean expression to compare columns of type "timestamptz". All fields are combined with logical 'AND'. */
-export type Timestamptz_Comparison_Exp = {
-  _eq?: InputMaybe<Scalars['timestamptz']>;
-  _gt?: InputMaybe<Scalars['timestamptz']>;
-  _gte?: InputMaybe<Scalars['timestamptz']>;
-  _in?: InputMaybe<Array<Scalars['timestamptz']>>;
-  _is_null?: InputMaybe<Scalars['Boolean']>;
-  _lt?: InputMaybe<Scalars['timestamptz']>;
-  _lte?: InputMaybe<Scalars['timestamptz']>;
-  _neq?: InputMaybe<Scalars['timestamptz']>;
-  _nin?: InputMaybe<Array<Scalars['timestamptz']>>;
 };
 
 /** columns and relationships of "token" */
@@ -8563,6 +12586,18 @@ export type Token_Bool_Exp = {
   token_units?: InputMaybe<Token_Unit_Bool_Exp>;
 };
 
+/** unique or primary key constraints on table "token" */
+export enum Token_Constraint {
+  /** unique or primary key constraint */
+  TokenNameKey = 'token_name_key'
+}
+
+/** input type for inserting data into table "token" */
+export type Token_Insert_Input = {
+  name?: InputMaybe<Scalars['String']>;
+  token_units?: InputMaybe<Token_Unit_Arr_Rel_Insert_Input>;
+};
+
 /** aggregate max on columns */
 export type Token_Max_Fields = {
   __typename?: 'token_max_fields';
@@ -8573,6 +12608,29 @@ export type Token_Max_Fields = {
 export type Token_Min_Fields = {
   __typename?: 'token_min_fields';
   name?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "token" */
+export type Token_Mutation_Response = {
+  __typename?: 'token_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Token>;
+};
+
+/** input type for inserting object relation for remote table "token" */
+export type Token_Obj_Rel_Insert_Input = {
+  data: Token_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_On_Conflict>;
+};
+
+/** on conflict condition type for table "token" */
+export type Token_On_Conflict = {
+  constraint: Token_Constraint;
+  update_columns?: Array<Token_Update_Column>;
+  where?: InputMaybe<Token_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "token". */
@@ -8638,6 +12696,13 @@ export type Token_Price_Aggregate_Order_By = {
   variance?: InputMaybe<Token_Price_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "token_price" */
+export type Token_Price_Arr_Rel_Insert_Input = {
+  data: Array<Token_Price_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_Price_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Token_Price_Avg_Fields = {
   __typename?: 'token_price_avg_fields';
@@ -8666,9 +12731,18 @@ export type Token_Price_Bool_Exp = {
   unit_name?: InputMaybe<String_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "token_price" */
+export enum Token_Price_Constraint {
+  /** unique or primary key constraint */
+  TokenPricePkey = 'token_price_pkey',
+  /** unique or primary key constraint */
+  TokenPriceUnitNameKey = 'token_price_unit_name_key'
+}
+
 /** columns and relationships of "token_price_history" */
 export type Token_Price_History = {
   __typename?: 'token_price_history';
+  id: Scalars['Int'];
   market_cap: Scalars['bigint'];
   price: Scalars['numeric'];
   timestamp: Scalars['timestamp'];
@@ -8722,15 +12796,24 @@ export type Token_Price_History_Aggregate_Order_By = {
   variance?: InputMaybe<Token_Price_History_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "token_price_history" */
+export type Token_Price_History_Arr_Rel_Insert_Input = {
+  data: Array<Token_Price_History_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_Price_History_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Token_Price_History_Avg_Fields = {
   __typename?: 'token_price_history_avg_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by avg() on columns of table "token_price_history" */
 export type Token_Price_History_Avg_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8740,6 +12823,7 @@ export type Token_Price_History_Bool_Exp = {
   _and?: InputMaybe<Array<Token_Price_History_Bool_Exp>>;
   _not?: InputMaybe<Token_Price_History_Bool_Exp>;
   _or?: InputMaybe<Array<Token_Price_History_Bool_Exp>>;
+  id?: InputMaybe<Int_Comparison_Exp>;
   market_cap?: InputMaybe<Bigint_Comparison_Exp>;
   price?: InputMaybe<Numeric_Comparison_Exp>;
   timestamp?: InputMaybe<Timestamp_Comparison_Exp>;
@@ -8747,9 +12831,35 @@ export type Token_Price_History_Bool_Exp = {
   unit_name?: InputMaybe<String_Comparison_Exp>;
 };
 
+/** unique or primary key constraints on table "token_price_history" */
+export enum Token_Price_History_Constraint {
+  /** unique or primary key constraint */
+  TokenPriceHistoryPkey = 'token_price_history_pkey',
+  /** unique or primary key constraint */
+  UniquePriceForTimestamp = 'unique_price_for_timestamp'
+}
+
+/** input type for incrementing numeric columns in table "token_price_history" */
+export type Token_Price_History_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+};
+
+/** input type for inserting data into table "token_price_history" */
+export type Token_Price_History_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  token_unit?: InputMaybe<Token_Unit_Obj_Rel_Insert_Input>;
+  unit_name?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate max on columns */
 export type Token_Price_History_Max_Fields = {
   __typename?: 'token_price_history_max_fields';
+  id?: Maybe<Scalars['Int']>;
   market_cap?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   timestamp?: Maybe<Scalars['timestamp']>;
@@ -8758,6 +12868,7 @@ export type Token_Price_History_Max_Fields = {
 
 /** order by max() on columns of table "token_price_history" */
 export type Token_Price_History_Max_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
@@ -8767,6 +12878,7 @@ export type Token_Price_History_Max_Order_By = {
 /** aggregate min on columns */
 export type Token_Price_History_Min_Fields = {
   __typename?: 'token_price_history_min_fields';
+  id?: Maybe<Scalars['Int']>;
   market_cap?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
   timestamp?: Maybe<Scalars['timestamp']>;
@@ -8775,14 +12887,32 @@ export type Token_Price_History_Min_Fields = {
 
 /** order by min() on columns of table "token_price_history" */
 export type Token_Price_History_Min_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
   unit_name?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "token_price_history" */
+export type Token_Price_History_Mutation_Response = {
+  __typename?: 'token_price_history_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Token_Price_History>;
+};
+
+/** on conflict condition type for table "token_price_history" */
+export type Token_Price_History_On_Conflict = {
+  constraint: Token_Price_History_Constraint;
+  update_columns?: Array<Token_Price_History_Update_Column>;
+  where?: InputMaybe<Token_Price_History_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "token_price_history". */
 export type Token_Price_History_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
   timestamp?: InputMaybe<Order_By>;
@@ -8790,8 +12920,15 @@ export type Token_Price_History_Order_By = {
   unit_name?: InputMaybe<Order_By>;
 };
 
+/** primary key columns input for table: token_price_history */
+export type Token_Price_History_Pk_Columns_Input = {
+  id: Scalars['Int'];
+};
+
 /** select columns of table "token_price_history" */
 export enum Token_Price_History_Select_Column {
+  /** column name */
+  Id = 'id',
   /** column name */
   MarketCap = 'market_cap',
   /** column name */
@@ -8802,15 +12939,26 @@ export enum Token_Price_History_Select_Column {
   UnitName = 'unit_name'
 }
 
+/** input type for updating data in table "token_price_history" */
+export type Token_Price_History_Set_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  unit_name?: InputMaybe<Scalars['String']>;
+};
+
 /** aggregate stddev on columns */
 export type Token_Price_History_Stddev_Fields = {
   __typename?: 'token_price_history_stddev_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev() on columns of table "token_price_history" */
 export type Token_Price_History_Stddev_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8818,12 +12966,14 @@ export type Token_Price_History_Stddev_Order_By = {
 /** aggregate stddev_pop on columns */
 export type Token_Price_History_Stddev_Pop_Fields = {
   __typename?: 'token_price_history_stddev_pop_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_pop() on columns of table "token_price_history" */
 export type Token_Price_History_Stddev_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8831,12 +12981,14 @@ export type Token_Price_History_Stddev_Pop_Order_By = {
 /** aggregate stddev_samp on columns */
 export type Token_Price_History_Stddev_Samp_Fields = {
   __typename?: 'token_price_history_stddev_samp_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by stddev_samp() on columns of table "token_price_history" */
 export type Token_Price_History_Stddev_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8844,25 +12996,43 @@ export type Token_Price_History_Stddev_Samp_Order_By = {
 /** aggregate sum on columns */
 export type Token_Price_History_Sum_Fields = {
   __typename?: 'token_price_history_sum_fields';
+  id?: Maybe<Scalars['Int']>;
   market_cap?: Maybe<Scalars['bigint']>;
   price?: Maybe<Scalars['numeric']>;
 };
 
 /** order by sum() on columns of table "token_price_history" */
 export type Token_Price_History_Sum_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "token_price_history" */
+export enum Token_Price_History_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MarketCap = 'market_cap',
+  /** column name */
+  Price = 'price',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  UnitName = 'unit_name'
+}
+
 /** aggregate var_pop on columns */
 export type Token_Price_History_Var_Pop_Fields = {
   __typename?: 'token_price_history_var_pop_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_pop() on columns of table "token_price_history" */
 export type Token_Price_History_Var_Pop_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8870,12 +13040,14 @@ export type Token_Price_History_Var_Pop_Order_By = {
 /** aggregate var_samp on columns */
 export type Token_Price_History_Var_Samp_Fields = {
   __typename?: 'token_price_history_var_samp_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by var_samp() on columns of table "token_price_history" */
 export type Token_Price_History_Var_Samp_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
 };
@@ -8883,14 +13055,33 @@ export type Token_Price_History_Var_Samp_Order_By = {
 /** aggregate variance on columns */
 export type Token_Price_History_Variance_Fields = {
   __typename?: 'token_price_history_variance_fields';
+  id?: Maybe<Scalars['Float']>;
   market_cap?: Maybe<Scalars['Float']>;
   price?: Maybe<Scalars['Float']>;
 };
 
 /** order by variance() on columns of table "token_price_history" */
 export type Token_Price_History_Variance_Order_By = {
+  id?: InputMaybe<Order_By>;
   market_cap?: InputMaybe<Order_By>;
   price?: InputMaybe<Order_By>;
+};
+
+/** input type for incrementing numeric columns in table "token_price" */
+export type Token_Price_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+};
+
+/** input type for inserting data into table "token_price" */
+export type Token_Price_Insert_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  token_unit?: InputMaybe<Token_Unit_Obj_Rel_Insert_Input>;
+  unit_name?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -8931,6 +13122,29 @@ export type Token_Price_Min_Order_By = {
   unit_name?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "token_price" */
+export type Token_Price_Mutation_Response = {
+  __typename?: 'token_price_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Token_Price>;
+};
+
+/** input type for inserting object relation for remote table "token_price" */
+export type Token_Price_Obj_Rel_Insert_Input = {
+  data: Token_Price_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_Price_On_Conflict>;
+};
+
+/** on conflict condition type for table "token_price" */
+export type Token_Price_On_Conflict = {
+  constraint: Token_Price_Constraint;
+  update_columns?: Array<Token_Price_Update_Column>;
+  where?: InputMaybe<Token_Price_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "token_price". */
 export type Token_Price_Order_By = {
   id?: InputMaybe<Order_By>;
@@ -8939,6 +13153,11 @@ export type Token_Price_Order_By = {
   timestamp?: InputMaybe<Order_By>;
   token_unit?: InputMaybe<Token_Unit_Order_By>;
   unit_name?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: token_price */
+export type Token_Price_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "token_price" */
@@ -8954,6 +13173,15 @@ export enum Token_Price_Select_Column {
   /** column name */
   UnitName = 'unit_name'
 }
+
+/** input type for updating data in table "token_price" */
+export type Token_Price_Set_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+  market_cap?: InputMaybe<Scalars['bigint']>;
+  price?: InputMaybe<Scalars['numeric']>;
+  timestamp?: InputMaybe<Scalars['timestamp']>;
+  unit_name?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Token_Price_Stddev_Fields = {
@@ -9015,6 +13243,20 @@ export type Token_Price_Sum_Order_By = {
   price?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "token_price" */
+export enum Token_Price_Update_Column {
+  /** column name */
+  Id = 'id',
+  /** column name */
+  MarketCap = 'market_cap',
+  /** column name */
+  Price = 'price',
+  /** column name */
+  Timestamp = 'timestamp',
+  /** column name */
+  UnitName = 'unit_name'
+}
+
 /** aggregate var_pop on columns */
 export type Token_Price_Var_Pop_Fields = {
   __typename?: 'token_price_var_pop_fields';
@@ -9065,6 +13307,11 @@ export enum Token_Select_Column {
   /** column name */
   Name = 'name'
 }
+
+/** input type for updating data in table "token" */
+export type Token_Set_Input = {
+  name?: InputMaybe<Scalars['String']>;
+};
 
 /** columns and relationships of "token_unit" */
 export type Token_Unit = {
@@ -9173,6 +13420,13 @@ export type Token_Unit_Aggregate_Order_By = {
   variance?: InputMaybe<Token_Unit_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "token_unit" */
+export type Token_Unit_Arr_Rel_Insert_Input = {
+  data: Array<Token_Unit_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_Unit_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Token_Unit_Avg_Fields = {
   __typename?: 'token_unit_avg_fields';
@@ -9198,6 +13452,30 @@ export type Token_Unit_Bool_Exp = {
   token_price?: InputMaybe<Token_Price_Bool_Exp>;
   token_price_histories?: InputMaybe<Token_Price_History_Bool_Exp>;
   token_prices?: InputMaybe<Token_Price_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "token_unit" */
+export enum Token_Unit_Constraint {
+  /** unique or primary key constraint */
+  TokenUnitDenomKey = 'token_unit_denom_key'
+}
+
+/** input type for incrementing numeric columns in table "token_unit" */
+export type Token_Unit_Inc_Input = {
+  exponent?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "token_unit" */
+export type Token_Unit_Insert_Input = {
+  aliases?: InputMaybe<Scalars['_text']>;
+  denom?: InputMaybe<Scalars['String']>;
+  exponent?: InputMaybe<Scalars['Int']>;
+  price_id?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Token_Obj_Rel_Insert_Input>;
+  token_name?: InputMaybe<Scalars['String']>;
+  token_price?: InputMaybe<Token_Price_Obj_Rel_Insert_Input>;
+  token_price_histories?: InputMaybe<Token_Price_History_Arr_Rel_Insert_Input>;
+  token_prices?: InputMaybe<Token_Price_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -9234,6 +13512,29 @@ export type Token_Unit_Min_Order_By = {
   token_name?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "token_unit" */
+export type Token_Unit_Mutation_Response = {
+  __typename?: 'token_unit_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Token_Unit>;
+};
+
+/** input type for inserting object relation for remote table "token_unit" */
+export type Token_Unit_Obj_Rel_Insert_Input = {
+  data: Token_Unit_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Token_Unit_On_Conflict>;
+};
+
+/** on conflict condition type for table "token_unit" */
+export type Token_Unit_On_Conflict = {
+  constraint: Token_Unit_Constraint;
+  update_columns?: Array<Token_Unit_Update_Column>;
+  where?: InputMaybe<Token_Unit_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "token_unit". */
 export type Token_Unit_Order_By = {
   aliases?: InputMaybe<Order_By>;
@@ -9260,6 +13561,15 @@ export enum Token_Unit_Select_Column {
   /** column name */
   TokenName = 'token_name'
 }
+
+/** input type for updating data in table "token_unit" */
+export type Token_Unit_Set_Input = {
+  aliases?: InputMaybe<Scalars['_text']>;
+  denom?: InputMaybe<Scalars['String']>;
+  exponent?: InputMaybe<Scalars['Int']>;
+  price_id?: InputMaybe<Scalars['String']>;
+  token_name?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Token_Unit_Stddev_Fields = {
@@ -9305,6 +13615,20 @@ export type Token_Unit_Sum_Order_By = {
   exponent?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "token_unit" */
+export enum Token_Unit_Update_Column {
+  /** column name */
+  Aliases = 'aliases',
+  /** column name */
+  Denom = 'denom',
+  /** column name */
+  Exponent = 'exponent',
+  /** column name */
+  PriceId = 'price_id',
+  /** column name */
+  TokenName = 'token_name'
+}
+
 /** aggregate var_pop on columns */
 export type Token_Unit_Var_Pop_Fields = {
   __typename?: 'token_unit_var_pop_fields';
@@ -9338,6 +13662,12 @@ export type Token_Unit_Variance_Order_By = {
   exponent?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "token" */
+export enum Token_Update_Column {
+  /** column name */
+  Name = 'name'
+}
+
 /** columns and relationships of "transaction" */
 export type Transaction = {
   __typename?: 'transaction';
@@ -9350,11 +13680,7 @@ export type Transaction = {
   height: Scalars['bigint'];
   logs?: Maybe<Scalars['jsonb']>;
   memo?: Maybe<Scalars['String']>;
-  messages: Scalars['jsonb'];
-  /** An array relationship */
-  messagesByTransactionHashPartitionId: Array<Message>;
-  /** An aggregate relationship */
-  messagesByTransactionHashPartitionId_aggregate: Message_Aggregate;
+  messages: Scalars['json'];
   partition_id: Scalars['bigint'];
   raw_log?: Maybe<Scalars['String']>;
   signatures: Scalars['_text'];
@@ -9378,26 +13704,6 @@ export type TransactionLogsArgs = {
 /** columns and relationships of "transaction" */
 export type TransactionMessagesArgs = {
   path?: InputMaybe<Scalars['String']>;
-};
-
-
-/** columns and relationships of "transaction" */
-export type TransactionMessagesByTransactionHashPartitionIdArgs = {
-  distinct_on?: InputMaybe<Array<Message_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Message_Order_By>>;
-  where?: InputMaybe<Message_Bool_Exp>;
-};
-
-
-/** columns and relationships of "transaction" */
-export type TransactionMessagesByTransactionHashPartitionId_AggregateArgs = {
-  distinct_on?: InputMaybe<Array<Message_Select_Column>>;
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-  order_by?: InputMaybe<Array<Message_Order_By>>;
-  where?: InputMaybe<Message_Bool_Exp>;
 };
 
 
@@ -9451,6 +13757,20 @@ export type Transaction_Aggregate_Order_By = {
   variance?: InputMaybe<Transaction_Variance_Order_By>;
 };
 
+/** append existing jsonb value of filtered columns with new jsonb value */
+export type Transaction_Append_Input = {
+  fee?: InputMaybe<Scalars['jsonb']>;
+  logs?: InputMaybe<Scalars['jsonb']>;
+  signer_infos?: InputMaybe<Scalars['jsonb']>;
+};
+
+/** input type for inserting array relation for remote table "transaction" */
+export type Transaction_Arr_Rel_Insert_Input = {
+  data: Array<Transaction_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Transaction_Avg_Fields = {
   __typename?: 'transaction_avg_fields';
@@ -9481,13 +13801,65 @@ export type Transaction_Bool_Exp = {
   height?: InputMaybe<Bigint_Comparison_Exp>;
   logs?: InputMaybe<Jsonb_Comparison_Exp>;
   memo?: InputMaybe<String_Comparison_Exp>;
-  messages?: InputMaybe<Jsonb_Comparison_Exp>;
-  messagesByTransactionHashPartitionId?: InputMaybe<Message_Bool_Exp>;
+  messages?: InputMaybe<Json_Comparison_Exp>;
   partition_id?: InputMaybe<Bigint_Comparison_Exp>;
   raw_log?: InputMaybe<String_Comparison_Exp>;
   signatures?: InputMaybe<_Text_Comparison_Exp>;
   signer_infos?: InputMaybe<Jsonb_Comparison_Exp>;
   success?: InputMaybe<Boolean_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "transaction" */
+export enum Transaction_Constraint {
+  /** unique or primary key constraint */
+  UniqueTx = 'unique_tx'
+}
+
+/** delete the field or element with specified path (for JSON arrays, negative integers count from the end) */
+export type Transaction_Delete_At_Path_Input = {
+  fee?: InputMaybe<Array<Scalars['String']>>;
+  logs?: InputMaybe<Array<Scalars['String']>>;
+  signer_infos?: InputMaybe<Array<Scalars['String']>>;
+};
+
+/** delete the array element with specified index (negative integers count from the end). throws an error if top level container is not an array */
+export type Transaction_Delete_Elem_Input = {
+  fee?: InputMaybe<Scalars['Int']>;
+  logs?: InputMaybe<Scalars['Int']>;
+  signer_infos?: InputMaybe<Scalars['Int']>;
+};
+
+/** delete key/value pair or string element. key/value pairs are matched based on their key value */
+export type Transaction_Delete_Key_Input = {
+  fee?: InputMaybe<Scalars['String']>;
+  logs?: InputMaybe<Scalars['String']>;
+  signer_infos?: InputMaybe<Scalars['String']>;
+};
+
+/** input type for incrementing numeric columns in table "transaction" */
+export type Transaction_Inc_Input = {
+  gas_used?: InputMaybe<Scalars['bigint']>;
+  gas_wanted?: InputMaybe<Scalars['bigint']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "transaction" */
+export type Transaction_Insert_Input = {
+  block?: InputMaybe<Block_Obj_Rel_Insert_Input>;
+  fee?: InputMaybe<Scalars['jsonb']>;
+  gas_used?: InputMaybe<Scalars['bigint']>;
+  gas_wanted?: InputMaybe<Scalars['bigint']>;
+  hash?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  logs?: InputMaybe<Scalars['jsonb']>;
+  memo?: InputMaybe<Scalars['String']>;
+  messages?: InputMaybe<Scalars['json']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+  raw_log?: InputMaybe<Scalars['String']>;
+  signatures?: InputMaybe<Scalars['_text']>;
+  signer_infos?: InputMaybe<Scalars['jsonb']>;
+  success?: InputMaybe<Scalars['Boolean']>;
 };
 
 /** aggregate max on columns */
@@ -9536,6 +13908,29 @@ export type Transaction_Min_Order_By = {
   raw_log?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "transaction" */
+export type Transaction_Mutation_Response = {
+  __typename?: 'transaction_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Transaction>;
+};
+
+/** input type for inserting object relation for remote table "transaction" */
+export type Transaction_Obj_Rel_Insert_Input = {
+  data: Transaction_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Transaction_On_Conflict>;
+};
+
+/** on conflict condition type for table "transaction" */
+export type Transaction_On_Conflict = {
+  constraint: Transaction_Constraint;
+  update_columns?: Array<Transaction_Update_Column>;
+  where?: InputMaybe<Transaction_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "transaction". */
 export type Transaction_Order_By = {
   block?: InputMaybe<Block_Order_By>;
@@ -9547,12 +13942,18 @@ export type Transaction_Order_By = {
   logs?: InputMaybe<Order_By>;
   memo?: InputMaybe<Order_By>;
   messages?: InputMaybe<Order_By>;
-  messagesByTransactionHashPartitionId_aggregate?: InputMaybe<Message_Aggregate_Order_By>;
   partition_id?: InputMaybe<Order_By>;
   raw_log?: InputMaybe<Order_By>;
   signatures?: InputMaybe<Order_By>;
   signer_infos?: InputMaybe<Order_By>;
   success?: InputMaybe<Order_By>;
+};
+
+/** prepend existing jsonb value of filtered columns with new jsonb value */
+export type Transaction_Prepend_Input = {
+  fee?: InputMaybe<Scalars['jsonb']>;
+  logs?: InputMaybe<Scalars['jsonb']>;
+  signer_infos?: InputMaybe<Scalars['jsonb']>;
 };
 
 /** select columns of table "transaction" */
@@ -9584,6 +13985,23 @@ export enum Transaction_Select_Column {
   /** column name */
   Success = 'success'
 }
+
+/** input type for updating data in table "transaction" */
+export type Transaction_Set_Input = {
+  fee?: InputMaybe<Scalars['jsonb']>;
+  gas_used?: InputMaybe<Scalars['bigint']>;
+  gas_wanted?: InputMaybe<Scalars['bigint']>;
+  hash?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  logs?: InputMaybe<Scalars['jsonb']>;
+  memo?: InputMaybe<Scalars['String']>;
+  messages?: InputMaybe<Scalars['json']>;
+  partition_id?: InputMaybe<Scalars['bigint']>;
+  raw_log?: InputMaybe<Scalars['String']>;
+  signatures?: InputMaybe<Scalars['_text']>;
+  signer_infos?: InputMaybe<Scalars['jsonb']>;
+  success?: InputMaybe<Scalars['Boolean']>;
+};
 
 /** aggregate stddev on columns */
 export type Transaction_Stddev_Fields = {
@@ -9652,6 +14070,36 @@ export type Transaction_Sum_Order_By = {
   height?: InputMaybe<Order_By>;
   partition_id?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "transaction" */
+export enum Transaction_Update_Column {
+  /** column name */
+  Fee = 'fee',
+  /** column name */
+  GasUsed = 'gas_used',
+  /** column name */
+  GasWanted = 'gas_wanted',
+  /** column name */
+  Hash = 'hash',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Logs = 'logs',
+  /** column name */
+  Memo = 'memo',
+  /** column name */
+  Messages = 'messages',
+  /** column name */
+  PartitionId = 'partition_id',
+  /** column name */
+  RawLog = 'raw_log',
+  /** column name */
+  Signatures = 'signatures',
+  /** column name */
+  SignerInfos = 'signer_infos',
+  /** column name */
+  Success = 'success'
+}
 
 /** aggregate var_pop on columns */
 export type Transaction_Var_Pop_Fields = {
@@ -10054,6 +14502,13 @@ export type Validator_Commission_Aggregate_Order_By = {
   variance?: InputMaybe<Validator_Commission_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "validator_commission" */
+export type Validator_Commission_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Commission_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Commission_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Validator_Commission_Avg_Fields = {
   __typename?: 'validator_commission_avg_fields';
@@ -10079,6 +14534,28 @@ export type Validator_Commission_Bool_Exp = {
   min_self_delegation?: InputMaybe<Bigint_Comparison_Exp>;
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "validator_commission" */
+export enum Validator_Commission_Constraint {
+  /** unique or primary key constraint */
+  ValidatorCommissionPkey = 'validator_commission_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_commission" */
+export type Validator_Commission_Inc_Input = {
+  commission?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  min_self_delegation?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "validator_commission" */
+export type Validator_Commission_Insert_Input = {
+  commission?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  min_self_delegation?: InputMaybe<Scalars['bigint']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -10115,6 +14592,22 @@ export type Validator_Commission_Min_Order_By = {
   validator_address?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_commission" */
+export type Validator_Commission_Mutation_Response = {
+  __typename?: 'validator_commission_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Commission>;
+};
+
+/** on conflict condition type for table "validator_commission" */
+export type Validator_Commission_On_Conflict = {
+  constraint: Validator_Commission_Constraint;
+  update_columns?: Array<Validator_Commission_Update_Column>;
+  where?: InputMaybe<Validator_Commission_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_commission". */
 export type Validator_Commission_Order_By = {
   commission?: InputMaybe<Order_By>;
@@ -10122,6 +14615,11 @@ export type Validator_Commission_Order_By = {
   min_self_delegation?: InputMaybe<Order_By>;
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: validator_commission */
+export type Validator_Commission_Pk_Columns_Input = {
+  validator_address: Scalars['String'];
 };
 
 /** select columns of table "validator_commission" */
@@ -10135,6 +14633,14 @@ export enum Validator_Commission_Select_Column {
   /** column name */
   ValidatorAddress = 'validator_address'
 }
+
+/** input type for updating data in table "validator_commission" */
+export type Validator_Commission_Set_Input = {
+  commission?: InputMaybe<Scalars['numeric']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  min_self_delegation?: InputMaybe<Scalars['bigint']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Validator_Commission_Stddev_Fields = {
@@ -10196,6 +14702,18 @@ export type Validator_Commission_Sum_Order_By = {
   min_self_delegation?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "validator_commission" */
+export enum Validator_Commission_Update_Column {
+  /** column name */
+  Commission = 'commission',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  MinSelfDelegation = 'min_self_delegation',
+  /** column name */
+  ValidatorAddress = 'validator_address'
+}
+
 /** aggregate var_pop on columns */
 export type Validator_Commission_Var_Pop_Fields = {
   __typename?: 'validator_commission_var_pop_fields';
@@ -10240,6 +14758,14 @@ export type Validator_Commission_Variance_Order_By = {
   height?: InputMaybe<Order_By>;
   min_self_delegation?: InputMaybe<Order_By>;
 };
+
+/** unique or primary key constraints on table "validator" */
+export enum Validator_Constraint {
+  /** unique or primary key constraint */
+  ValidatorConsensusPubkeyKey = 'validator_consensus_pubkey_key',
+  /** unique or primary key constraint */
+  ValidatorPkey = 'validator_pkey'
+}
 
 /** columns and relationships of "validator_description" */
 export type Validator_Description = {
@@ -10301,6 +14827,13 @@ export type Validator_Description_Aggregate_Order_By = {
   variance?: InputMaybe<Validator_Description_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "validator_description" */
+export type Validator_Description_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Description_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Description_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Validator_Description_Avg_Fields = {
   __typename?: 'validator_description_avg_fields';
@@ -10326,6 +14859,30 @@ export type Validator_Description_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
   website?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "validator_description" */
+export enum Validator_Description_Constraint {
+  /** unique or primary key constraint */
+  ValidatorDescriptionPkey = 'validator_description_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_description" */
+export type Validator_Description_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "validator_description" */
+export type Validator_Description_Insert_Input = {
+  avatar_url?: InputMaybe<Scalars['String']>;
+  details?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  identity?: InputMaybe<Scalars['String']>;
+  moniker?: InputMaybe<Scalars['String']>;
+  security_contact?: InputMaybe<Scalars['String']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  website?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -10378,6 +14935,22 @@ export type Validator_Description_Min_Order_By = {
   website?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_description" */
+export type Validator_Description_Mutation_Response = {
+  __typename?: 'validator_description_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Description>;
+};
+
+/** on conflict condition type for table "validator_description" */
+export type Validator_Description_On_Conflict = {
+  constraint: Validator_Description_Constraint;
+  update_columns?: Array<Validator_Description_Update_Column>;
+  where?: InputMaybe<Validator_Description_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_description". */
 export type Validator_Description_Order_By = {
   avatar_url?: InputMaybe<Order_By>;
@@ -10389,6 +14962,11 @@ export type Validator_Description_Order_By = {
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
   website?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: validator_description */
+export type Validator_Description_Pk_Columns_Input = {
+  validator_address: Scalars['String'];
 };
 
 /** select columns of table "validator_description" */
@@ -10410,6 +14988,18 @@ export enum Validator_Description_Select_Column {
   /** column name */
   Website = 'website'
 }
+
+/** input type for updating data in table "validator_description" */
+export type Validator_Description_Set_Input = {
+  avatar_url?: InputMaybe<Scalars['String']>;
+  details?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  identity?: InputMaybe<Scalars['String']>;
+  moniker?: InputMaybe<Scalars['String']>;
+  security_contact?: InputMaybe<Scalars['String']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  website?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Validator_Description_Stddev_Fields = {
@@ -10455,6 +15045,26 @@ export type Validator_Description_Sum_Order_By = {
   height?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "validator_description" */
+export enum Validator_Description_Update_Column {
+  /** column name */
+  AvatarUrl = 'avatar_url',
+  /** column name */
+  Details = 'details',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Identity = 'identity',
+  /** column name */
+  Moniker = 'moniker',
+  /** column name */
+  SecurityContact = 'security_contact',
+  /** column name */
+  ValidatorAddress = 'validator_address',
+  /** column name */
+  Website = 'website'
+}
+
 /** aggregate var_pop on columns */
 export type Validator_Description_Var_Pop_Fields = {
   __typename?: 'validator_description_var_pop_fields';
@@ -10494,6 +15104,7 @@ export type Validator_Info = {
   /** An object relationship */
   account?: Maybe<Account>;
   consensus_address: Scalars['String'];
+  height: Scalars['bigint'];
   max_change_rate: Scalars['String'];
   max_rate: Scalars['String'];
   operator_address: Scalars['String'];
@@ -10512,9 +15123,17 @@ export type Validator_Info_Aggregate = {
 /** aggregate fields of "validator_info" */
 export type Validator_Info_Aggregate_Fields = {
   __typename?: 'validator_info_aggregate_fields';
+  avg?: Maybe<Validator_Info_Avg_Fields>;
   count: Scalars['Int'];
   max?: Maybe<Validator_Info_Max_Fields>;
   min?: Maybe<Validator_Info_Min_Fields>;
+  stddev?: Maybe<Validator_Info_Stddev_Fields>;
+  stddev_pop?: Maybe<Validator_Info_Stddev_Pop_Fields>;
+  stddev_samp?: Maybe<Validator_Info_Stddev_Samp_Fields>;
+  sum?: Maybe<Validator_Info_Sum_Fields>;
+  var_pop?: Maybe<Validator_Info_Var_Pop_Fields>;
+  var_samp?: Maybe<Validator_Info_Var_Samp_Fields>;
+  variance?: Maybe<Validator_Info_Variance_Fields>;
 };
 
 
@@ -10526,9 +15145,35 @@ export type Validator_Info_Aggregate_FieldsCountArgs = {
 
 /** order by aggregate values of table "validator_info" */
 export type Validator_Info_Aggregate_Order_By = {
+  avg?: InputMaybe<Validator_Info_Avg_Order_By>;
   count?: InputMaybe<Order_By>;
   max?: InputMaybe<Validator_Info_Max_Order_By>;
   min?: InputMaybe<Validator_Info_Min_Order_By>;
+  stddev?: InputMaybe<Validator_Info_Stddev_Order_By>;
+  stddev_pop?: InputMaybe<Validator_Info_Stddev_Pop_Order_By>;
+  stddev_samp?: InputMaybe<Validator_Info_Stddev_Samp_Order_By>;
+  sum?: InputMaybe<Validator_Info_Sum_Order_By>;
+  var_pop?: InputMaybe<Validator_Info_Var_Pop_Order_By>;
+  var_samp?: InputMaybe<Validator_Info_Var_Samp_Order_By>;
+  variance?: InputMaybe<Validator_Info_Variance_Order_By>;
+};
+
+/** input type for inserting array relation for remote table "validator_info" */
+export type Validator_Info_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Info_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Info_On_Conflict>;
+};
+
+/** aggregate avg on columns */
+export type Validator_Info_Avg_Fields = {
+  __typename?: 'validator_info_avg_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by avg() on columns of table "validator_info" */
+export type Validator_Info_Avg_Order_By = {
+  height?: InputMaybe<Order_By>;
 };
 
 /** Boolean expression to filter rows from the table "validator_info". All fields are combined with a logical 'AND'. */
@@ -10538,6 +15183,7 @@ export type Validator_Info_Bool_Exp = {
   _or?: InputMaybe<Array<Validator_Info_Bool_Exp>>;
   account?: InputMaybe<Account_Bool_Exp>;
   consensus_address?: InputMaybe<String_Comparison_Exp>;
+  height?: InputMaybe<Bigint_Comparison_Exp>;
   max_change_rate?: InputMaybe<String_Comparison_Exp>;
   max_rate?: InputMaybe<String_Comparison_Exp>;
   operator_address?: InputMaybe<String_Comparison_Exp>;
@@ -10545,10 +15191,36 @@ export type Validator_Info_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
 };
 
+/** unique or primary key constraints on table "validator_info" */
+export enum Validator_Info_Constraint {
+  /** unique or primary key constraint */
+  ValidatorInfoOperatorAddressKey = 'validator_info_operator_address_key',
+  /** unique or primary key constraint */
+  ValidatorInfoPkey = 'validator_info_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_info" */
+export type Validator_Info_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "validator_info" */
+export type Validator_Info_Insert_Input = {
+  account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  consensus_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  max_change_rate?: InputMaybe<Scalars['String']>;
+  max_rate?: InputMaybe<Scalars['String']>;
+  operator_address?: InputMaybe<Scalars['String']>;
+  self_delegate_address?: InputMaybe<Scalars['String']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+};
+
 /** aggregate max on columns */
 export type Validator_Info_Max_Fields = {
   __typename?: 'validator_info_max_fields';
   consensus_address?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['bigint']>;
   max_change_rate?: Maybe<Scalars['String']>;
   max_rate?: Maybe<Scalars['String']>;
   operator_address?: Maybe<Scalars['String']>;
@@ -10558,6 +15230,7 @@ export type Validator_Info_Max_Fields = {
 /** order by max() on columns of table "validator_info" */
 export type Validator_Info_Max_Order_By = {
   consensus_address?: InputMaybe<Order_By>;
+  height?: InputMaybe<Order_By>;
   max_change_rate?: InputMaybe<Order_By>;
   max_rate?: InputMaybe<Order_By>;
   operator_address?: InputMaybe<Order_By>;
@@ -10568,6 +15241,7 @@ export type Validator_Info_Max_Order_By = {
 export type Validator_Info_Min_Fields = {
   __typename?: 'validator_info_min_fields';
   consensus_address?: Maybe<Scalars['String']>;
+  height?: Maybe<Scalars['bigint']>;
   max_change_rate?: Maybe<Scalars['String']>;
   max_rate?: Maybe<Scalars['String']>;
   operator_address?: Maybe<Scalars['String']>;
@@ -10577,16 +15251,41 @@ export type Validator_Info_Min_Fields = {
 /** order by min() on columns of table "validator_info" */
 export type Validator_Info_Min_Order_By = {
   consensus_address?: InputMaybe<Order_By>;
+  height?: InputMaybe<Order_By>;
   max_change_rate?: InputMaybe<Order_By>;
   max_rate?: InputMaybe<Order_By>;
   operator_address?: InputMaybe<Order_By>;
   self_delegate_address?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_info" */
+export type Validator_Info_Mutation_Response = {
+  __typename?: 'validator_info_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Info>;
+};
+
+/** input type for inserting object relation for remote table "validator_info" */
+export type Validator_Info_Obj_Rel_Insert_Input = {
+  data: Validator_Info_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Info_On_Conflict>;
+};
+
+/** on conflict condition type for table "validator_info" */
+export type Validator_Info_On_Conflict = {
+  constraint: Validator_Info_Constraint;
+  update_columns?: Array<Validator_Info_Update_Column>;
+  where?: InputMaybe<Validator_Info_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_info". */
 export type Validator_Info_Order_By = {
   account?: InputMaybe<Account_Order_By>;
   consensus_address?: InputMaybe<Order_By>;
+  height?: InputMaybe<Order_By>;
   max_change_rate?: InputMaybe<Order_By>;
   max_rate?: InputMaybe<Order_By>;
   operator_address?: InputMaybe<Order_By>;
@@ -10594,10 +15293,17 @@ export type Validator_Info_Order_By = {
   validator?: InputMaybe<Validator_Order_By>;
 };
 
+/** primary key columns input for table: validator_info */
+export type Validator_Info_Pk_Columns_Input = {
+  consensus_address: Scalars['String'];
+};
+
 /** select columns of table "validator_info" */
 export enum Validator_Info_Select_Column {
   /** column name */
   ConsensusAddress = 'consensus_address',
+  /** column name */
+  Height = 'height',
   /** column name */
   MaxChangeRate = 'max_change_rate',
   /** column name */
@@ -10607,6 +15313,127 @@ export enum Validator_Info_Select_Column {
   /** column name */
   SelfDelegateAddress = 'self_delegate_address'
 }
+
+/** input type for updating data in table "validator_info" */
+export type Validator_Info_Set_Input = {
+  consensus_address?: InputMaybe<Scalars['String']>;
+  height?: InputMaybe<Scalars['bigint']>;
+  max_change_rate?: InputMaybe<Scalars['String']>;
+  max_rate?: InputMaybe<Scalars['String']>;
+  operator_address?: InputMaybe<Scalars['String']>;
+  self_delegate_address?: InputMaybe<Scalars['String']>;
+};
+
+/** aggregate stddev on columns */
+export type Validator_Info_Stddev_Fields = {
+  __typename?: 'validator_info_stddev_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev() on columns of table "validator_info" */
+export type Validator_Info_Stddev_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_pop on columns */
+export type Validator_Info_Stddev_Pop_Fields = {
+  __typename?: 'validator_info_stddev_pop_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_pop() on columns of table "validator_info" */
+export type Validator_Info_Stddev_Pop_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** aggregate stddev_samp on columns */
+export type Validator_Info_Stddev_Samp_Fields = {
+  __typename?: 'validator_info_stddev_samp_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by stddev_samp() on columns of table "validator_info" */
+export type Validator_Info_Stddev_Samp_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** aggregate sum on columns */
+export type Validator_Info_Sum_Fields = {
+  __typename?: 'validator_info_sum_fields';
+  height?: Maybe<Scalars['bigint']>;
+};
+
+/** order by sum() on columns of table "validator_info" */
+export type Validator_Info_Sum_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** update columns of table "validator_info" */
+export enum Validator_Info_Update_Column {
+  /** column name */
+  ConsensusAddress = 'consensus_address',
+  /** column name */
+  Height = 'height',
+  /** column name */
+  MaxChangeRate = 'max_change_rate',
+  /** column name */
+  MaxRate = 'max_rate',
+  /** column name */
+  OperatorAddress = 'operator_address',
+  /** column name */
+  SelfDelegateAddress = 'self_delegate_address'
+}
+
+/** aggregate var_pop on columns */
+export type Validator_Info_Var_Pop_Fields = {
+  __typename?: 'validator_info_var_pop_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_pop() on columns of table "validator_info" */
+export type Validator_Info_Var_Pop_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** aggregate var_samp on columns */
+export type Validator_Info_Var_Samp_Fields = {
+  __typename?: 'validator_info_var_samp_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by var_samp() on columns of table "validator_info" */
+export type Validator_Info_Var_Samp_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** aggregate variance on columns */
+export type Validator_Info_Variance_Fields = {
+  __typename?: 'validator_info_variance_fields';
+  height?: Maybe<Scalars['Float']>;
+};
+
+/** order by variance() on columns of table "validator_info" */
+export type Validator_Info_Variance_Order_By = {
+  height?: InputMaybe<Order_By>;
+};
+
+/** input type for inserting data into table "validator" */
+export type Validator_Insert_Input = {
+  blocks?: InputMaybe<Block_Arr_Rel_Insert_Input>;
+  consensus_address?: InputMaybe<Scalars['String']>;
+  consensus_pubkey?: InputMaybe<Scalars['String']>;
+  double_sign_votes?: InputMaybe<Double_Sign_Vote_Arr_Rel_Insert_Input>;
+  pre_commits?: InputMaybe<Pre_Commit_Arr_Rel_Insert_Input>;
+  proposal_validator_status_snapshot?: InputMaybe<Proposal_Validator_Status_Snapshot_Obj_Rel_Insert_Input>;
+  proposal_validator_status_snapshots?: InputMaybe<Proposal_Validator_Status_Snapshot_Arr_Rel_Insert_Input>;
+  validator_commissions?: InputMaybe<Validator_Commission_Arr_Rel_Insert_Input>;
+  validator_descriptions?: InputMaybe<Validator_Description_Arr_Rel_Insert_Input>;
+  validator_info?: InputMaybe<Validator_Info_Obj_Rel_Insert_Input>;
+  validator_infos?: InputMaybe<Validator_Info_Arr_Rel_Insert_Input>;
+  validator_signing_infos?: InputMaybe<Validator_Signing_Info_Arr_Rel_Insert_Input>;
+  validator_statuses?: InputMaybe<Validator_Status_Arr_Rel_Insert_Input>;
+  validator_voting_powers?: InputMaybe<Validator_Voting_Power_Arr_Rel_Insert_Input>;
+};
 
 /** aggregate max on columns */
 export type Validator_Max_Fields = {
@@ -10620,6 +15447,29 @@ export type Validator_Min_Fields = {
   __typename?: 'validator_min_fields';
   consensus_address?: Maybe<Scalars['String']>;
   consensus_pubkey?: Maybe<Scalars['String']>;
+};
+
+/** response of any mutation on the table "validator" */
+export type Validator_Mutation_Response = {
+  __typename?: 'validator_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator>;
+};
+
+/** input type for inserting object relation for remote table "validator" */
+export type Validator_Obj_Rel_Insert_Input = {
+  data: Validator_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_On_Conflict>;
+};
+
+/** on conflict condition type for table "validator" */
+export type Validator_On_Conflict = {
+  constraint: Validator_Constraint;
+  update_columns?: Array<Validator_Update_Column>;
+  where?: InputMaybe<Validator_Bool_Exp>;
 };
 
 /** Ordering options when selecting data from "validator". */
@@ -10640,6 +15490,11 @@ export type Validator_Order_By = {
   validator_voting_powers_aggregate?: InputMaybe<Validator_Voting_Power_Aggregate_Order_By>;
 };
 
+/** primary key columns input for table: validator */
+export type Validator_Pk_Columns_Input = {
+  consensus_address: Scalars['String'];
+};
+
 /** select columns of table "validator" */
 export enum Validator_Select_Column {
   /** column name */
@@ -10647,6 +15502,12 @@ export enum Validator_Select_Column {
   /** column name */
   ConsensusPubkey = 'consensus_pubkey'
 }
+
+/** input type for updating data in table "validator" */
+export type Validator_Set_Input = {
+  consensus_address?: InputMaybe<Scalars['String']>;
+  consensus_pubkey?: InputMaybe<Scalars['String']>;
+};
 
 /** columns and relationships of "validator_signing_info" */
 export type Validator_Signing_Info = {
@@ -10705,6 +15566,13 @@ export type Validator_Signing_Info_Aggregate_Order_By = {
   variance?: InputMaybe<Validator_Signing_Info_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "validator_signing_info" */
+export type Validator_Signing_Info_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Signing_Info_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Signing_Info_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Validator_Signing_Info_Avg_Fields = {
   __typename?: 'validator_signing_info_avg_fields';
@@ -10734,6 +15602,31 @@ export type Validator_Signing_Info_Bool_Exp = {
   start_height?: InputMaybe<Bigint_Comparison_Exp>;
   tombstoned?: InputMaybe<Boolean_Comparison_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "validator_signing_info" */
+export enum Validator_Signing_Info_Constraint {
+  /** unique or primary key constraint */
+  ValidatorSigningInfoPkey = 'validator_signing_info_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_signing_info" */
+export type Validator_Signing_Info_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index_offset?: InputMaybe<Scalars['bigint']>;
+  missed_blocks_counter?: InputMaybe<Scalars['bigint']>;
+  start_height?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "validator_signing_info" */
+export type Validator_Signing_Info_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index_offset?: InputMaybe<Scalars['bigint']>;
+  jailed_until?: InputMaybe<Scalars['timestamp']>;
+  missed_blocks_counter?: InputMaybe<Scalars['bigint']>;
+  start_height?: InputMaybe<Scalars['bigint']>;
+  tombstoned?: InputMaybe<Scalars['Boolean']>;
+  validator_address?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -10778,6 +15671,22 @@ export type Validator_Signing_Info_Min_Order_By = {
   validator_address?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_signing_info" */
+export type Validator_Signing_Info_Mutation_Response = {
+  __typename?: 'validator_signing_info_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Signing_Info>;
+};
+
+/** on conflict condition type for table "validator_signing_info" */
+export type Validator_Signing_Info_On_Conflict = {
+  constraint: Validator_Signing_Info_Constraint;
+  update_columns?: Array<Validator_Signing_Info_Update_Column>;
+  where?: InputMaybe<Validator_Signing_Info_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_signing_info". */
 export type Validator_Signing_Info_Order_By = {
   height?: InputMaybe<Order_By>;
@@ -10787,6 +15696,11 @@ export type Validator_Signing_Info_Order_By = {
   start_height?: InputMaybe<Order_By>;
   tombstoned?: InputMaybe<Order_By>;
   validator_address?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: validator_signing_info */
+export type Validator_Signing_Info_Pk_Columns_Input = {
+  validator_address: Scalars['String'];
 };
 
 /** select columns of table "validator_signing_info" */
@@ -10806,6 +15720,17 @@ export enum Validator_Signing_Info_Select_Column {
   /** column name */
   ValidatorAddress = 'validator_address'
 }
+
+/** input type for updating data in table "validator_signing_info" */
+export type Validator_Signing_Info_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  index_offset?: InputMaybe<Scalars['bigint']>;
+  jailed_until?: InputMaybe<Scalars['timestamp']>;
+  missed_blocks_counter?: InputMaybe<Scalars['bigint']>;
+  start_height?: InputMaybe<Scalars['bigint']>;
+  tombstoned?: InputMaybe<Scalars['Boolean']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Validator_Signing_Info_Stddev_Fields = {
@@ -10875,6 +15800,24 @@ export type Validator_Signing_Info_Sum_Order_By = {
   start_height?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "validator_signing_info" */
+export enum Validator_Signing_Info_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  IndexOffset = 'index_offset',
+  /** column name */
+  JailedUntil = 'jailed_until',
+  /** column name */
+  MissedBlocksCounter = 'missed_blocks_counter',
+  /** column name */
+  StartHeight = 'start_height',
+  /** column name */
+  Tombstoned = 'tombstoned',
+  /** column name */
+  ValidatorAddress = 'validator_address'
+}
+
 /** aggregate var_pop on columns */
 export type Validator_Signing_Info_Var_Pop_Fields = {
   __typename?: 'validator_signing_info_var_pop_fields';
@@ -10932,7 +15875,6 @@ export type Validator_Status = {
   height: Scalars['bigint'];
   jailed: Scalars['Boolean'];
   status: Scalars['Int'];
-  tombstoned: Scalars['Boolean'];
   /** An object relationship */
   validator: Validator;
   validator_address: Scalars['String'];
@@ -10983,6 +15925,13 @@ export type Validator_Status_Aggregate_Order_By = {
   variance?: InputMaybe<Validator_Status_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "validator_status" */
+export type Validator_Status_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Status_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Status_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Validator_Status_Avg_Fields = {
   __typename?: 'validator_status_avg_fields';
@@ -11004,9 +15953,29 @@ export type Validator_Status_Bool_Exp = {
   height?: InputMaybe<Bigint_Comparison_Exp>;
   jailed?: InputMaybe<Boolean_Comparison_Exp>;
   status?: InputMaybe<Int_Comparison_Exp>;
-  tombstoned?: InputMaybe<Boolean_Comparison_Exp>;
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "validator_status" */
+export enum Validator_Status_Constraint {
+  /** unique or primary key constraint */
+  ValidatorStatusPkey = 'validator_status_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_status" */
+export type Validator_Status_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  status?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "validator_status" */
+export type Validator_Status_Insert_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  jailed?: InputMaybe<Scalars['Boolean']>;
+  status?: InputMaybe<Scalars['Int']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
 };
 
 /** aggregate max on columns */
@@ -11039,14 +16008,34 @@ export type Validator_Status_Min_Order_By = {
   validator_address?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_status" */
+export type Validator_Status_Mutation_Response = {
+  __typename?: 'validator_status_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Status>;
+};
+
+/** on conflict condition type for table "validator_status" */
+export type Validator_Status_On_Conflict = {
+  constraint: Validator_Status_Constraint;
+  update_columns?: Array<Validator_Status_Update_Column>;
+  where?: InputMaybe<Validator_Status_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_status". */
 export type Validator_Status_Order_By = {
   height?: InputMaybe<Order_By>;
   jailed?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
-  tombstoned?: InputMaybe<Order_By>;
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: validator_status */
+export type Validator_Status_Pk_Columns_Input = {
+  validator_address: Scalars['String'];
 };
 
 /** select columns of table "validator_status" */
@@ -11058,10 +16047,16 @@ export enum Validator_Status_Select_Column {
   /** column name */
   Status = 'status',
   /** column name */
-  Tombstoned = 'tombstoned',
-  /** column name */
   ValidatorAddress = 'validator_address'
 }
+
+/** input type for updating data in table "validator_status" */
+export type Validator_Status_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  jailed?: InputMaybe<Scalars['Boolean']>;
+  status?: InputMaybe<Scalars['Int']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Validator_Status_Stddev_Fields = {
@@ -11115,6 +16110,18 @@ export type Validator_Status_Sum_Order_By = {
   status?: InputMaybe<Order_By>;
 };
 
+/** update columns of table "validator_status" */
+export enum Validator_Status_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  Jailed = 'jailed',
+  /** column name */
+  Status = 'status',
+  /** column name */
+  ValidatorAddress = 'validator_address'
+}
+
 /** aggregate var_pop on columns */
 export type Validator_Status_Var_Pop_Fields = {
   __typename?: 'validator_status_var_pop_fields';
@@ -11153,6 +16160,14 @@ export type Validator_Status_Variance_Order_By = {
   height?: InputMaybe<Order_By>;
   status?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "validator" */
+export enum Validator_Update_Column {
+  /** column name */
+  ConsensusAddress = 'consensus_address',
+  /** column name */
+  ConsensusPubkey = 'consensus_pubkey'
+}
 
 /** columns and relationships of "validator_voting_power" */
 export type Validator_Voting_Power = {
@@ -11211,6 +16226,13 @@ export type Validator_Voting_Power_Aggregate_Order_By = {
   variance?: InputMaybe<Validator_Voting_Power_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "validator_voting_power" */
+export type Validator_Voting_Power_Arr_Rel_Insert_Input = {
+  data: Array<Validator_Voting_Power_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Validator_Voting_Power_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Validator_Voting_Power_Avg_Fields = {
   __typename?: 'validator_voting_power_avg_fields';
@@ -11234,6 +16256,27 @@ export type Validator_Voting_Power_Bool_Exp = {
   validator?: InputMaybe<Validator_Bool_Exp>;
   validator_address?: InputMaybe<String_Comparison_Exp>;
   voting_power?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** unique or primary key constraints on table "validator_voting_power" */
+export enum Validator_Voting_Power_Constraint {
+  /** unique or primary key constraint */
+  ValidatorVotingPowerPkey = 'validator_voting_power_pkey'
+}
+
+/** input type for incrementing numeric columns in table "validator_voting_power" */
+export type Validator_Voting_Power_Inc_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "validator_voting_power" */
+export type Validator_Voting_Power_Insert_Input = {
+  block?: InputMaybe<Block_Obj_Rel_Insert_Input>;
+  height?: InputMaybe<Scalars['bigint']>;
+  validator?: InputMaybe<Validator_Obj_Rel_Insert_Input>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
 };
 
 /** aggregate max on columns */
@@ -11266,6 +16309,22 @@ export type Validator_Voting_Power_Min_Order_By = {
   voting_power?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "validator_voting_power" */
+export type Validator_Voting_Power_Mutation_Response = {
+  __typename?: 'validator_voting_power_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Validator_Voting_Power>;
+};
+
+/** on conflict condition type for table "validator_voting_power" */
+export type Validator_Voting_Power_On_Conflict = {
+  constraint: Validator_Voting_Power_Constraint;
+  update_columns?: Array<Validator_Voting_Power_Update_Column>;
+  where?: InputMaybe<Validator_Voting_Power_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "validator_voting_power". */
 export type Validator_Voting_Power_Order_By = {
   block?: InputMaybe<Block_Order_By>;
@@ -11273,6 +16332,11 @@ export type Validator_Voting_Power_Order_By = {
   validator?: InputMaybe<Validator_Order_By>;
   validator_address?: InputMaybe<Order_By>;
   voting_power?: InputMaybe<Order_By>;
+};
+
+/** primary key columns input for table: validator_voting_power */
+export type Validator_Voting_Power_Pk_Columns_Input = {
+  validator_address: Scalars['String'];
 };
 
 /** select columns of table "validator_voting_power" */
@@ -11284,6 +16348,13 @@ export enum Validator_Voting_Power_Select_Column {
   /** column name */
   VotingPower = 'voting_power'
 }
+
+/** input type for updating data in table "validator_voting_power" */
+export type Validator_Voting_Power_Set_Input = {
+  height?: InputMaybe<Scalars['bigint']>;
+  validator_address?: InputMaybe<Scalars['String']>;
+  voting_power?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Validator_Voting_Power_Stddev_Fields = {
@@ -11336,6 +16407,16 @@ export type Validator_Voting_Power_Sum_Order_By = {
   height?: InputMaybe<Order_By>;
   voting_power?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "validator_voting_power" */
+export enum Validator_Voting_Power_Update_Column {
+  /** column name */
+  Height = 'height',
+  /** column name */
+  ValidatorAddress = 'validator_address',
+  /** column name */
+  VotingPower = 'voting_power'
+}
 
 /** aggregate var_pop on columns */
 export type Validator_Voting_Power_Var_Pop_Fields = {
@@ -11458,6 +16539,13 @@ export type Vesting_Account_Aggregate_Order_By = {
   variance?: InputMaybe<Vesting_Account_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "vesting_account" */
+export type Vesting_Account_Arr_Rel_Insert_Input = {
+  data: Array<Vesting_Account_Insert_Input>;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Vesting_Account_On_Conflict>;
+};
+
 /** aggregate avg on columns */
 export type Vesting_Account_Avg_Fields = {
   __typename?: 'vesting_account_avg_fields';
@@ -11482,6 +16570,31 @@ export type Vesting_Account_Bool_Exp = {
   start_time?: InputMaybe<Timestamp_Comparison_Exp>;
   type?: InputMaybe<String_Comparison_Exp>;
   vesting_periods?: InputMaybe<Vesting_Period_Bool_Exp>;
+};
+
+/** unique or primary key constraints on table "vesting_account" */
+export enum Vesting_Account_Constraint {
+  /** unique or primary key constraint */
+  VestingAccountAddressIdx = 'vesting_account_address_idx',
+  /** unique or primary key constraint */
+  VestingAccountPkey = 'vesting_account_pkey'
+}
+
+/** input type for incrementing numeric columns in table "vesting_account" */
+export type Vesting_Account_Inc_Input = {
+  id?: InputMaybe<Scalars['Int']>;
+};
+
+/** input type for inserting data into table "vesting_account" */
+export type Vesting_Account_Insert_Input = {
+  account?: InputMaybe<Account_Obj_Rel_Insert_Input>;
+  address?: InputMaybe<Scalars['String']>;
+  end_time?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  original_vesting?: InputMaybe<Scalars['_coin']>;
+  start_time?: InputMaybe<Scalars['timestamp']>;
+  type?: InputMaybe<Scalars['String']>;
+  vesting_periods?: InputMaybe<Vesting_Period_Arr_Rel_Insert_Input>;
 };
 
 /** aggregate max on columns */
@@ -11522,6 +16635,29 @@ export type Vesting_Account_Min_Order_By = {
   type?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "vesting_account" */
+export type Vesting_Account_Mutation_Response = {
+  __typename?: 'vesting_account_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Vesting_Account>;
+};
+
+/** input type for inserting object relation for remote table "vesting_account" */
+export type Vesting_Account_Obj_Rel_Insert_Input = {
+  data: Vesting_Account_Insert_Input;
+  /** on conflict condition */
+  on_conflict?: InputMaybe<Vesting_Account_On_Conflict>;
+};
+
+/** on conflict condition type for table "vesting_account" */
+export type Vesting_Account_On_Conflict = {
+  constraint: Vesting_Account_Constraint;
+  update_columns?: Array<Vesting_Account_Update_Column>;
+  where?: InputMaybe<Vesting_Account_Bool_Exp>;
+};
+
 /** Ordering options when selecting data from "vesting_account". */
 export type Vesting_Account_Order_By = {
   account?: InputMaybe<Account_Order_By>;
@@ -11532,6 +16668,11 @@ export type Vesting_Account_Order_By = {
   start_time?: InputMaybe<Order_By>;
   type?: InputMaybe<Order_By>;
   vesting_periods_aggregate?: InputMaybe<Vesting_Period_Aggregate_Order_By>;
+};
+
+/** primary key columns input for table: vesting_account */
+export type Vesting_Account_Pk_Columns_Input = {
+  id: Scalars['Int'];
 };
 
 /** select columns of table "vesting_account" */
@@ -11549,6 +16690,16 @@ export enum Vesting_Account_Select_Column {
   /** column name */
   Type = 'type'
 }
+
+/** input type for updating data in table "vesting_account" */
+export type Vesting_Account_Set_Input = {
+  address?: InputMaybe<Scalars['String']>;
+  end_time?: InputMaybe<Scalars['timestamp']>;
+  id?: InputMaybe<Scalars['Int']>;
+  original_vesting?: InputMaybe<Scalars['_coin']>;
+  start_time?: InputMaybe<Scalars['timestamp']>;
+  type?: InputMaybe<Scalars['String']>;
+};
 
 /** aggregate stddev on columns */
 export type Vesting_Account_Stddev_Fields = {
@@ -11593,6 +16744,22 @@ export type Vesting_Account_Sum_Fields = {
 export type Vesting_Account_Sum_Order_By = {
   id?: InputMaybe<Order_By>;
 };
+
+/** update columns of table "vesting_account" */
+export enum Vesting_Account_Update_Column {
+  /** column name */
+  Address = 'address',
+  /** column name */
+  EndTime = 'end_time',
+  /** column name */
+  Id = 'id',
+  /** column name */
+  OriginalVesting = 'original_vesting',
+  /** column name */
+  StartTime = 'start_time',
+  /** column name */
+  Type = 'type'
+}
 
 /** aggregate var_pop on columns */
 export type Vesting_Account_Var_Pop_Fields = {
@@ -11683,6 +16850,11 @@ export type Vesting_Period_Aggregate_Order_By = {
   variance?: InputMaybe<Vesting_Period_Variance_Order_By>;
 };
 
+/** input type for inserting array relation for remote table "vesting_period" */
+export type Vesting_Period_Arr_Rel_Insert_Input = {
+  data: Array<Vesting_Period_Insert_Input>;
+};
+
 /** aggregate avg on columns */
 export type Vesting_Period_Avg_Fields = {
   __typename?: 'vesting_period_avg_fields';
@@ -11708,6 +16880,22 @@ export type Vesting_Period_Bool_Exp = {
   period_order?: InputMaybe<Bigint_Comparison_Exp>;
   vesting_account?: InputMaybe<Vesting_Account_Bool_Exp>;
   vesting_account_id?: InputMaybe<Bigint_Comparison_Exp>;
+};
+
+/** input type for incrementing numeric columns in table "vesting_period" */
+export type Vesting_Period_Inc_Input = {
+  length?: InputMaybe<Scalars['bigint']>;
+  period_order?: InputMaybe<Scalars['bigint']>;
+  vesting_account_id?: InputMaybe<Scalars['bigint']>;
+};
+
+/** input type for inserting data into table "vesting_period" */
+export type Vesting_Period_Insert_Input = {
+  amount?: InputMaybe<Scalars['_coin']>;
+  length?: InputMaybe<Scalars['bigint']>;
+  period_order?: InputMaybe<Scalars['bigint']>;
+  vesting_account?: InputMaybe<Vesting_Account_Obj_Rel_Insert_Input>;
+  vesting_account_id?: InputMaybe<Scalars['bigint']>;
 };
 
 /** aggregate max on columns */
@@ -11740,6 +16928,15 @@ export type Vesting_Period_Min_Order_By = {
   vesting_account_id?: InputMaybe<Order_By>;
 };
 
+/** response of any mutation on the table "vesting_period" */
+export type Vesting_Period_Mutation_Response = {
+  __typename?: 'vesting_period_mutation_response';
+  /** number of rows affected by the mutation */
+  affected_rows: Scalars['Int'];
+  /** data from the rows affected by the mutation */
+  returning: Array<Vesting_Period>;
+};
+
 /** Ordering options when selecting data from "vesting_period". */
 export type Vesting_Period_Order_By = {
   amount?: InputMaybe<Order_By>;
@@ -11760,6 +16957,14 @@ export enum Vesting_Period_Select_Column {
   /** column name */
   VestingAccountId = 'vesting_account_id'
 }
+
+/** input type for updating data in table "vesting_period" */
+export type Vesting_Period_Set_Input = {
+  amount?: InputMaybe<Scalars['_coin']>;
+  length?: InputMaybe<Scalars['bigint']>;
+  period_order?: InputMaybe<Scalars['bigint']>;
+  vesting_account_id?: InputMaybe<Scalars['bigint']>;
+};
 
 /** aggregate stddev on columns */
 export type Vesting_Period_Stddev_Fields = {
@@ -11938,186 +17143,6 @@ export type AccountUndelegationsQueryVariables = Exact<{
 
 export type AccountUndelegationsQuery = { undelegations?: { __typename?: 'ActionUnbondingDelegationResponse', pagination?: any | null, undelegations?: Array<any | null> | null } | null };
 
-export type ActiveValidatorCountQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ActiveValidatorCountQuery = { activeTotal: { __typename?: 'validator_status_aggregate', aggregate?: { __typename?: 'validator_status_aggregate_fields', count: number } | null }, inactiveTotal: { __typename?: 'validator_status_aggregate', aggregate?: { __typename?: 'validator_status_aggregate_fields', count: number } | null }, total: { __typename?: 'validator_status_aggregate', aggregate?: { __typename?: 'validator_status_aggregate_fields', count: number } | null } };
-
-export type BlockDetailsQueryVariables = Exact<{
-  height?: InputMaybe<Scalars['bigint']>;
-  signatureHeight?: InputMaybe<Scalars['bigint']>;
-}>;
-
-
-export type BlockDetailsQuery = { transaction: Array<{ __typename?: 'transaction', height: any, hash: string, messages: any, success: boolean, logs?: any | null }>, block: Array<{ __typename?: 'block', height: any, hash: string, timestamp: any, txs?: number | null, validator?: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string } | null } | null }>, preCommitsAggregate: { __typename?: 'pre_commit_aggregate', aggregate?: { __typename?: 'pre_commit_aggregate_fields', sum?: { __typename?: 'pre_commit_sum_fields', votingPower?: any | null } | null } | null }, preCommits: Array<{ __typename?: 'pre_commit', validator: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string } | null } }> };
-
-export type LatestBlockHeightListenerSubscriptionVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type LatestBlockHeightListenerSubscription = { height: Array<{ __typename?: 'block', height: any }> };
-
-export type AverageBlockTimeQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type AverageBlockTimeQuery = { averageBlockTime: Array<{ __typename?: 'average_block_time_per_hour', averageTime: any }> };
-
-export type LatestBlockTimestampQueryVariables = Exact<{
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type LatestBlockTimestampQuery = { block: Array<{ __typename?: 'block', timestamp: any }> };
-
-export type BlocksListenerSubscriptionVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type BlocksListenerSubscription = { blocks: Array<{ __typename?: 'block', height: any, hash: string, timestamp: any, txs?: number | null, validator?: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string } | null } | null }> };
-
-export type BlocksQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type BlocksQuery = { blocks: Array<{ __typename?: 'block', height: any, hash: string, timestamp: any, txs?: number | null, validator?: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', self_delegate_address?: string | null, operatorAddress: string } | null, validatorDescriptions: Array<{ __typename?: 'validator_description', moniker?: string | null, identity?: string | null }> } | null }> };
-
-export type ChainIdQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ChainIdQuery = { genesis: Array<{ __typename?: 'genesis', time: any, chainId: string }> };
-
-export type MarketDataQueryVariables = Exact<{
-  denom?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type MarketDataQuery = { communityPool: Array<{ __typename?: 'community_pool', coins: any }>, inflation: Array<{ __typename?: 'inflation', value: any }>, tokenPrice: Array<{ __typename?: 'token_price', price: any, marketCap: any }>, supply: Array<{ __typename?: 'supply', coins: any }>, bondedTokens: Array<{ __typename?: 'staking_pool', bonded_tokens: any }>, distributionParams: Array<{ __typename?: 'distribution_params', params: any }> };
-
-export type GetMessagesByAddressQueryVariables = Exact<{
-  address?: InputMaybe<Scalars['_text']>;
-  limit?: InputMaybe<Scalars['bigint']>;
-  offset?: InputMaybe<Scalars['bigint']>;
-  types?: InputMaybe<Scalars['_text']>;
-}>;
-
-
-export type GetMessagesByAddressQuery = { messagesByAddress: Array<{ __typename?: 'message', transaction?: { __typename?: 'transaction', height: any, hash: string, success: boolean, messages: any, logs?: any | null, block: { __typename?: 'block', height: any, timestamp: any } } | null }> };
-
-export type OnlineVotingPowerQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type OnlineVotingPowerQuery = { activeTotal: { __typename?: 'validator_status_aggregate', aggregate?: { __typename?: 'validator_status_aggregate_fields', count: number } | null }, validatorVotingPowerAggregate: { __typename?: 'validator_voting_power_aggregate', aggregate?: { __typename?: 'validator_voting_power_aggregate_fields', sum?: { __typename?: 'validator_voting_power_sum_fields', votingPower?: any | null } | null } | null }, stakingPool: Array<{ __typename?: 'staking_pool', bonded: any }>, stakingParams: Array<{ __typename?: 'staking_params', params: any }> };
-
-export type ParamsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ParamsQuery = { stakingParams: Array<{ __typename?: 'staking_params', params: any }>, slashingParams: Array<{ __typename?: 'slashing_params', params: any }>, mintParams: Array<{ __typename?: 'mint_params', params: any }>, distributionParams: Array<{ __typename?: 'distribution_params', params: any }>, govParams: Array<{ __typename?: 'gov_params', depositParams: any, tallyParams: any, votingParams: any }> };
-
-export type ProposalDetailsQueryVariables = Exact<{
-  proposalId?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type ProposalDetailsQuery = { proposal: Array<{ __typename?: 'proposal', title: string, description: string, status?: string | null, content: any, proposer: string, proposalId: number, submitTime: any, proposalType: string, depositEndTime?: any | null, votingStartTime?: any | null, votingEndTime?: any | null }> };
-
-export type ProposalDetailsTallyQueryVariables = Exact<{
-  proposalId?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type ProposalDetailsTallyQuery = { proposalTallyResult: Array<{ __typename?: 'proposal_tally_result', yes: string, no: string, abstain: string, noWithVeto: string }>, stakingPool: Array<{ __typename?: 'proposal_staking_pool_snapshot', bondedTokens: any }>, quorum: Array<{ __typename?: 'gov_params', tallyParams: any }> };
-
-export type ProposalDetailsDepositsQueryVariables = Exact<{
-  proposalId?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type ProposalDetailsDepositsQuery = { proposalDeposit: Array<{ __typename?: 'proposal_deposit', amount?: any | null, depositorAddress?: string | null, block?: { __typename?: 'block', timestamp: any } | null }> };
-
-export type ProposalDetailsVotesQueryVariables = Exact<{
-  proposalId?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type ProposalDetailsVotesQuery = { proposalVote: Array<{ __typename?: 'proposal_vote', option: string, voterAddress: string }>, validatorStatuses: Array<{ __typename?: 'proposal_validator_status_snapshot', validator: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', selfDelegateAddress?: string | null } | null } }> };
-
-export type ProposalsQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type ProposalsQuery = { proposals: Array<{ __typename?: 'proposal', title: string, status?: string | null, description: string, proposalId: number }>, total: { __typename?: 'proposal_aggregate', aggregate?: { __typename?: 'proposal_aggregate_fields', count: number } | null } };
-
-export type TokenPriceListenerSubscriptionVariables = Exact<{
-  denom?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type TokenPriceListenerSubscription = { tokenPrice: Array<{ __typename?: 'token_price', id: number, price: any, timestamp: any, marketCap: any, unitName: string }> };
-
-export type TokenPriceHistoryQueryVariables = Exact<{
-  denom?: InputMaybe<Scalars['String']>;
-  limit?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type TokenPriceHistoryQuery = { tokenPrice: Array<{ __typename?: 'token_price_history', price: any, timestamp: any }> };
-
-export type TokenomicsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type TokenomicsQuery = { stakingParams: Array<{ __typename?: 'staking_params', params: any }>, stakingPool: Array<{ __typename?: 'staking_pool', bonded: any, unbonded: any }>, supply: Array<{ __typename?: 'supply', coins: any }> };
-
-export type TransactionDetailsQueryVariables = Exact<{
-  hash?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type TransactionDetailsQuery = { transaction: Array<{ __typename?: 'transaction', logs?: any | null, hash: string, height: any, fee: any, gasUsed?: any | null, gasWanted?: any | null, success: boolean, memo?: string | null, messages: any, rawLog?: string | null, block: { __typename?: 'block', timestamp: any } }> };
-
-export type TransactionsListenerSubscriptionVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type TransactionsListenerSubscription = { transactions: Array<{ __typename?: 'transaction', height: any, hash: string, success: boolean, messages: any, logs?: any | null, block: { __typename?: 'block', timestamp: any } }> };
-
-export type TransactionsQueryVariables = Exact<{
-  limit?: InputMaybe<Scalars['Int']>;
-  offset?: InputMaybe<Scalars['Int']>;
-}>;
-
-
-export type TransactionsQuery = { transactions: Array<{ __typename?: 'transaction', height: any, hash: string, success: boolean, messages: any, logs?: any | null, block: { __typename?: 'block', timestamp: any } }> };
-
-export type LastHundredBlocksSubscriptionVariables = Exact<{
-  address?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type LastHundredBlocksSubscription = { block: Array<{ __typename?: 'block', height: any, validator?: { __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string } | null } | null, transactions: Array<{ __typename?: 'transaction', hash: string }>, precommits: Array<{ __typename?: 'pre_commit', validatorAddress: string }> }> };
-
-export type ValidatorLastSeenListenerSubscriptionVariables = Exact<{
-  address?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type ValidatorLastSeenListenerSubscription = { preCommit: Array<{ __typename?: 'pre_commit', height: any, timestamp: any }> };
-
-export type ValidatorDetailsQueryVariables = Exact<{
-  address?: InputMaybe<Scalars['String']>;
-}>;
-
-
-export type ValidatorDetailsQuery = { stakingPool: Array<{ __typename?: 'staking_pool', height: any, bonded: any }>, validator: Array<{ __typename?: 'validator', validatorDescriptions: Array<{ __typename?: 'validator_description', details?: string | null, website?: string | null }>, validatorStatuses: Array<{ __typename?: 'validator_status', status: number, jailed: boolean, height: any }>, validatorSigningInfos: Array<{ __typename?: 'validator_signing_info', tombstoned: boolean, missedBlocksCounter: any }>, validatorInfo?: { __typename?: 'validator_info', operatorAddress: string, selfDelegateAddress?: string | null, maxRate: string } | null, validatorCommissions: Array<{ __typename?: 'validator_commission', commission: any }>, validatorVotingPowers: Array<{ __typename?: 'validator_voting_power', height: any, votingPower: any }> }>, slashingParams: Array<{ __typename?: 'slashing_params', params: any }> };
-
 export type ValidatorDelegationsQueryVariables = Exact<{
   validatorAddress: Scalars['String'];
   offset?: InputMaybe<Scalars['Int']>;
@@ -12147,21 +17172,6 @@ export type ValidatorUndelegationsQueryVariables = Exact<{
 
 
 export type ValidatorUndelegationsQuery = { undelegations?: { __typename?: 'ActionUnbondingDelegationResponse', pagination?: any | null, undelegations?: Array<any | null> | null } | null };
-
-export type ValidatorsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ValidatorsQuery = { stakingPool: Array<{ __typename?: 'staking_pool', bondedTokens: any }>, validator: Array<{ __typename?: 'validator', validatorStatuses: Array<{ __typename?: 'validator_status', status: number, jailed: boolean, height: any }>, validatorSigningInfos: Array<{ __typename?: 'validator_signing_info', tombstoned: boolean, missedBlocksCounter: any }>, validatorInfo?: { __typename?: 'validator_info', operatorAddress: string, selfDelegateAddress?: string | null } | null, validatorVotingPowers: Array<{ __typename?: 'validator_voting_power', votingPower: any }>, validatorCommissions: Array<{ __typename?: 'validator_commission', commission: any }> }>, slashingParams: Array<{ __typename?: 'slashing_params', params: any }> };
-
-export type ValidatorsAddressListQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ValidatorsAddressListQuery = { validator: Array<{ __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string, selfDelegateAddress?: string | null, consensusAddress: string } | null, validatorDescriptions: Array<{ __typename?: 'validator_description', moniker?: string | null, identity?: string | null, avatarUrl?: string | null }> }> };
-
-export type ValidatorAddressesQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type ValidatorAddressesQuery = { validator: Array<{ __typename?: 'validator', validatorInfo?: { __typename?: 'validator_info', operatorAddress: string, selfDelegateAddress?: string | null, consensusAddress: string } | null, validatorDescriptions: Array<{ __typename?: 'validator_description', moniker?: string | null, avatarUrl?: string | null }> }> };
 
 
 export const AccountCommissionDocument = gql`
@@ -12507,1180 +17517,6 @@ export function useAccountUndelegationsLazyQuery(baseOptions?: Apollo.LazyQueryH
 export type AccountUndelegationsQueryHookResult = ReturnType<typeof useAccountUndelegationsQuery>;
 export type AccountUndelegationsLazyQueryHookResult = ReturnType<typeof useAccountUndelegationsLazyQuery>;
 export type AccountUndelegationsQueryResult = Apollo.QueryResult<AccountUndelegationsQuery, AccountUndelegationsQueryVariables>;
-export const ActiveValidatorCountDocument = gql`
-    query ActiveValidatorCount {
-  activeTotal: validator_status_aggregate(where: {status: {_eq: 3}}) {
-    aggregate {
-      count
-    }
-  }
-  inactiveTotal: validator_status_aggregate(where: {status: {_neq: 3}}) {
-    aggregate {
-      count
-    }
-  }
-  total: validator_status_aggregate {
-    aggregate {
-      count
-    }
-  }
-}
-    `;
-
-/**
- * __useActiveValidatorCountQuery__
- *
- * To run a query within a React component, call `useActiveValidatorCountQuery` and pass it any options that fit your needs.
- * When your component renders, `useActiveValidatorCountQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useActiveValidatorCountQuery({
- *   variables: {
- *   },
- * });
- */
-export function useActiveValidatorCountQuery(baseOptions?: Apollo.QueryHookOptions<ActiveValidatorCountQuery, ActiveValidatorCountQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ActiveValidatorCountQuery, ActiveValidatorCountQueryVariables>(ActiveValidatorCountDocument, options);
-      }
-export function useActiveValidatorCountLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ActiveValidatorCountQuery, ActiveValidatorCountQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ActiveValidatorCountQuery, ActiveValidatorCountQueryVariables>(ActiveValidatorCountDocument, options);
-        }
-export type ActiveValidatorCountQueryHookResult = ReturnType<typeof useActiveValidatorCountQuery>;
-export type ActiveValidatorCountLazyQueryHookResult = ReturnType<typeof useActiveValidatorCountLazyQuery>;
-export type ActiveValidatorCountQueryResult = Apollo.QueryResult<ActiveValidatorCountQuery, ActiveValidatorCountQueryVariables>;
-export const BlockDetailsDocument = gql`
-    query BlockDetails($height: bigint, $signatureHeight: bigint) {
-  transaction(where: {height: {_eq: $height}}) {
-    height
-    hash
-    messages
-    success
-    logs
-  }
-  block(limit: 1, where: {height: {_eq: $height}}) {
-    height
-    hash
-    timestamp
-    txs: num_txs
-    validator {
-      validatorInfo: validator_info {
-        operatorAddress: operator_address
-      }
-    }
-  }
-  preCommitsAggregate: pre_commit_aggregate(
-    where: {height: {_eq: $signatureHeight}}
-  ) {
-    aggregate {
-      sum {
-        votingPower: voting_power
-      }
-    }
-  }
-  preCommits: pre_commit(where: {height: {_eq: $signatureHeight}}) {
-    validator {
-      validatorInfo: validator_info {
-        operatorAddress: operator_address
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useBlockDetailsQuery__
- *
- * To run a query within a React component, call `useBlockDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useBlockDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useBlockDetailsQuery({
- *   variables: {
- *      height: // value for 'height'
- *      signatureHeight: // value for 'signatureHeight'
- *   },
- * });
- */
-export function useBlockDetailsQuery(baseOptions?: Apollo.QueryHookOptions<BlockDetailsQuery, BlockDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<BlockDetailsQuery, BlockDetailsQueryVariables>(BlockDetailsDocument, options);
-      }
-export function useBlockDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BlockDetailsQuery, BlockDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<BlockDetailsQuery, BlockDetailsQueryVariables>(BlockDetailsDocument, options);
-        }
-export type BlockDetailsQueryHookResult = ReturnType<typeof useBlockDetailsQuery>;
-export type BlockDetailsLazyQueryHookResult = ReturnType<typeof useBlockDetailsLazyQuery>;
-export type BlockDetailsQueryResult = Apollo.QueryResult<BlockDetailsQuery, BlockDetailsQueryVariables>;
-export const LatestBlockHeightListenerDocument = gql`
-    subscription LatestBlockHeightListener($offset: Int = 0) {
-  height: block(order_by: {height: desc}, limit: 1, offset: $offset) {
-    height
-  }
-}
-    `;
-
-/**
- * __useLatestBlockHeightListenerSubscription__
- *
- * To run a query within a React component, call `useLatestBlockHeightListenerSubscription` and pass it any options that fit your needs.
- * When your component renders, `useLatestBlockHeightListenerSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLatestBlockHeightListenerSubscription({
- *   variables: {
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useLatestBlockHeightListenerSubscription(baseOptions?: Apollo.SubscriptionHookOptions<LatestBlockHeightListenerSubscription, LatestBlockHeightListenerSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<LatestBlockHeightListenerSubscription, LatestBlockHeightListenerSubscriptionVariables>(LatestBlockHeightListenerDocument, options);
-      }
-export type LatestBlockHeightListenerSubscriptionHookResult = ReturnType<typeof useLatestBlockHeightListenerSubscription>;
-export type LatestBlockHeightListenerSubscriptionResult = Apollo.SubscriptionResult<LatestBlockHeightListenerSubscription>;
-export const AverageBlockTimeDocument = gql`
-    query AverageBlockTime {
-  averageBlockTime: average_block_time_per_hour(
-    limit: 1
-    order_by: {height: desc}
-  ) {
-    averageTime: average_time
-  }
-}
-    `;
-
-/**
- * __useAverageBlockTimeQuery__
- *
- * To run a query within a React component, call `useAverageBlockTimeQuery` and pass it any options that fit your needs.
- * When your component renders, `useAverageBlockTimeQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useAverageBlockTimeQuery({
- *   variables: {
- *   },
- * });
- */
-export function useAverageBlockTimeQuery(baseOptions?: Apollo.QueryHookOptions<AverageBlockTimeQuery, AverageBlockTimeQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<AverageBlockTimeQuery, AverageBlockTimeQueryVariables>(AverageBlockTimeDocument, options);
-      }
-export function useAverageBlockTimeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AverageBlockTimeQuery, AverageBlockTimeQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<AverageBlockTimeQuery, AverageBlockTimeQueryVariables>(AverageBlockTimeDocument, options);
-        }
-export type AverageBlockTimeQueryHookResult = ReturnType<typeof useAverageBlockTimeQuery>;
-export type AverageBlockTimeLazyQueryHookResult = ReturnType<typeof useAverageBlockTimeLazyQuery>;
-export type AverageBlockTimeQueryResult = Apollo.QueryResult<AverageBlockTimeQuery, AverageBlockTimeQueryVariables>;
-export const LatestBlockTimestampDocument = gql`
-    query LatestBlockTimestamp($offset: Int = 0) {
-  block: block(order_by: {height: desc}, limit: 1, offset: $offset) {
-    timestamp
-  }
-}
-    `;
-
-/**
- * __useLatestBlockTimestampQuery__
- *
- * To run a query within a React component, call `useLatestBlockTimestampQuery` and pass it any options that fit your needs.
- * When your component renders, `useLatestBlockTimestampQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLatestBlockTimestampQuery({
- *   variables: {
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useLatestBlockTimestampQuery(baseOptions?: Apollo.QueryHookOptions<LatestBlockTimestampQuery, LatestBlockTimestampQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<LatestBlockTimestampQuery, LatestBlockTimestampQueryVariables>(LatestBlockTimestampDocument, options);
-      }
-export function useLatestBlockTimestampLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<LatestBlockTimestampQuery, LatestBlockTimestampQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<LatestBlockTimestampQuery, LatestBlockTimestampQueryVariables>(LatestBlockTimestampDocument, options);
-        }
-export type LatestBlockTimestampQueryHookResult = ReturnType<typeof useLatestBlockTimestampQuery>;
-export type LatestBlockTimestampLazyQueryHookResult = ReturnType<typeof useLatestBlockTimestampLazyQuery>;
-export type LatestBlockTimestampQueryResult = Apollo.QueryResult<LatestBlockTimestampQuery, LatestBlockTimestampQueryVariables>;
-export const BlocksListenerDocument = gql`
-    subscription BlocksListener($limit: Int = 7, $offset: Int = 0) {
-  blocks: block(limit: $limit, offset: $offset, order_by: {height: desc}) {
-    height
-    txs: num_txs
-    hash
-    timestamp
-    validator {
-      validatorInfo: validator_info {
-        operatorAddress: operator_address
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useBlocksListenerSubscription__
- *
- * To run a query within a React component, call `useBlocksListenerSubscription` and pass it any options that fit your needs.
- * When your component renders, `useBlocksListenerSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useBlocksListenerSubscription({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useBlocksListenerSubscription(baseOptions?: Apollo.SubscriptionHookOptions<BlocksListenerSubscription, BlocksListenerSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<BlocksListenerSubscription, BlocksListenerSubscriptionVariables>(BlocksListenerDocument, options);
-      }
-export type BlocksListenerSubscriptionHookResult = ReturnType<typeof useBlocksListenerSubscription>;
-export type BlocksListenerSubscriptionResult = Apollo.SubscriptionResult<BlocksListenerSubscription>;
-export const BlocksDocument = gql`
-    query Blocks($limit: Int = 7, $offset: Int = 0) {
-  blocks: block(limit: $limit, offset: $offset, order_by: {height: desc}) {
-    height
-    txs: num_txs
-    hash
-    timestamp
-    validator {
-      validatorInfo: validator_info {
-        operatorAddress: operator_address
-        self_delegate_address
-      }
-      validatorDescriptions: validator_descriptions(
-        limit: 1
-        order_by: {height: desc}
-      ) {
-        moniker
-        identity
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useBlocksQuery__
- *
- * To run a query within a React component, call `useBlocksQuery` and pass it any options that fit your needs.
- * When your component renders, `useBlocksQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useBlocksQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useBlocksQuery(baseOptions?: Apollo.QueryHookOptions<BlocksQuery, BlocksQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<BlocksQuery, BlocksQueryVariables>(BlocksDocument, options);
-      }
-export function useBlocksLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<BlocksQuery, BlocksQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<BlocksQuery, BlocksQueryVariables>(BlocksDocument, options);
-        }
-export type BlocksQueryHookResult = ReturnType<typeof useBlocksQuery>;
-export type BlocksLazyQueryHookResult = ReturnType<typeof useBlocksLazyQuery>;
-export type BlocksQueryResult = Apollo.QueryResult<BlocksQuery, BlocksQueryVariables>;
-export const ChainIdDocument = gql`
-    query ChainId {
-  genesis(limit: 1, order_by: {time: desc}) {
-    chainId: chain_id
-    time
-  }
-}
-    `;
-
-/**
- * __useChainIdQuery__
- *
- * To run a query within a React component, call `useChainIdQuery` and pass it any options that fit your needs.
- * When your component renders, `useChainIdQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useChainIdQuery({
- *   variables: {
- *   },
- * });
- */
-export function useChainIdQuery(baseOptions?: Apollo.QueryHookOptions<ChainIdQuery, ChainIdQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ChainIdQuery, ChainIdQueryVariables>(ChainIdDocument, options);
-      }
-export function useChainIdLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ChainIdQuery, ChainIdQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ChainIdQuery, ChainIdQueryVariables>(ChainIdDocument, options);
-        }
-export type ChainIdQueryHookResult = ReturnType<typeof useChainIdQuery>;
-export type ChainIdLazyQueryHookResult = ReturnType<typeof useChainIdLazyQuery>;
-export type ChainIdQueryResult = Apollo.QueryResult<ChainIdQuery, ChainIdQueryVariables>;
-export const MarketDataDocument = gql`
-    query MarketData($denom: String) {
-  communityPool: community_pool(order_by: {height: desc}, limit: 1) {
-    coins
-  }
-  inflation: inflation(order_by: {height: desc}, limit: 1) {
-    value
-  }
-  tokenPrice: token_price(where: {unit_name: {_eq: $denom}}) {
-    marketCap: market_cap
-    price
-  }
-  supply {
-    coins
-  }
-  bondedTokens: staking_pool(order_by: {height: desc}, limit: 1) {
-    bonded_tokens
-  }
-  distributionParams: distribution_params {
-    params
-  }
-}
-    `;
-
-/**
- * __useMarketDataQuery__
- *
- * To run a query within a React component, call `useMarketDataQuery` and pass it any options that fit your needs.
- * When your component renders, `useMarketDataQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useMarketDataQuery({
- *   variables: {
- *      denom: // value for 'denom'
- *   },
- * });
- */
-export function useMarketDataQuery(baseOptions?: Apollo.QueryHookOptions<MarketDataQuery, MarketDataQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<MarketDataQuery, MarketDataQueryVariables>(MarketDataDocument, options);
-      }
-export function useMarketDataLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MarketDataQuery, MarketDataQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<MarketDataQuery, MarketDataQueryVariables>(MarketDataDocument, options);
-        }
-export type MarketDataQueryHookResult = ReturnType<typeof useMarketDataQuery>;
-export type MarketDataLazyQueryHookResult = ReturnType<typeof useMarketDataLazyQuery>;
-export type MarketDataQueryResult = Apollo.QueryResult<MarketDataQuery, MarketDataQueryVariables>;
-export const GetMessagesByAddressDocument = gql`
-    query GetMessagesByAddress($address: _text, $limit: bigint = 50, $offset: bigint = 0, $types: _text = "{}") {
-  messagesByAddress: messages_by_address(
-    args: {addresses: $address, types: $types, limit: $limit, offset: $offset}
-  ) {
-    transaction {
-      height
-      hash
-      success
-      messages
-      logs
-      block {
-        height
-        timestamp
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useGetMessagesByAddressQuery__
- *
- * To run a query within a React component, call `useGetMessagesByAddressQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetMessagesByAddressQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetMessagesByAddressQuery({
- *   variables: {
- *      address: // value for 'address'
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *      types: // value for 'types'
- *   },
- * });
- */
-export function useGetMessagesByAddressQuery(baseOptions?: Apollo.QueryHookOptions<GetMessagesByAddressQuery, GetMessagesByAddressQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetMessagesByAddressQuery, GetMessagesByAddressQueryVariables>(GetMessagesByAddressDocument, options);
-      }
-export function useGetMessagesByAddressLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetMessagesByAddressQuery, GetMessagesByAddressQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetMessagesByAddressQuery, GetMessagesByAddressQueryVariables>(GetMessagesByAddressDocument, options);
-        }
-export type GetMessagesByAddressQueryHookResult = ReturnType<typeof useGetMessagesByAddressQuery>;
-export type GetMessagesByAddressLazyQueryHookResult = ReturnType<typeof useGetMessagesByAddressLazyQuery>;
-export type GetMessagesByAddressQueryResult = Apollo.QueryResult<GetMessagesByAddressQuery, GetMessagesByAddressQueryVariables>;
-export const OnlineVotingPowerDocument = gql`
-    query OnlineVotingPower {
-  activeTotal: validator_status_aggregate(where: {status: {_eq: 3}}) {
-    aggregate {
-      count
-    }
-  }
-  validatorVotingPowerAggregate: validator_voting_power_aggregate(
-    where: {validator: {validator_statuses: {status: {_eq: 3}}}}
-  ) {
-    aggregate {
-      sum {
-        votingPower: voting_power
-      }
-    }
-  }
-  stakingPool: staking_pool(order_by: {height: desc}, limit: 1) {
-    bonded: bonded_tokens
-  }
-  stakingParams: staking_params(limit: 1) {
-    params
-  }
-}
-    `;
-
-/**
- * __useOnlineVotingPowerQuery__
- *
- * To run a query within a React component, call `useOnlineVotingPowerQuery` and pass it any options that fit your needs.
- * When your component renders, `useOnlineVotingPowerQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useOnlineVotingPowerQuery({
- *   variables: {
- *   },
- * });
- */
-export function useOnlineVotingPowerQuery(baseOptions?: Apollo.QueryHookOptions<OnlineVotingPowerQuery, OnlineVotingPowerQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<OnlineVotingPowerQuery, OnlineVotingPowerQueryVariables>(OnlineVotingPowerDocument, options);
-      }
-export function useOnlineVotingPowerLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OnlineVotingPowerQuery, OnlineVotingPowerQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<OnlineVotingPowerQuery, OnlineVotingPowerQueryVariables>(OnlineVotingPowerDocument, options);
-        }
-export type OnlineVotingPowerQueryHookResult = ReturnType<typeof useOnlineVotingPowerQuery>;
-export type OnlineVotingPowerLazyQueryHookResult = ReturnType<typeof useOnlineVotingPowerLazyQuery>;
-export type OnlineVotingPowerQueryResult = Apollo.QueryResult<OnlineVotingPowerQuery, OnlineVotingPowerQueryVariables>;
-export const ParamsDocument = gql`
-    query Params {
-  stakingParams: staking_params(limit: 1, order_by: {height: desc}) {
-    params
-  }
-  slashingParams: slashing_params(limit: 1, order_by: {height: desc}) {
-    params
-  }
-  mintParams: mint_params(limit: 1, order_by: {height: desc}) {
-    params
-  }
-  distributionParams: distribution_params(limit: 1, order_by: {height: desc}) {
-    params
-  }
-  govParams: gov_params(limit: 1, order_by: {height: desc}) {
-    depositParams: deposit_params
-    tallyParams: tally_params
-    votingParams: voting_params
-  }
-}
-    `;
-
-/**
- * __useParamsQuery__
- *
- * To run a query within a React component, call `useParamsQuery` and pass it any options that fit your needs.
- * When your component renders, `useParamsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useParamsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useParamsQuery(baseOptions?: Apollo.QueryHookOptions<ParamsQuery, ParamsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ParamsQuery, ParamsQueryVariables>(ParamsDocument, options);
-      }
-export function useParamsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ParamsQuery, ParamsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ParamsQuery, ParamsQueryVariables>(ParamsDocument, options);
-        }
-export type ParamsQueryHookResult = ReturnType<typeof useParamsQuery>;
-export type ParamsLazyQueryHookResult = ReturnType<typeof useParamsLazyQuery>;
-export type ParamsQueryResult = Apollo.QueryResult<ParamsQuery, ParamsQueryVariables>;
-export const ProposalDetailsDocument = gql`
-    query ProposalDetails($proposalId: Int) {
-  proposal(where: {id: {_eq: $proposalId}}) {
-    proposer: proposer_address
-    title
-    description
-    status
-    content
-    proposalId: id
-    submitTime: submit_time
-    proposalType: proposal_type
-    depositEndTime: deposit_end_time
-    votingStartTime: voting_start_time
-    votingEndTime: voting_end_time
-  }
-}
-    `;
-
-/**
- * __useProposalDetailsQuery__
- *
- * To run a query within a React component, call `useProposalDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProposalDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProposalDetailsQuery({
- *   variables: {
- *      proposalId: // value for 'proposalId'
- *   },
- * });
- */
-export function useProposalDetailsQuery(baseOptions?: Apollo.QueryHookOptions<ProposalDetailsQuery, ProposalDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalDetailsQuery, ProposalDetailsQueryVariables>(ProposalDetailsDocument, options);
-      }
-export function useProposalDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalDetailsQuery, ProposalDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalDetailsQuery, ProposalDetailsQueryVariables>(ProposalDetailsDocument, options);
-        }
-export type ProposalDetailsQueryHookResult = ReturnType<typeof useProposalDetailsQuery>;
-export type ProposalDetailsLazyQueryHookResult = ReturnType<typeof useProposalDetailsLazyQuery>;
-export type ProposalDetailsQueryResult = Apollo.QueryResult<ProposalDetailsQuery, ProposalDetailsQueryVariables>;
-export const ProposalDetailsTallyDocument = gql`
-    query ProposalDetailsTally($proposalId: Int) {
-  proposalTallyResult: proposal_tally_result(
-    where: {proposal_id: {_eq: $proposalId}}
-  ) {
-    yes
-    no
-    noWithVeto: no_with_veto
-    abstain
-  }
-  stakingPool: proposal_staking_pool_snapshot(
-    where: {proposal_id: {_eq: $proposalId}}
-  ) {
-    bondedTokens: bonded_tokens
-  }
-  quorum: gov_params(limit: 1, order_by: {height: desc}) {
-    tallyParams: tally_params
-  }
-}
-    `;
-
-/**
- * __useProposalDetailsTallyQuery__
- *
- * To run a query within a React component, call `useProposalDetailsTallyQuery` and pass it any options that fit your needs.
- * When your component renders, `useProposalDetailsTallyQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProposalDetailsTallyQuery({
- *   variables: {
- *      proposalId: // value for 'proposalId'
- *   },
- * });
- */
-export function useProposalDetailsTallyQuery(baseOptions?: Apollo.QueryHookOptions<ProposalDetailsTallyQuery, ProposalDetailsTallyQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalDetailsTallyQuery, ProposalDetailsTallyQueryVariables>(ProposalDetailsTallyDocument, options);
-      }
-export function useProposalDetailsTallyLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalDetailsTallyQuery, ProposalDetailsTallyQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalDetailsTallyQuery, ProposalDetailsTallyQueryVariables>(ProposalDetailsTallyDocument, options);
-        }
-export type ProposalDetailsTallyQueryHookResult = ReturnType<typeof useProposalDetailsTallyQuery>;
-export type ProposalDetailsTallyLazyQueryHookResult = ReturnType<typeof useProposalDetailsTallyLazyQuery>;
-export type ProposalDetailsTallyQueryResult = Apollo.QueryResult<ProposalDetailsTallyQuery, ProposalDetailsTallyQueryVariables>;
-export const ProposalDetailsDepositsDocument = gql`
-    query ProposalDetailsDeposits($proposalId: Int) {
-  proposalDeposit: proposal_deposit(
-    where: {proposal_id: {_eq: $proposalId}}
-    order_by: {height: desc}
-  ) {
-    amount
-    depositorAddress: depositor_address
-    block {
-      timestamp
-    }
-  }
-}
-    `;
-
-/**
- * __useProposalDetailsDepositsQuery__
- *
- * To run a query within a React component, call `useProposalDetailsDepositsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProposalDetailsDepositsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProposalDetailsDepositsQuery({
- *   variables: {
- *      proposalId: // value for 'proposalId'
- *   },
- * });
- */
-export function useProposalDetailsDepositsQuery(baseOptions?: Apollo.QueryHookOptions<ProposalDetailsDepositsQuery, ProposalDetailsDepositsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalDetailsDepositsQuery, ProposalDetailsDepositsQueryVariables>(ProposalDetailsDepositsDocument, options);
-      }
-export function useProposalDetailsDepositsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalDetailsDepositsQuery, ProposalDetailsDepositsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalDetailsDepositsQuery, ProposalDetailsDepositsQueryVariables>(ProposalDetailsDepositsDocument, options);
-        }
-export type ProposalDetailsDepositsQueryHookResult = ReturnType<typeof useProposalDetailsDepositsQuery>;
-export type ProposalDetailsDepositsLazyQueryHookResult = ReturnType<typeof useProposalDetailsDepositsLazyQuery>;
-export type ProposalDetailsDepositsQueryResult = Apollo.QueryResult<ProposalDetailsDepositsQuery, ProposalDetailsDepositsQueryVariables>;
-export const ProposalDetailsVotesDocument = gql`
-    query ProposalDetailsVotes($proposalId: Int) {
-  proposalVote: proposal_vote(
-    where: {proposal_id: {_eq: $proposalId}}
-    order_by: {height: desc}
-  ) {
-    option
-    voterAddress: voter_address
-  }
-  validatorStatuses: proposal_validator_status_snapshot(
-    where: {proposal_id: {_eq: $proposalId}, status: {_eq: 3}}
-  ) {
-    validator {
-      validatorInfo: validator_info {
-        selfDelegateAddress: self_delegate_address
-      }
-    }
-  }
-}
-    `;
-
-/**
- * __useProposalDetailsVotesQuery__
- *
- * To run a query within a React component, call `useProposalDetailsVotesQuery` and pass it any options that fit your needs.
- * When your component renders, `useProposalDetailsVotesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProposalDetailsVotesQuery({
- *   variables: {
- *      proposalId: // value for 'proposalId'
- *   },
- * });
- */
-export function useProposalDetailsVotesQuery(baseOptions?: Apollo.QueryHookOptions<ProposalDetailsVotesQuery, ProposalDetailsVotesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalDetailsVotesQuery, ProposalDetailsVotesQueryVariables>(ProposalDetailsVotesDocument, options);
-      }
-export function useProposalDetailsVotesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalDetailsVotesQuery, ProposalDetailsVotesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalDetailsVotesQuery, ProposalDetailsVotesQueryVariables>(ProposalDetailsVotesDocument, options);
-        }
-export type ProposalDetailsVotesQueryHookResult = ReturnType<typeof useProposalDetailsVotesQuery>;
-export type ProposalDetailsVotesLazyQueryHookResult = ReturnType<typeof useProposalDetailsVotesLazyQuery>;
-export type ProposalDetailsVotesQueryResult = Apollo.QueryResult<ProposalDetailsVotesQuery, ProposalDetailsVotesQueryVariables>;
-export const ProposalsDocument = gql`
-    query Proposals($limit: Int = 7, $offset: Int = 0) {
-  proposals: proposal(limit: $limit, offset: $offset, order_by: {id: desc}) {
-    title
-    proposalId: id
-    status
-    description
-  }
-  total: proposal_aggregate {
-    aggregate {
-      count
-    }
-  }
-}
-    `;
-
-/**
- * __useProposalsQuery__
- *
- * To run a query within a React component, call `useProposalsQuery` and pass it any options that fit your needs.
- * When your component renders, `useProposalsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useProposalsQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useProposalsQuery(baseOptions?: Apollo.QueryHookOptions<ProposalsQuery, ProposalsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ProposalsQuery, ProposalsQueryVariables>(ProposalsDocument, options);
-      }
-export function useProposalsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ProposalsQuery, ProposalsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ProposalsQuery, ProposalsQueryVariables>(ProposalsDocument, options);
-        }
-export type ProposalsQueryHookResult = ReturnType<typeof useProposalsQuery>;
-export type ProposalsLazyQueryHookResult = ReturnType<typeof useProposalsLazyQuery>;
-export type ProposalsQueryResult = Apollo.QueryResult<ProposalsQuery, ProposalsQueryVariables>;
-export const TokenPriceListenerDocument = gql`
-    subscription TokenPriceListener($denom: String) {
-  tokenPrice: token_price(where: {unit_name: {_eq: $denom}}) {
-    id
-    price
-    timestamp
-    marketCap: market_cap
-    unitName: unit_name
-  }
-}
-    `;
-
-/**
- * __useTokenPriceListenerSubscription__
- *
- * To run a query within a React component, call `useTokenPriceListenerSubscription` and pass it any options that fit your needs.
- * When your component renders, `useTokenPriceListenerSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTokenPriceListenerSubscription({
- *   variables: {
- *      denom: // value for 'denom'
- *   },
- * });
- */
-export function useTokenPriceListenerSubscription(baseOptions?: Apollo.SubscriptionHookOptions<TokenPriceListenerSubscription, TokenPriceListenerSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<TokenPriceListenerSubscription, TokenPriceListenerSubscriptionVariables>(TokenPriceListenerDocument, options);
-      }
-export type TokenPriceListenerSubscriptionHookResult = ReturnType<typeof useTokenPriceListenerSubscription>;
-export type TokenPriceListenerSubscriptionResult = Apollo.SubscriptionResult<TokenPriceListenerSubscription>;
-export const TokenPriceHistoryDocument = gql`
-    query TokenPriceHistory($denom: String, $limit: Int = 10) {
-  tokenPrice: token_price_history(
-    where: {unit_name: {_eq: $denom}}
-    limit: $limit
-    order_by: {timestamp: desc}
-  ) {
-    price
-    timestamp
-  }
-}
-    `;
-
-/**
- * __useTokenPriceHistoryQuery__
- *
- * To run a query within a React component, call `useTokenPriceHistoryQuery` and pass it any options that fit your needs.
- * When your component renders, `useTokenPriceHistoryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTokenPriceHistoryQuery({
- *   variables: {
- *      denom: // value for 'denom'
- *      limit: // value for 'limit'
- *   },
- * });
- */
-export function useTokenPriceHistoryQuery(baseOptions?: Apollo.QueryHookOptions<TokenPriceHistoryQuery, TokenPriceHistoryQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TokenPriceHistoryQuery, TokenPriceHistoryQueryVariables>(TokenPriceHistoryDocument, options);
-      }
-export function useTokenPriceHistoryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TokenPriceHistoryQuery, TokenPriceHistoryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TokenPriceHistoryQuery, TokenPriceHistoryQueryVariables>(TokenPriceHistoryDocument, options);
-        }
-export type TokenPriceHistoryQueryHookResult = ReturnType<typeof useTokenPriceHistoryQuery>;
-export type TokenPriceHistoryLazyQueryHookResult = ReturnType<typeof useTokenPriceHistoryLazyQuery>;
-export type TokenPriceHistoryQueryResult = Apollo.QueryResult<TokenPriceHistoryQuery, TokenPriceHistoryQueryVariables>;
-export const TokenomicsDocument = gql`
-    query Tokenomics {
-  stakingParams: staking_params(limit: 1) {
-    params
-  }
-  stakingPool: staking_pool(order_by: {height: desc}, limit: 1) {
-    bonded: bonded_tokens
-    unbonded: not_bonded_tokens
-  }
-  supply: supply(order_by: {height: desc}, limit: 1) {
-    coins
-  }
-}
-    `;
-
-/**
- * __useTokenomicsQuery__
- *
- * To run a query within a React component, call `useTokenomicsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTokenomicsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTokenomicsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useTokenomicsQuery(baseOptions?: Apollo.QueryHookOptions<TokenomicsQuery, TokenomicsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TokenomicsQuery, TokenomicsQueryVariables>(TokenomicsDocument, options);
-      }
-export function useTokenomicsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TokenomicsQuery, TokenomicsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TokenomicsQuery, TokenomicsQueryVariables>(TokenomicsDocument, options);
-        }
-export type TokenomicsQueryHookResult = ReturnType<typeof useTokenomicsQuery>;
-export type TokenomicsLazyQueryHookResult = ReturnType<typeof useTokenomicsLazyQuery>;
-export type TokenomicsQueryResult = Apollo.QueryResult<TokenomicsQuery, TokenomicsQueryVariables>;
-export const TransactionDetailsDocument = gql`
-    query TransactionDetails($hash: String) {
-  transaction(where: {hash: {_eq: $hash}}, limit: 1) {
-    hash: hash
-    height: height
-    block: block {
-      timestamp: timestamp
-    }
-    fee: fee
-    gasUsed: gas_used
-    gasWanted: gas_wanted
-    success: success
-    memo: memo
-    messages: messages
-    logs
-    rawLog: raw_log
-  }
-}
-    `;
-
-/**
- * __useTransactionDetailsQuery__
- *
- * To run a query within a React component, call `useTransactionDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTransactionDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTransactionDetailsQuery({
- *   variables: {
- *      hash: // value for 'hash'
- *   },
- * });
- */
-export function useTransactionDetailsQuery(baseOptions?: Apollo.QueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
-      }
-export function useTransactionDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TransactionDetailsQuery, TransactionDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TransactionDetailsQuery, TransactionDetailsQueryVariables>(TransactionDetailsDocument, options);
-        }
-export type TransactionDetailsQueryHookResult = ReturnType<typeof useTransactionDetailsQuery>;
-export type TransactionDetailsLazyQueryHookResult = ReturnType<typeof useTransactionDetailsLazyQuery>;
-export type TransactionDetailsQueryResult = Apollo.QueryResult<TransactionDetailsQuery, TransactionDetailsQueryVariables>;
-export const TransactionsListenerDocument = gql`
-    subscription TransactionsListener($limit: Int = 7, $offset: Int = 0) {
-  transactions: transaction(
-    limit: $limit
-    offset: $offset
-    order_by: {height: desc}
-  ) {
-    height
-    hash
-    success
-    block {
-      timestamp
-    }
-    messages
-    logs
-  }
-}
-    `;
-
-/**
- * __useTransactionsListenerSubscription__
- *
- * To run a query within a React component, call `useTransactionsListenerSubscription` and pass it any options that fit your needs.
- * When your component renders, `useTransactionsListenerSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTransactionsListenerSubscription({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useTransactionsListenerSubscription(baseOptions?: Apollo.SubscriptionHookOptions<TransactionsListenerSubscription, TransactionsListenerSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<TransactionsListenerSubscription, TransactionsListenerSubscriptionVariables>(TransactionsListenerDocument, options);
-      }
-export type TransactionsListenerSubscriptionHookResult = ReturnType<typeof useTransactionsListenerSubscription>;
-export type TransactionsListenerSubscriptionResult = Apollo.SubscriptionResult<TransactionsListenerSubscription>;
-export const TransactionsDocument = gql`
-    query Transactions($limit: Int = 7, $offset: Int = 0) {
-  transactions: transaction(
-    limit: $limit
-    offset: $offset
-    order_by: {height: desc}
-  ) {
-    height
-    hash
-    success
-    block {
-      timestamp
-    }
-    messages
-    logs
-  }
-}
-    `;
-
-/**
- * __useTransactionsQuery__
- *
- * To run a query within a React component, call `useTransactionsQuery` and pass it any options that fit your needs.
- * When your component renders, `useTransactionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useTransactionsQuery({
- *   variables: {
- *      limit: // value for 'limit'
- *      offset: // value for 'offset'
- *   },
- * });
- */
-export function useTransactionsQuery(baseOptions?: Apollo.QueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
-      }
-export function useTransactionsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<TransactionsQuery, TransactionsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<TransactionsQuery, TransactionsQueryVariables>(TransactionsDocument, options);
-        }
-export type TransactionsQueryHookResult = ReturnType<typeof useTransactionsQuery>;
-export type TransactionsLazyQueryHookResult = ReturnType<typeof useTransactionsLazyQuery>;
-export type TransactionsQueryResult = Apollo.QueryResult<TransactionsQuery, TransactionsQueryVariables>;
-export const LastHundredBlocksDocument = gql`
-    subscription LastHundredBlocks($address: String) {
-  block(offset: 1, order_by: {height: desc}, limit: 100) {
-    height
-    validator {
-      validatorInfo: validator_info {
-        operatorAddress: operator_address
-      }
-    }
-    transactions {
-      hash
-    }
-    precommits: pre_commits(
-      where: {validator: {validator_info: {operator_address: {_eq: $address}}}}
-    ) {
-      validatorAddress: validator_address
-    }
-  }
-}
-    `;
-
-/**
- * __useLastHundredBlocksSubscription__
- *
- * To run a query within a React component, call `useLastHundredBlocksSubscription` and pass it any options that fit your needs.
- * When your component renders, `useLastHundredBlocksSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useLastHundredBlocksSubscription({
- *   variables: {
- *      address: // value for 'address'
- *   },
- * });
- */
-export function useLastHundredBlocksSubscription(baseOptions?: Apollo.SubscriptionHookOptions<LastHundredBlocksSubscription, LastHundredBlocksSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<LastHundredBlocksSubscription, LastHundredBlocksSubscriptionVariables>(LastHundredBlocksDocument, options);
-      }
-export type LastHundredBlocksSubscriptionHookResult = ReturnType<typeof useLastHundredBlocksSubscription>;
-export type LastHundredBlocksSubscriptionResult = Apollo.SubscriptionResult<LastHundredBlocksSubscription>;
-export const ValidatorLastSeenListenerDocument = gql`
-    subscription ValidatorLastSeenListener($address: String) {
-  preCommit: pre_commit(
-    limit: 1
-    where: {validator: {validator_info: {operator_address: {_eq: $address}}}}
-    order_by: {height: desc}
-  ) {
-    height
-    timestamp
-  }
-}
-    `;
-
-/**
- * __useValidatorLastSeenListenerSubscription__
- *
- * To run a query within a React component, call `useValidatorLastSeenListenerSubscription` and pass it any options that fit your needs.
- * When your component renders, `useValidatorLastSeenListenerSubscription` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the subscription, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorLastSeenListenerSubscription({
- *   variables: {
- *      address: // value for 'address'
- *   },
- * });
- */
-export function useValidatorLastSeenListenerSubscription(baseOptions?: Apollo.SubscriptionHookOptions<ValidatorLastSeenListenerSubscription, ValidatorLastSeenListenerSubscriptionVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useSubscription<ValidatorLastSeenListenerSubscription, ValidatorLastSeenListenerSubscriptionVariables>(ValidatorLastSeenListenerDocument, options);
-      }
-export type ValidatorLastSeenListenerSubscriptionHookResult = ReturnType<typeof useValidatorLastSeenListenerSubscription>;
-export type ValidatorLastSeenListenerSubscriptionResult = Apollo.SubscriptionResult<ValidatorLastSeenListenerSubscription>;
-export const ValidatorDetailsDocument = gql`
-    query ValidatorDetails($address: String) {
-  stakingPool: staking_pool(order_by: {height: desc}, limit: 1, offset: 0) {
-    height
-    bonded: bonded_tokens
-  }
-  validator(where: {validator_info: {operator_address: {_eq: $address}}}) {
-    validatorDescriptions: validator_descriptions(
-      order_by: {height: desc}
-      limit: 1
-    ) {
-      details
-      website
-    }
-    validatorStatuses: validator_statuses(order_by: {height: desc}, limit: 1) {
-      status
-      jailed
-      height
-    }
-    validatorSigningInfos: validator_signing_infos(
-      order_by: {height: desc}
-      limit: 1
-    ) {
-      missedBlocksCounter: missed_blocks_counter
-      tombstoned
-    }
-    validatorInfo: validator_info {
-      operatorAddress: operator_address
-      selfDelegateAddress: self_delegate_address
-      maxRate: max_rate
-    }
-    validatorCommissions: validator_commissions(order_by: {height: desc}, limit: 1) {
-      commission
-    }
-    validatorVotingPowers: validator_voting_powers(
-      offset: 0
-      limit: 1
-      order_by: {height: desc}
-    ) {
-      height
-      votingPower: voting_power
-    }
-  }
-  slashingParams: slashing_params(order_by: {height: desc}, limit: 1) {
-    params
-  }
-}
-    `;
-
-/**
- * __useValidatorDetailsQuery__
- *
- * To run a query within a React component, call `useValidatorDetailsQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidatorDetailsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorDetailsQuery({
- *   variables: {
- *      address: // value for 'address'
- *   },
- * });
- */
-export function useValidatorDetailsQuery(baseOptions?: Apollo.QueryHookOptions<ValidatorDetailsQuery, ValidatorDetailsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidatorDetailsQuery, ValidatorDetailsQueryVariables>(ValidatorDetailsDocument, options);
-      }
-export function useValidatorDetailsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorDetailsQuery, ValidatorDetailsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidatorDetailsQuery, ValidatorDetailsQueryVariables>(ValidatorDetailsDocument, options);
-        }
-export type ValidatorDetailsQueryHookResult = ReturnType<typeof useValidatorDetailsQuery>;
-export type ValidatorDetailsLazyQueryHookResult = ReturnType<typeof useValidatorDetailsLazyQuery>;
-export type ValidatorDetailsQueryResult = Apollo.QueryResult<ValidatorDetailsQuery, ValidatorDetailsQueryVariables>;
 export const ValidatorDelegationsDocument = gql`
     query ValidatorDelegations($validatorAddress: String!, $offset: Int = 0, $limit: Int = 10, $pagination: Boolean! = true) {
   delegations: action_validator_delegations(
@@ -13813,167 +17649,3 @@ export function useValidatorUndelegationsLazyQuery(baseOptions?: Apollo.LazyQuer
 export type ValidatorUndelegationsQueryHookResult = ReturnType<typeof useValidatorUndelegationsQuery>;
 export type ValidatorUndelegationsLazyQueryHookResult = ReturnType<typeof useValidatorUndelegationsLazyQuery>;
 export type ValidatorUndelegationsQueryResult = Apollo.QueryResult<ValidatorUndelegationsQuery, ValidatorUndelegationsQueryVariables>;
-export const ValidatorsDocument = gql`
-    query Validators {
-  stakingPool: staking_pool(limit: 1, order_by: {height: desc}) {
-    bondedTokens: bonded_tokens
-  }
-  validator {
-    validatorStatuses: validator_statuses(order_by: {height: desc}, limit: 1) {
-      status
-      jailed
-      height
-    }
-    validatorSigningInfos: validator_signing_infos(
-      order_by: {height: desc}
-      limit: 1
-    ) {
-      missedBlocksCounter: missed_blocks_counter
-      tombstoned
-    }
-    validatorInfo: validator_info {
-      operatorAddress: operator_address
-      selfDelegateAddress: self_delegate_address
-    }
-    validatorVotingPowers: validator_voting_powers(
-      offset: 0
-      limit: 1
-      order_by: {height: desc}
-    ) {
-      votingPower: voting_power
-    }
-    validatorCommissions: validator_commissions(order_by: {height: desc}, limit: 1) {
-      commission
-    }
-    validatorSigningInfos: validator_signing_infos(
-      order_by: {height: desc}
-      limit: 1
-    ) {
-      missedBlocksCounter: missed_blocks_counter
-    }
-  }
-  slashingParams: slashing_params(order_by: {height: desc}, limit: 1) {
-    params
-  }
-}
-    `;
-
-/**
- * __useValidatorsQuery__
- *
- * To run a query within a React component, call `useValidatorsQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidatorsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useValidatorsQuery(baseOptions?: Apollo.QueryHookOptions<ValidatorsQuery, ValidatorsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidatorsQuery, ValidatorsQueryVariables>(ValidatorsDocument, options);
-      }
-export function useValidatorsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorsQuery, ValidatorsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidatorsQuery, ValidatorsQueryVariables>(ValidatorsDocument, options);
-        }
-export type ValidatorsQueryHookResult = ReturnType<typeof useValidatorsQuery>;
-export type ValidatorsLazyQueryHookResult = ReturnType<typeof useValidatorsLazyQuery>;
-export type ValidatorsQueryResult = Apollo.QueryResult<ValidatorsQuery, ValidatorsQueryVariables>;
-export const ValidatorsAddressListDocument = gql`
-    query ValidatorsAddressList {
-  validator {
-    validatorInfo: validator_info {
-      operatorAddress: operator_address
-      selfDelegateAddress: self_delegate_address
-      consensusAddress: consensus_address
-    }
-    validatorDescriptions: validator_descriptions(
-      limit: 1
-      order_by: {height: desc}
-    ) {
-      moniker
-      identity
-      avatarUrl: avatar_url
-    }
-  }
-}
-    `;
-
-/**
- * __useValidatorsAddressListQuery__
- *
- * To run a query within a React component, call `useValidatorsAddressListQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidatorsAddressListQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorsAddressListQuery({
- *   variables: {
- *   },
- * });
- */
-export function useValidatorsAddressListQuery(baseOptions?: Apollo.QueryHookOptions<ValidatorsAddressListQuery, ValidatorsAddressListQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidatorsAddressListQuery, ValidatorsAddressListQueryVariables>(ValidatorsAddressListDocument, options);
-      }
-export function useValidatorsAddressListLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorsAddressListQuery, ValidatorsAddressListQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidatorsAddressListQuery, ValidatorsAddressListQueryVariables>(ValidatorsAddressListDocument, options);
-        }
-export type ValidatorsAddressListQueryHookResult = ReturnType<typeof useValidatorsAddressListQuery>;
-export type ValidatorsAddressListLazyQueryHookResult = ReturnType<typeof useValidatorsAddressListLazyQuery>;
-export type ValidatorsAddressListQueryResult = Apollo.QueryResult<ValidatorsAddressListQuery, ValidatorsAddressListQueryVariables>;
-export const ValidatorAddressesDocument = gql`
-    query ValidatorAddresses {
-  validator(
-    where: {validator_info: {operator_address: {_is_null: false}, consensus_address: {_is_null: false}, self_delegate_address: {_is_null: false}}}
-  ) {
-    validatorInfo: validator_info {
-      operatorAddress: operator_address
-      selfDelegateAddress: self_delegate_address
-      consensusAddress: consensus_address
-    }
-    validatorDescriptions: validator_descriptions(
-      limit: 1
-      order_by: {height: desc}
-    ) {
-      moniker
-      avatarUrl: avatar_url
-    }
-  }
-}
-    `;
-
-/**
- * __useValidatorAddressesQuery__
- *
- * To run a query within a React component, call `useValidatorAddressesQuery` and pass it any options that fit your needs.
- * When your component renders, `useValidatorAddressesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useValidatorAddressesQuery({
- *   variables: {
- *   },
- * });
- */
-export function useValidatorAddressesQuery(baseOptions?: Apollo.QueryHookOptions<ValidatorAddressesQuery, ValidatorAddressesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<ValidatorAddressesQuery, ValidatorAddressesQueryVariables>(ValidatorAddressesDocument, options);
-      }
-export function useValidatorAddressesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<ValidatorAddressesQuery, ValidatorAddressesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<ValidatorAddressesQuery, ValidatorAddressesQueryVariables>(ValidatorAddressesDocument, options);
-        }
-export type ValidatorAddressesQueryHookResult = ReturnType<typeof useValidatorAddressesQuery>;
-export type ValidatorAddressesLazyQueryHookResult = ReturnType<typeof useValidatorAddressesLazyQuery>;
-export type ValidatorAddressesQueryResult = Apollo.QueryResult<ValidatorAddressesQuery, ValidatorAddressesQueryVariables>;
