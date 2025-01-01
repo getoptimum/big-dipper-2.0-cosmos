@@ -1,5 +1,0 @@
-query TopAccountsParams {
-  top_accounts_params {
-    total_accounts
-  }
-}
