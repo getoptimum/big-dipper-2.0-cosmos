@@ -10629,7 +10629,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["css-tree", "npm:2.2.1"],\
           ["mdn-data", "npm:2.0.28"],\
-          ["source-map-js", "npm:1.0.2"]\
+          ["source-map-js", "npm:1.2.2"]\
         ],\
         "linkType": "HARD"\
       }],\
@@ -10638,7 +10638,7 @@ const RAW_RUNTIME_STATE =
         "packageDependencies": [\
           ["css-tree", "npm:2.3.1"],\
           ["mdn-data", "npm:2.0.30"],\
-          ["source-map-js", "npm:1.0.2"]\
+          ["source-map-js", "npm:1.2.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -17547,7 +17547,7 @@ const RAW_RUNTIME_STATE =
           ["postcss", "npm:8.4.14"],\
           ["nanoid", "npm:3.3.4"],\
           ["picocolors", "npm:1.0.0"],\
-          ["source-map-js", "npm:1.0.2"]\
+          ["source-map-js", "npm:1.2.2"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -19225,10 +19225,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["source-map-js", [\
-      ["npm:1.0.2", {\
-        "packageLocation": "./.yarn/cache/source-map-js-npm-1.0.2-ee4f9f9b30-38e2d2dd18.zip/node_modules/source-map-js/",\
+      ["npm:1.2.2", {\
+        "packageLocation": "./.yarn/cache/source-map-js-npm-1.2.2-d40ce9a415-4807c894bb.zip/node_modules/source-map-js/",\
         "packageDependencies": [\
-          ["source-map-js", "npm:1.0.2"]\
+          ["source-map-js", "npm:1.2.2"]\
         ],\
         "linkType": "HARD"\
       }]\
