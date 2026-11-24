@@ -13838,11 +13838,23 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["i18next", [\
-      ["npm:22.4.15", {\
-        "packageLocation": "./.yarn/cache/i18next-npm-22.4.15-9f5c0b04bc-b611530707.zip/node_modules/i18next/",\
+      ["npm:26.3.4", {\
+        "packageLocation": "./.yarn/cache/i18next-npm-26.3.4-e782c5df4d-133ba9a5f7.zip/node_modules/i18next/",\
         "packageDependencies": [\
-          ["i18next", "npm:22.4.15"],\
-          ["@babel/runtime", "npm:7.21.0"]\
+          ["i18next", "npm:26.3.4"]\
+        ],\
+        "linkType": "SOFT"\
+      }],\
+      ["virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4", {\
+        "packageLocation": "./.yarn/__virtual__/i18next-virtual-753e0f4b8e/0/cache/i18next-npm-26.3.4-e782c5df4d-133ba9a5f7.zip/node_modules/i18next/",\
+        "packageDependencies": [\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
+          ["@types/typescript", null],\
+          ["typescript", "patch:typescript@npm%3A5.0.4#optional!builtin<compat/typescript>::version=5.0.4&hash=b5f058"]\
+        ],\
+        "packagePeers": [\
+          "@types/typescript",\
+          "typescript"\
         ],\
         "linkType": "HARD"\
       }]\
@@ -16683,7 +16695,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-i18next", null],\
           ["core-js", "npm:3.27.2"],\
           ["hoist-non-react-statics", "npm:3.3.2"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["i18next-fs-backend", "npm:2.1.1"],\
           ["next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:13.4.1"],\
           ["react", "npm:18.2.0"],\
@@ -17973,7 +17985,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-dom", "npm:18.2.4"],\
           ["@types/react-native", null],\
           ["html-parse-stringify", "npm:3.0.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["react", "npm:18.2.0"],\
           ["react-dom", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:18.2.0"],\
           ["react-native", null]\
@@ -20689,7 +20701,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21160,7 +21172,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21287,7 +21299,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21414,7 +21426,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21541,7 +21553,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21668,7 +21680,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21795,7 +21807,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -21922,7 +21934,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22049,7 +22061,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22176,7 +22188,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22304,7 +22316,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22433,7 +22445,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22560,7 +22572,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22687,7 +22699,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22814,7 +22826,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -22941,7 +22953,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23068,7 +23080,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23195,7 +23207,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23322,7 +23334,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23449,7 +23461,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23576,7 +23588,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23703,7 +23715,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23824,7 +23836,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -23951,7 +23963,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24078,7 +24090,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24205,7 +24217,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24332,7 +24344,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24460,7 +24472,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24589,7 +24601,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24716,7 +24728,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24843,7 +24855,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -24970,7 +24982,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -25097,7 +25109,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -25224,7 +25236,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -25367,7 +25379,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
@@ -25494,7 +25506,7 @@ const RAW_RUNTIME_STATE =
           ["graphql", "npm:16.6.0"],\
           ["graphql-tag", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:2.12.6"],\
           ["graphql-ws", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:5.12.1"],\
-          ["i18next", "npm:22.4.15"],\
+          ["i18next", "virtual:9dce388d82c018b4a7af5edc7243e51f7023d1ab93a923b3959d0066ac6881c93b965a0932486426cbefa96c9c8e47849d5ff541d2404b8aca246480fa32f0d2#npm:26.3.4"],\
           ["jdenticon", "npm:3.2.0"],\
           ["jest", "virtual:f7bc41586b68b5179d26bce3bfb89ba68358f8cd7c2ddff4083d94b6829a704acc2424da9379676891d28c060e6d7ef24661ff4a113dbb2daf852983923aee3a#npm:29.5.0"],\
           ["jest-cli", "virtual:d5102ea91e67e6a6d0fa5039a06fb67a1b3142418e7fa0fa83e3772fea7312d90d28c6e359755b6fea6d78c65348593d88722b1c1ad6476e3b3d5bb912925daa#npm:29.5.0"],\
